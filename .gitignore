@@ -49,4 +49,5 @@ __pycache__/
 *.pyc
 /bin/
 TurnAT/src/hibernate.cfg.xml
-TurnAT/src/hibernate.cfg.xml
+/src/hibernate.cfg.xml
+src/hibernate.cfg.xml
