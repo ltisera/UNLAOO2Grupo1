@@ -48,3 +48,4 @@ node_modules/
 __pycache__/
 *.pyc
 /bin/
+TurnAT/src/hibernate.cfg.xml
