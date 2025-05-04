@@ -1,1 +1,41 @@
-/bin/
+# Compilados de Java
+*.class
+
+# Archivos de log
+*.log
+
+# Archivos generados por el sistema
+*.DS_Store
+*.swp
+*.swo
+Thumbs.db
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+tmp/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Maven
+target/
+
+# Gradle
+.gradle/
+bui
+
+#
+src/hibernate.cfg.xml
