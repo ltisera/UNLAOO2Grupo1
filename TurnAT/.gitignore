@@ -40,3 +40,4 @@ bui
 #
 /src/hibernate.cfg.xml
 TurnAT/src/hibernate.cfg.xml
+TurnAT\src\hibernate.cfg.xml
