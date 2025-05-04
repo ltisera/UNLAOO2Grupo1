@@ -38,4 +38,5 @@ target/
 bui
 
 #
-/TurnAT/src/hibernate.cfg.xml
+/src/hibernate.cfg.xml
+
