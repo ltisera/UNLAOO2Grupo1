@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.org/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="datos">
+
+    <class name="Persona" table="Persona">
+        <id name="idPersona" column="idPersona">
+            <generator class="identity"/>
+        </id>
+
+        <property name="nombre" column="nombre"/>
+        <property name="apellido" column="apellido"/>
+        <property name="dni" column="dni"/>
+
+        <!-- Herencia -->
+        <joined-subclass name="Cliente" table="Cliente">
+            <key column="idPersona"/>
+            <property name="email" column="email"/>
+            <property name="telefono" column="telefono"/>
+        </joined-subclass>
+
+        <joined-subclass name="Empleado" table="Empleado">
+            <key column="idPersona"/>
+            <property name="cargo" column="cargo"/>
+            <property name="legajo" column="legajo"/>
+        </joined-subclass>
+
+    </class>
+
+</hibernate-mapping>
