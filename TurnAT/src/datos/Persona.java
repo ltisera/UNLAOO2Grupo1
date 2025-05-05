@@ -21,7 +21,7 @@ public abstract class Persona {
 		return idPersona;
 	}
 
-	public void setIdPersona(int idPersona) {
+	protected void setIdPersona(int idPersona) {
 		this.idPersona = idPersona;
 	}
 
