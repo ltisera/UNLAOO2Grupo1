@@ -2,12 +2,6 @@ package datos;
 
 import java.time.LocalDate;
 
-import datos.Sucursal;
-import datos.Cliente;
-import datos.Empleado;
-import datos.Estado;
-import datos.Servicio;
-
 public class Turno {
 	private int idTurno;
 	private LocalDate fechaYHora;
@@ -16,6 +10,19 @@ public class Turno {
 	private Cliente cli;
 	private Empleado emp;
 	private Estado est;
+
+	public Turno() {}
+	public Turno(LocalDate fechaYHora, Servicio srv, Sucursal suc, Cliente cli, Empleado emp, Estado est) {
+		super();
+		this.fechaYHora = fechaYHora;
+		this.srv = srv;
+		this.suc = suc;
+		this.cli = cli;
+		this.emp = emp;
+		this.est = est;
+	}
+
+
 	public int getIdTurno() {
 		return idTurno;
 	}
@@ -58,6 +65,6 @@ public class Turno {
 	public void setEst(Estado est) {
 		this.est = est;
 	}
-	
-		
+
+
 }
