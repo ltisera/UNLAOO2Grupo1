@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.org/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="datos">
+
+    <class name="Servicio" table="Servicio">
+        <id name="idServicio" column="idServicio">
+            <generator class="identity"/>
+        </id>
+
+        <property name="nombre" column="nombre"/>
+        <property name="descripcion" column="descripcion"/>
+    </class>
+
+</hibernate-mapping>

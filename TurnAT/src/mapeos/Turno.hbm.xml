@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.org/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="datos">
+
+    <class name="Turno" table="Turno">
+        <id name="idTurno" column="idTurno">
+            <generator class="identity"/>
+        </id>
+
+        <property name="fechaYHora" column="fechaYHora" type="java.time.LocalDate"/>
+
+        <many-to-one name="srv" class="Servicio" column="Servicio_idServicio" not-null="true"/>
+        <many-to-one name="suc" class="Sucursal" column="Sucursal_idSucursal" not-null="true"/>
+        
+        <many-to-one name="cli" class="Cliente" column="Cliente_idPersona" not-null="false"/>
+        <many-to-one name="emp" class="Empleado" column="Empleado_idPersona" not-null="false"/>
+        
+        <many-to-one name="est" class="Estado" column="Estado_idEstado" not-null="true"/>
+    </class>
+
+</hibernate-mapping>

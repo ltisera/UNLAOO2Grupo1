@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.org/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="datos">
+
+    <class name="Sucursal" table="Sucursal">
+        <id name="idSucursal" column="idSucursal">
+            <generator class="identity"/>
+        </id>
+
+        <property name="nombre" column="nombre"/>
+        <property name="direccion" column="direccion"/>
+        <property name="telefono" column="telefono"/>
+    </class>
+
+</hibernate-mapping>
