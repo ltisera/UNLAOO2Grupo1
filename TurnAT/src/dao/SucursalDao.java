@@ -78,7 +78,7 @@ public class SucursalDao {
 			List<Sucursal> lista = new ArrayList<Sucursal>();
 			try {
 				iniciaOperacion();
-				Query<Sucursal> query = session.createQuery("from sucursal s", Sucursal.class);
+				Query<Sucursal> query = session.createQuery("FROM Sucursal", Sucursal.class);
 				lista = query.getResultList();
 			} finally {
 				session.close();

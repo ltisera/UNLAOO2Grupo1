@@ -80,7 +80,7 @@ public class PersonaDao {
 			List<Persona> lista = new ArrayList<Persona>();
 			try {
 				iniciaOperacion();
-				Query<Persona> query = session.createQuery("from persona ", Persona.class);
+				Query<Persona> query = session.createQuery("FROM Persona", Persona.class);
 				lista = query.getResultList();
 			} finally {
 				session.close();
@@ -115,7 +115,7 @@ public class PersonaDao {
 			List<Cliente> lista = null;
 			try {
 				iniciaOperacion();
-				Query<Cliente> query = session.createQuery("from Cliente", Cliente.class);
+				Query<Cliente> query = session.createQuery("FROM Cliente", Cliente.class);
 				lista = query.getResultList();
 			} finally {
 				session.close();
@@ -127,7 +127,7 @@ public class PersonaDao {
 			List<Empleado> lista = null;
 			try {
 				iniciaOperacion();
-				Query<Empleado> query = session.createQuery("from Empleado", Empleado.class);
+				Query<Empleado> query = session.createQuery("FROM Empleado", Empleado.class);
 				lista = query.getResultList();
 			} finally {
 				session.close();

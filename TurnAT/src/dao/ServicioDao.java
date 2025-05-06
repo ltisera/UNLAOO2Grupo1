@@ -79,7 +79,7 @@ public class ServicioDao {
 		List<Servicio> lista = new ArrayList<Servicio>();
 		try {
 			iniciaOperacion();
-			Query<Servicio> query = session.createQuery("from servicio s", Servicio.class);
+			Query<Servicio> query = session.createQuery("FROM Servicio", Servicio.class);
 			lista = query.getResultList();
 		} finally {
 			session.close();
