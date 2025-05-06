@@ -1,16 +1,21 @@
 package dao;
 
 import datos.Turno;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.HibernateException;
 import org.hibernate.query.Query;
+
+
 
 import java.util.List;
 
 public class TurnoDao {
     private static Session session;
     private Transaction tx;
+
+
 
     private void iniciaOperacion() throws HibernateException {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -19,6 +24,7 @@ public class TurnoDao {
 
     private void manejaExcepcion(HibernateException he) throws HibernateException {
         tx.rollback();
+
         throw new HibernateException("ERROR en la capa de acceso a datos", he);
     }
 
@@ -27,6 +33,7 @@ public class TurnoDao {
         try {
             iniciaOperacion();
             id = Integer.parseInt(session.save(objeto).toString());
+
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
@@ -36,10 +43,12 @@ public class TurnoDao {
         return id;
     }
 
+
     public void actualizar(Turno objeto) {
         try {
             iniciaOperacion();
             session.update(objeto);
+
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
@@ -47,11 +56,14 @@ public class TurnoDao {
             session.close();
         }
     }
+
 
     public void eliminar(Turno objeto) {
         try {
             iniciaOperacion();
             session.delete(objeto);
+
+   
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
@@ -60,7 +72,9 @@ public class TurnoDao {
         }
     }
 
+
     public Turno traer(int idTurno) {
+
         Turno objeto = null;
         try {
             iniciaOperacion();
@@ -76,27 +90,33 @@ public class TurnoDao {
         try {
             iniciaOperacion();
             Query<Turno> query = session.createQuery("from Turno", Turno.class);
+
             lista = query.getResultList();
         } finally {
             session.close();
         }
         return lista;
     }
+
     
     
     public List<Turno> traerTurnosCliente(int idCliente) {
+
         List<Turno> lista = null;
         try {
             iniciaOperacion();
             Query<Turno> query = session.createQuery(
+
                 "from Turno t where t.cli.idPersona = :idCliente", Turno.class);
             query.setParameter("idCliente", idCliente);
+
             lista = query.getResultList();
         } finally {
             session.close();
         }
         return lista;
     }
+
     
     
     // Util para el caso de uso Solicitar turno (ID:006)
@@ -117,4 +137,5 @@ public class TurnoDao {
     }
     
     
+
 }

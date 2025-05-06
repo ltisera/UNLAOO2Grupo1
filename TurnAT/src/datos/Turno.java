@@ -1,10 +1,10 @@
 package datos;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Turno {
 	private int idTurno;
-	private LocalDate fechaYHora;
+	private LocalDateTime fechaYHora;
 	private Servicio srv;
 	private Sucursal suc;
 	private Cliente cli;
@@ -12,7 +12,7 @@ public class Turno {
 	private Estado est;
 
 	public Turno() {}
-	public Turno(LocalDate fechaYHora, Servicio srv, Sucursal suc, Cliente cli, Empleado emp, Estado est) {
+	public Turno(LocalDateTime fechaYHora, Servicio srv, Sucursal suc, Cliente cli, Empleado emp, Estado est) {
 		super();
 		this.fechaYHora = fechaYHora;
 		this.srv = srv;
@@ -29,10 +29,10 @@ public class Turno {
 	protected void setIdTurno(int idTurno) {
 		this.idTurno = idTurno;
 	}
-	public LocalDate getFechaYHora() {
+	public LocalDateTime getFechaYHora() {
 		return fechaYHora;
 	}
-	public void setFechaYHora(LocalDate fechaYHora) {
+	public void setFechaYHora(LocalDateTime fechaYHora) {
 		this.fechaYHora = fechaYHora;
 	}
 	public Servicio getSrv() {
