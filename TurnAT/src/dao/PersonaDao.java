@@ -135,7 +135,7 @@ public class PersonaDao {
 			return lista;
 		}
 	
-		//4. Consultas por algún atributo de la subclase 
+		//1.4. Consultas por algún atributo de la subclase 
 		
 		public Cliente traerClientePorDni(int dni) {
 			Cliente objeto = null;

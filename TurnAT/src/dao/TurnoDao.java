@@ -120,7 +120,7 @@ public class TurnoDao {
     
     
     // Util para el caso de uso Solicitar turno (ID:006)
-    public List<Turno> traerPorServicioYEstado(int idServicio, int idEstado, int idSucursal) {
+    public List<Turno> traerPorServicioSucursalEstado(int idServicio, int idEstado, int idSucursal) {
         List<Turno> lista = null;
         try {
             iniciaOperacion();
