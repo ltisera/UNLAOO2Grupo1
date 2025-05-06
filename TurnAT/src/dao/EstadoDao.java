@@ -80,7 +80,7 @@ public class EstadoDao {
 		List<Estado> lista = new ArrayList<Estado>();
 		try {
 			iniciaOperacion();
-			Query<Estado> query = session.createQuery("from estado e", Estado.class);
+			Query<Estado> query = session.createQuery("FROM Estado", Estado.class);
 			lista = query.getResultList();
 		} finally {
 			session.close();

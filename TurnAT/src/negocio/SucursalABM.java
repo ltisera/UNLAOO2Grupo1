@@ -7,73 +7,30 @@ import java.util.List;
 public class SucursalABM {
     private SucursalDao dao = new SucursalDao();
 
-    // --- Altas, Bajas, Modificaciones ---
     public int agregar(String nombre, String direccion, int telefono) {
-        // Validar que no exista una sucursal con el mismo nombre/dirección
         if (existeSucursal(nombre, direccion)) {
-            throw new IllegalArgumentException("Ya existe una sucursal con ese nombre y dirección.");
+            System.out.println("⚠️ Ya existe una sucursal con nombre: \"" + nombre 
+                + "\" y dirección: \"" + direccion + "\"");
+            return -1;
         }
 
         Sucursal sucursal = new Sucursal(nombre, direccion, telefono);
-        return dao.agregar(sucursal);
+        int id = dao.agregar(sucursal);
+        System.out.println("✅ Sucursal \"" + nombre + "\" creada con ID: " + id);
+        return id;
     }
 
-    public void actualizar(int idSucursal, String nombre, String direccion, int telefono) {
-        Sucursal sucursal = dao.traer(idSucursal);
-        if (sucursal == null) {
-            throw new IllegalArgumentException("No existe la sucursal con ID: " + idSucursal);
-        }
-
-        // Validar unicidad (excepto para la sucursal actual)
-        if (existeSucursalConOtroId(nombre, direccion, idSucursal)) {
-            throw new IllegalArgumentException("Otra sucursal ya usa ese nombre/dirección.");
-        }
-
-        sucursal.setNombre(nombre);
-        sucursal.setDireccion(direccion);
-        sucursal.setTelefono(telefono);
-        dao.actualizar(sucursal);
+    public List<Sucursal> traerTodos() {
+        List<Sucursal> sucursales = dao.traer();
+        System.out.println("📋 Total de sucursales: " + sucursales.size());
+        return sucursales;
     }
 
-    public void eliminar(int idSucursal) {
-        Sucursal sucursal = dao.traer(idSucursal);
-        if (sucursal == null) {
-            throw new IllegalArgumentException("Sucursal no encontrada con ID: " + idSucursal);
-        }
-        // Validar que no tenga turnos asociados (depende de tu modelo)
-        if (tieneTurnosAsociados(idSucursal)) {
-            throw new IllegalStateException("No se puede eliminar: la sucursal tiene turnos asignados.");
-        }
-        dao.eliminar(sucursal);
-    }
-
-    // --- Consultas ---
-    public Sucursal traer(int idSucursal) {
-        return dao.traer(idSucursal);
-    }
-
-    public List<Sucursal> traerTodas() {
-        return dao.traer();
-    }
-
-    // --- Métodos de validación internos ---
     private boolean existeSucursal(String nombre, String direccion) {
         List<Sucursal> sucursales = dao.traer();
-        return sucursales.stream()
-            .anyMatch(s -> s.getNombre().equalsIgnoreCase(nombre) 
-                && s.getDireccion().equalsIgnoreCase(direccion));
-    }
-
-    private boolean existeSucursalConOtroId(String nombre, String direccion, int idExcluir) {
-        List<Sucursal> sucursales = dao.traer();
-        return sucursales.stream()
-            .anyMatch(s -> s.getNombre().equalsIgnoreCase(nombre) 
-                && s.getDireccion().equalsIgnoreCase(direccion)
-                && s.getIdSucursal() != idExcluir);
-    }
-
-    private boolean tieneTurnosAsociados(int idSucursal) {
-        // (Requiere integración con TurnoDao, si es necesario)
-        return false; // Implementar lógica real
+        return sucursales.stream().anyMatch(s -> 
+            s.getNombre().equalsIgnoreCase(nombre) && 
+            s.getDireccion().equalsIgnoreCase(direccion)
+        );
     }
 }
