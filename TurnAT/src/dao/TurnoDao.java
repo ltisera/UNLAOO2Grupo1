@@ -84,7 +84,7 @@ public class TurnoDao {
         }
         return objeto;
     }
-
+ 
     public List<Turno> traer() {
         List<Turno> lista = null;
         try {
@@ -105,12 +105,10 @@ public class TurnoDao {
         List<Turno> lista = null;
         try {
             iniciaOperacion();
-            Query<Turno> query = session.createQuery(
-
-                "from Turno t where t.cli.idPersona = :idCliente", Turno.class);
+            String hql = "from Turno t join fetch t.cli c where c.idPersona = :idCliente";
+            Query<Turno> query =session.createQuery(hql, Turno.class);
             query.setParameter("idCliente", idCliente);
-
-            lista = query.getResultList();
+            lista = query.getResultList(); 
         } finally {
             session.close();
         }
@@ -124,11 +122,16 @@ public class TurnoDao {
         List<Turno> lista = null;
         try {
             iniciaOperacion();
-            Query<Turno> query = session.createQuery(
-                "from Turno t where t.srv.idServicio = :idServicio and t.est.idEstado = :idEstado and t.suc.idSucursal = idSucursal", Turno.class);
+            String hql ="from Turno t " +
+	            		"inner join fetch t.suc suc " +
+	            		"inner join fetch t.srv srv " +
+	            		"inner join fetch t.est est" +
+                        "where suc.idSucursal = :idSucursal and srv.idServicio = :idServicio and est.idEstado =: idEstado";
+            Query<Turno> query = session.createQuery(hql, Turno.class);
+            query.setParameter("idSucursal", idSucursal);
             query.setParameter("idServicio", idServicio);
             query.setParameter("idEstado", idEstado);
-            query.setParameter("idSucursal", idSucursal);
+           
             lista = query.getResultList();
         } finally {
             session.close();
