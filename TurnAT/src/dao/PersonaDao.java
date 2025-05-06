@@ -135,6 +135,28 @@ public class PersonaDao {
 			return lista;
 		}
 	
+		//4. Consultas por algún atributo de la subclase 
 		
+		public Cliente traerClientePorDni(int dni) {
+			Cliente objeto = null;
+			try {
+				iniciaOperacion();
+				objeto = (Cliente)session.createQuery(" FROM Cliente c WHERE c.dni = :dni").setParameter("dni",dni).uniqueResult();
+			} finally {
+				session.close();
+			}
+			return objeto;
+		}
+		
+		public Empleado traerEmpleadoPorCargo(String cargo) {
+			Empleado objeto = null;
+			try {
+				iniciaOperacion();
+				objeto = (Empleado)session.createQuery(" FROM Empleado e WHERE e.cargo = :cargo").setParameter("cargo",cargo).uniqueResult();
+			} finally {
+				session.close();
+			}
+			return objeto;
+		}
 		
 }
