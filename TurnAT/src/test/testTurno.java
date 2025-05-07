@@ -32,11 +32,11 @@ public class testTurno {
         Turno turno = new Turno(fechaYHora, servicio1, sucursal1, cliente1, empleado1, estado1);
         daoTurno.agregar(turno);*/
         
-        //System.out.println(daoTurno.traer(1));
-       
-        Turno t = daoTurno.traer(1);
+        System.out.println(daoTurno.traerTurnosCliente(2));
+        System.out.println(daoTurno.traerPorServicioSucursalEstado(1, 1, 1));
+        //Turno t = daoTurno.traer(1);
         
-       System.out.println( t.getSuc().getDireccion());
+       //System.out.println( t.getSuc().getDireccion());
         
         
         
