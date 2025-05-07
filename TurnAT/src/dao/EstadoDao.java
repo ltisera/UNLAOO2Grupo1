@@ -87,4 +87,18 @@ public class EstadoDao {
 		}
 		return lista;
 	}
+	
+	public Estado traerPorDescripcion(String descripcion) {
+	    Estado estado = null;
+	    try {
+	        iniciaOperacion();
+	        String hql = "FROM Estado e WHERE e.descripcion = :descripcion";
+	        Query<Estado> query = session.createQuery(hql, Estado.class);
+	        query.setParameter("descripcion", descripcion);
+	        estado = query.uniqueResult();
+	    } finally {
+	        session.close();
+	    }
+	    return estado;
+	}
 }

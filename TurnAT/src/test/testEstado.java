@@ -2,20 +2,25 @@ package test;
 
 import negocio.EstadoABM;
 
-public class testEstado{
+public class testEstado {
     public static void main(String[] args) {
         EstadoABM abm = new EstadoABM();
 
-        // Agregar estados iniciales
-        int idPendiente = abm.agregar("Pendiente");
-        int idCancelado = abm.agregar("Cancelado");
-        System.out.println("Estado 'Pendiente' creado con ID: " + idPendiente);
+        System.out.println("=== Agregando estados básicos ===");
+        abm.agregar("Pendiente");
+        abm.agregar("Cancelado por cliente");
+        abm.agregar("Disponible");
 
-        // Listar todos
-        System.out.println("Todos los estados:");
-        abm.traerTodos().forEach(e -> System.out.println(e.getIdEstado() + ": " + e.getDescripcion()));
+        System.out.println("\n=== Intentando agregar duplicados ===");
+        abm.agregar("Pendiente"); // Mostrará advertencia
 
-        // Actualizar
-        abm.actualizar(idCancelado, "Cancelado por cliente");
+        System.out.println("\n=== Listado completo ===");
+        abm.traerTodos().forEach(e -> 
+            System.out.println("ID " + e.getIdEstado() + ": " + e.getDescripcion())
+        );
+
+        System.out.println("\n=== Actualizando estado ===");
+        abm.actualizar(2, "Cancelado por sistema"); // Cambiar descripción
+        abm.actualizar(2, "Pendiente"); // Intentar cambiar a descripción existente
     }
 }

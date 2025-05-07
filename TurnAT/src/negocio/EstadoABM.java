@@ -9,42 +9,53 @@ public class EstadoABM {
 
     // --- Altas, Bajas, Modificaciones ---
     public int agregar(String descripcion) {
-        // Validar que no exista un estado con la misma descripción
-        if (existeEstado(descripcion)) {
-            throw new IllegalArgumentException("Ya existe un estado con esa descripción.");
+        // Validar si ya existe
+        Estado existente = dao.traerPorDescripcion(descripcion);
+        if (existente != null) {
+            System.out.println("⚠️ Ya existe el estado '" + descripcion + "' con ID: " + existente.getIdEstado());
+            return existente.getIdEstado(); // Devolvemos el ID existente
         }
 
         Estado estado = new Estado(descripcion);
-        return dao.agregar(estado);
+        int id = dao.agregar(estado);
+        System.out.println("✅ Estado '" + descripcion + "' creado con ID: " + id);
+        return id;
     }
 
     public void actualizar(int idEstado, String nuevaDescripcion) {
         Estado estado = dao.traer(idEstado);
         if (estado == null) {
-            throw new IllegalArgumentException("No existe el estado con ID: " + idEstado);
+            System.out.println("⚠️ No existe el estado con ID: " + idEstado);
+            return;
         }
 
-        // Validar que la nueva descripción no esté duplicada
-        if (existeEstadoConOtroId(nuevaDescripcion, idEstado)) {
-            throw new IllegalArgumentException("Otro estado ya usa esa descripción.");
+        // Validar si la nueva descripción ya existe en otro estado
+        Estado estadoConMismaDesc = dao.traerPorDescripcion(nuevaDescripcion);
+        if (estadoConMismaDesc != null && estadoConMismaDesc.getIdEstado() != idEstado) {
+            System.out.println("⚠️ Ya existe otro estado con la descripción: '" + nuevaDescripcion + "'");
+            return;
         }
 
         estado.setDescripcion(nuevaDescripcion);
         dao.actualizar(estado);
+        System.out.println("✏️ Estado actualizado correctamente (ID: " + idEstado + ")");
     }
 
     public void eliminar(int idEstado) {
         Estado estado = dao.traer(idEstado);
         if (estado == null) {
-            throw new IllegalArgumentException("Estado no encontrado con ID: " + idEstado);
+            System.out.println("⚠️ No se encontró estado con ID: " + idEstado);
+            return;
         }
 
-        // Validar que no esté siendo usado en turnos (opcional)
+        // Validar uso (opcional)
         if (estaEnUso(idEstado)) {
-            throw new IllegalStateException("No se puede eliminar: el estado está asignado a turnos.");
+            System.out.println("⚠️ No se puede eliminar - El estado está en uso");
+            return;
         }
 
         dao.eliminar(estado);
+        System.out.println("🗑️ Estado eliminado correctamente (ID: " + idEstado + ")");
     }
 
     // --- Consultas ---
@@ -56,28 +67,9 @@ public class EstadoABM {
         return dao.traer();
     }
 
-    public Estado traerPorDescripcion(String descripcion) {
-        List<Estado> estados = dao.traer();
-        return estados.stream()
-            .filter(e -> e.getDescripcion().equalsIgnoreCase(descripcion))
-            .findFirst()
-            .orElse(null);
-    }
-
     // --- Métodos de validación internos ---
-    private boolean existeEstado(String descripcion) {
-        return traerPorDescripcion(descripcion) != null;
-    }
-
-    private boolean existeEstadoConOtroId(String descripcion, int idExcluir) {
-        List<Estado> estados = dao.traer();
-        return estados.stream()
-            .anyMatch(e -> e.getDescripcion().equalsIgnoreCase(descripcion) 
-                && e.getIdEstado() != idExcluir);
-    }
-
     private boolean estaEnUso(int idEstado) {
-        // (Opcional: Integrar con TurnoDao para verificar si hay turnos con este estado)
-        return false; // Implementar lógica real si es necesario
+        // (Opcional: Implementar lógica real si es necesario)
+        return false;
     }
 }
