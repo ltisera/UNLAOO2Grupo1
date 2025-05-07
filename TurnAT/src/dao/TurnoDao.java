@@ -156,6 +156,28 @@ public class TurnoDao {
         return lista;
     }
     
+    public void iniciarSesion() {
+        iniciaOperacion();
+    }
     
+    public List<Turno> traerTurnosPorEmpleado(int idEmpleado) {
+        List<Turno> lista = null;
+        try {
+            iniciaOperacion();
+            String hql = "FROM Turno t " +
+                         "JOIN FETCH t.srv " +
+                         "JOIN FETCH t.emp " +
+                         "JOIN FETCH t.suc " +
+                         "JOIN FETCH t.cli " +
+                         "JOIN FETCH t.est " +
+                         "WHERE t.emp.idPersona = :idEmpleado";
+            lista = session.createQuery(hql, Turno.class)
+                          .setParameter("idEmpleado", idEmpleado)
+                          .getResultList();
+        } finally {
+            session.close();
+        }
+        return lista;
+    }
 
 }
