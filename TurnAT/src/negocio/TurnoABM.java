@@ -2,6 +2,8 @@ package negocio;
 
 import dao.*;
 import datos.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -187,5 +189,27 @@ public class TurnoABM {
         turnoDao.actualizar(turno);
         System.out.println("🔄 Turno reagendado exitosamente");
         return true;
+    }
+    
+    public List<Turno> traerTurnosEntreFechas(LocalDateTime desde, LocalDateTime hasta) {
+        return turnoDao.traerPorRangoFechas(desde, hasta);
+    }
+
+    public List<Turno> traerTurnosHoy() {
+        return turnoDao.traerPorDia(LocalDate.now());
+    }
+
+    public List<Turno> traerTurnosEsteMes() {
+        LocalDate hoy = LocalDate.now();
+        return turnoDao.traerPorMes(hoy.getYear(), hoy.getMonthValue());
+    }
+
+    public List<Turno> traerTurnosCanceladosUltimaSemana() {
+        LocalDateTime haceUnaSemana = LocalDateTime.now().minusDays(7);
+        return turnoDao.traerPorRangoFechasYEstado(
+            haceUnaSemana, 
+            LocalDateTime.now(), 
+            2 // ID de estado "Cancelado"
+        );
     }
 }
