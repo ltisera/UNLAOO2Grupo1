@@ -2,6 +2,7 @@ package negocio;
 
 import dao.*;
 import datos.*;
+import excepciones.TurnosException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,13 +22,13 @@ public class TurnoABM {
         try {
             // Validar que todos los IDs existen
             if (!validarIdsExisten(idCliente, idEmpleado, idServicio, idSucursal, idEstado)) {
-                return -1;
+            	throw new TurnosException("❌ Datos erroneos");
             }
 
             // Validar que no exista un turno solapado
             if (existeTurnoSolapado(fechaHora, idEmpleado)) {
-                System.out.println("⏰ El empleado ya tiene un turno en ese horario");
-                return -1;
+            	throw new TurnosException("⏰ El empleado ya tiene un turno en ese horario");
+               
             }
 
             // Obtener todas las entidades relacionadas
@@ -43,17 +44,17 @@ public class TurnoABM {
             System.out.println("✅ Turno creado exitosamente (ID: " + idGenerado + ")");
             return idGenerado;
 
-        } catch (Exception e) {
-            System.out.println("❌ Error al crear turno: " + e.getMessage());
-            return -1;
+        } catch (TurnosException e) {
+        	throw new TurnosException("❌ Error al crear turno: " + e.getMessage());
+           
         }
     }
 
     public boolean cancelarTurno(int idTurno) {
         Turno turno = turnoDao.traer(idTurno);
         if (turno == null) {
-            System.out.println("⚠️ No existe el turno con ID: " + idTurno);
-            return false;
+        	throw new TurnosException("⚠️ No existe el turno con ID: " + idTurno);
+           
         }
 
         // Buscar estado "Cancelado"
@@ -74,7 +75,7 @@ public class TurnoABM {
     public Turno traerTurnoCompleto(int idTurno) {
         Turno turno = turnoDao.traer(idTurno);
         if (turno == null) {
-            System.out.println("⚠️ No se encontró el turno con ID: " + idTurno);
+        	throw new TurnosException("⚠️ No se encontró el turno con ID: " + idTurno);
         }
         return turno;
     }
@@ -87,8 +88,8 @@ public class TurnoABM {
 
     public List<Turno> traerTurnosPorCliente(int idCliente) {
         if (personaDao.traerCliente(idCliente) == null) {
-            System.out.println("⚠️ No existe cliente con ID: " + idCliente);
-            return List.of(); // Retorna lista vacía
+        	throw new TurnosException("⚠️ No existe cliente con ID: " + idCliente);
+           
         }
         
         List<Turno> turnos = turnoDao.traerTurnosCliente(idCliente);
@@ -97,7 +98,7 @@ public class TurnoABM {
     }
 
     public List<Turno> traerTurnosDisponibles(int idServicio, int idSucursal) {
-        // Asumimos que el estado 1 es "Disponible"
+        // ASUMIMOS QUE EL ESTADO 1 ES "Disponible"
         List<Turno> turnos = turnoDao.traerPorServicioSucursalEstado(idServicio, 1, idSucursal);
         System.out.println("🎯 Turnos disponibles encontrados: " + turnos.size());
         return turnos;
@@ -110,28 +111,28 @@ public class TurnoABM {
         boolean valido = true;
         
         if (personaDao.traerCliente(idCliente) == null) {
-            System.out.println("⚠️ No existe cliente con ID: " + idCliente);
-            valido = false;
+        	
+        	throw new TurnosException("⚠️ No existe cliente con ID: " + idCliente);
         }
         
         if (personaDao.traerEmpleado(idEmpleado) == null) {
-            System.out.println("⚠️ No existe empleado con ID: " + idEmpleado);
-            valido = false;
+        	throw new TurnosException("⚠️ No existe empleado con ID: " + idEmpleado);
+           
         }
         
         if (servicioDao.traer(idServicio) == null) {
-            System.out.println("⚠️ No existe servicio con ID: " + idServicio);
-            valido = false;
+        	throw new TurnosException("⚠️ No existe servicio con ID: " + idServicio);
+            
         }
         
         if (sucursalDao.traer(idSucursal) == null) {
-            System.out.println("⚠️ No existe sucursal con ID: " + idSucursal);
-            valido = false;
+        	throw new TurnosException("⚠️ No existe sucursal con ID: " + idSucursal);
+            
         }
         
         if (estadoDao.traer(idEstado) == null) {
-            System.out.println("⚠️ No existe estado con ID: " + idEstado);
-            valido = false;
+        	throw new TurnosException("⚠️ No existe estado con ID: " + idEstado);
+            
         }
         
         return valido;
@@ -160,8 +161,8 @@ public class TurnoABM {
     public void mostrarDetallesTurno(int idTurno) {
         Turno turno = turnoDao.traer(idTurno);
         if (turno == null) {
-            System.out.println("⚠️ Turno no encontrado");
-            return;
+        	throw new TurnosException("⚠️ Turno no encontrado");
+            
         }
 
         System.out.println("\n📅 Detalles del Turno ID: " + idTurno);
@@ -176,13 +177,13 @@ public class TurnoABM {
     public boolean reagendarTurno(int idTurno, LocalDateTime nuevaFecha) {
         Turno turno = turnoDao.traer(idTurno);
         if (turno == null) {
-            System.out.println("⚠️ Turno no encontrado");
-            return false;
+        	throw new TurnosException("⚠️ Turno no encontrado");
+           
         }
 
         if (existeTurnoSolapado(nuevaFecha, turno.getEmp().getIdPersona())) {
-            System.out.println("⏰ El empleado ya tiene un turno en el nuevo horario");
-            return false;
+        	throw new TurnosException("⏰ El empleado ya tiene un turno en el nuevo horario");
+            
         }
 
         turno.setFechaYHora(nuevaFecha);
@@ -191,7 +192,11 @@ public class TurnoABM {
         return true;
     }
     
-    public List<Turno> traerTurnosEntreFechas(LocalDateTime desde, LocalDateTime hasta) {
+    public List<Turno> traerTurnosEntreFechas(LocalDateTime desde, LocalDateTime hasta){
+    	if(desde.isAfter(hasta)) {
+    		throw new TurnosException("⚠️ La fecha desde es mayor a la fecha Hasta");
+    	}
+    	
         return turnoDao.traerPorRangoFechas(desde, hasta);
     }
 
@@ -206,10 +211,8 @@ public class TurnoABM {
 
     public List<Turno> traerTurnosCanceladosUltimaSemana() {
         LocalDateTime haceUnaSemana = LocalDateTime.now().minusDays(7);
-        return turnoDao.traerPorRangoFechasYEstado(
-            haceUnaSemana, 
-            LocalDateTime.now(), 
-            2 // ID de estado "Cancelado"
-        );
+        return turnoDao.traerPorRangoFechasYEstado(haceUnaSemana, LocalDateTime.now(), 2);// ID de estado "Cancelado" 
+           
+       
     }
 }

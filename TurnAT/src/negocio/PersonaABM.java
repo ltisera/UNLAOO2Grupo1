@@ -1,10 +1,12 @@
 package negocio;
 
+
 import dao.PersonaDao;
 import datos.Cliente;
 import datos.Empleado;
 import datos.Persona;
 import java.util.List;
+import excepciones.TurnosException;
 
 public class PersonaABM {
     private PersonaDao dao = new PersonaDao();
@@ -25,7 +27,7 @@ public class PersonaABM {
             dao.actualizar(persona);
             System.out.println("✅ Persona actualizada correctamente");
         } else {
-            System.out.println("⚠️ No existe la persona con ID: " + persona.getIdPersona());
+        	throw new TurnosException("⚠️ No existe la persona con ID: " + persona.getIdPersona());
         }
     }
 
@@ -35,7 +37,7 @@ public class PersonaABM {
             dao.eliminar(persona);
             System.out.println("✅ Persona eliminada correctamente");
         } else {
-            System.out.println("⚠️ No existe la persona con ID: " + idPersona);
+        	throw new TurnosException("⚠️ No existe la persona con ID: " + idPersona);
         }
     }
 
@@ -51,8 +53,7 @@ public class PersonaABM {
     
     public int agregarCliente(String nombre, String apellido, int dni, String email, int telefono) {
         if (dao.traerClientePorDni(dni) != null) {
-            System.out.println("⚠️ Ya existe un cliente con DNI: " + dni);
-            return -1;
+        	throw new TurnosException("⚠️ Ya existe un cliente con DNI: " + dni);
         }
         Cliente cliente = new Cliente(nombre, apellido, dni, email, telefono);
         int id = dao.agregar(cliente);
@@ -82,8 +83,7 @@ public class PersonaABM {
     public int agregarEmpleado(String nombre, String apellido, int dni, int legajo, String cargo) {
         Empleado existente = traerEmpleadoPorDni(dni);
         if (existente != null) {
-            System.out.println("⚠️ Ya existe un empleado con DNI: " + dni);
-            return -1;
+        	throw new TurnosException("⚠️ Ya existe un empleado con DNI: " + dni); 
         }
         Empleado empleado = new Empleado(nombre, apellido, dni, legajo, cargo);
         int id = dao.agregar(empleado);
@@ -112,7 +112,7 @@ public class PersonaABM {
                 .orElse(null);
     }
 
-    public Empleado traerEmpleadoPorCargo(String cargo) {
+    public List<Empleado> traerEmpleadoPorCargo(String cargo) {
         return dao.traerEmpleadoPorCargo(cargo);
     }
 

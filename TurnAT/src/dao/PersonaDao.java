@@ -149,15 +149,16 @@ public class PersonaDao {
 			return objeto;
 		}
 		
-		public Empleado traerEmpleadoPorCargo(String cargo) {
-			Empleado objeto = null;
+		public List<Empleado> traerEmpleadoPorCargo(String cargo) {
+			List<Empleado> lista = null;
 			try {
 				iniciaOperacion();
-				objeto = (Empleado)session.createQuery(" FROM Empleado e WHERE e.cargo = :cargo").setParameter("cargo",cargo).uniqueResult();
+				Query<Empleado> query = session.createQuery("FROM Empleado e WHERE e.cargo = :cargo", Empleado.class).setParameter("cargo",cargo);
+				lista = query.getResultList();
 			} finally {
 				session.close();
 			}
-			return objeto;
+			return lista;
 		}
 		
 }
