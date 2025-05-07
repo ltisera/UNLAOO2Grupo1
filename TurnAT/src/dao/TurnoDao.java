@@ -278,4 +278,70 @@ public class TurnoDao {
         }
         return lista;
     }
+    public List<Turno> traerPorRangoFechasYEmpleado(LocalDateTime desde, LocalDateTime hasta, int idEmpleado) {
+        List<Turno> lista = null;
+        try {
+            iniciaOperacion();
+            String hql = "FROM Turno t " +
+                         "JOIN FETCH t.srv " +
+                         "JOIN FETCH t.emp " +
+                         "JOIN FETCH t.suc " +
+                         "JOIN FETCH t.cli " +
+                         "JOIN FETCH t.est " +
+                         "WHERE t.fechaYHora BETWEEN :desde AND :hasta " +
+                         "AND t.emp.idEmpleado = :idEmpleado";
+            lista = session.createQuery(hql, Turno.class)
+                          .setParameter("desde", desde)
+                          .setParameter("hasta", hasta)
+                          .setParameter("idEmpleado", idEmpleado)
+                          .getResultList();
+        } finally {
+            session.close();
+        }
+        return lista;
+    }
+    public List<Turno> traerPorRangoFechasYServicio(LocalDateTime desde, LocalDateTime hasta, int idServicio) {
+        List<Turno> lista = null;
+        try {
+            iniciaOperacion();
+            String hql = "FROM Turno t " +
+                         "JOIN FETCH t.srv " +
+                         "JOIN FETCH t.emp " +
+                         "JOIN FETCH t.suc " +
+                         "JOIN FETCH t.cli " +
+                         "JOIN FETCH t.est " +
+                         "WHERE t.fechaYHora BETWEEN :desde AND :hasta " +
+                         "AND t.srv.idServicio = :idServicio";
+            lista = session.createQuery(hql, Turno.class)
+                          .setParameter("desde", desde)
+                          .setParameter("hasta", hasta)
+                          .setParameter("idServicio", idServicio)
+                          .getResultList();
+        } finally {
+            session.close();
+        }
+        return lista;
+    }
+    public List<Turno> traerPorRangoFechasYCliente(LocalDateTime desde, LocalDateTime hasta, int idCliente) {
+        List<Turno> lista = null;
+        try {
+            iniciaOperacion();
+            String hql = "FROM Turno t " +
+                         "JOIN FETCH t.srv " +
+                         "JOIN FETCH t.emp " +
+                         "JOIN FETCH t.suc " +
+                         "JOIN FETCH t.cli " +
+                         "JOIN FETCH t.est " +
+                         "WHERE t.fechaYHora BETWEEN :desde AND :hasta " +
+                         "AND t.cli.idCliente = :idCliente";
+            lista = session.createQuery(hql, Turno.class)
+                          .setParameter("desde", desde)
+                          .setParameter("hasta", hasta)
+                          .setParameter("idCliente", idCliente)
+                          .getResultList();
+        } finally {
+            session.close();
+        }
+        return lista;
+    }
 }

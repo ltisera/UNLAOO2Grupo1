@@ -41,11 +41,11 @@ public class testTraerTodo {
 		
 		System.out.println("Traemos Cliente id=1");
 		PersonaDao perdao = new PersonaDao();
-		Cliente unCliente= perdao.traerCliente(1);
+		Cliente unCliente= perdao.traerCliente(2);
 		System.out.println(unCliente.toString());
 		
 		System.out.println("Traemos Empleado id=2");
-		Empleado unEmpleado= perdao.traerEmpleado(2);
+		Empleado unEmpleado= perdao.traerEmpleado(1);
 		System.out.println(unEmpleado.toString());
 		
 		System.out.println("Traemos Estado id=1");

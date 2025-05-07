@@ -2,6 +2,8 @@ package negocio;
 
 import dao.SucursalDao;
 import datos.Sucursal;
+import excepciones.TurnosException;
+
 import java.util.List;
 
 public class SucursalABM {
@@ -9,9 +11,7 @@ public class SucursalABM {
 
     public int agregar(String nombre, String direccion, int telefono) {
         if (existeSucursal(nombre, direccion)) {
-            System.out.println("⚠️ Ya existe una sucursal con nombre: \"" + nombre 
-                + "\" y dirección: \"" + direccion + "\"");
-            return -1;
+        	throw new TurnosException("Ya existe una sucursal con nombre: \"" + nombre + "\" y dirección: \"" + direccion + "\"");
         }
 
         Sucursal sucursal = new Sucursal(nombre, direccion, telefono);
@@ -27,6 +27,9 @@ public class SucursalABM {
     }
     
     public Sucursal traer(int idSucursal) {
+    	if (dao.traer(idSucursal) == null) {
+        	throw new TurnosException("NO existe una sucursal con ID: " + idSucursal);
+        }
     	return dao.traer(idSucursal);
     }
 
