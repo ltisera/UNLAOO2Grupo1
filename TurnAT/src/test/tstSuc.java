@@ -1,6 +1,8 @@
 package test;
 import dao.SucursalDao;
 import datos.Sucursal;
+import datos.Servicio;
+import datos.Turno;
 public class tstSuc {
 
 	
@@ -10,6 +12,7 @@ public class tstSuc {
 		sdao.agregar(suc);
 		System.out.println("POR QUE NO ME AUTO COMPLETA ");
 		// TODO Auto-generated method stub
+		
 
 	}
 
