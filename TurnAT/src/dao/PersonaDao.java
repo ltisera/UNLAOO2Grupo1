@@ -88,6 +88,7 @@ public class PersonaDao {
 			return lista;
 		}
 		
+	//1.4. Consultas por algún atributo de la subclase 	
 	//traer las subclases----
 		public Cliente traerCliente(int idPersona) {
 			Cliente c = null;
