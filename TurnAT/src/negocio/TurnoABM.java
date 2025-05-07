@@ -212,7 +212,34 @@ public class TurnoABM {
     public List<Turno> traerTurnosCanceladosUltimaSemana() {
         LocalDateTime haceUnaSemana = LocalDateTime.now().minusDays(7);
         return turnoDao.traerPorRangoFechasYEstado(haceUnaSemana, LocalDateTime.now(), 2);// ID de estado "Cancelado" 
-           
-       
     }
+    
+    //1.6. Mínimo cuatro consultas por una fecha y un atributo de clase
+    public List<Turno> traerPorRangoFechasYEstado(LocalDateTime desde, LocalDateTime hasta, int idEstado){
+    	if(turnoDao.traerPorRangoFechasYEstado(desde, hasta, idEstado)== null) {
+    		throw new TurnosException("No hay turnos en ese intervalo de fechas con ese estado");
+    	}
+    	return turnoDao.traerPorRangoFechasYEstado(desde, hasta, idEstado);
+    }
+    public List<Turno> traerPorRangoFechasYEmpleado(LocalDateTime desde, LocalDateTime hasta, int idEmpleado){
+    	if(turnoDao.traerPorRangoFechasYEmpleado(desde, hasta, idEmpleado)== null) {
+    		throw new TurnosException("No hay turnos en ese intervalo de fechas de ese empleado");
+    	}
+    	return turnoDao.traerPorRangoFechasYEmpleado(desde, hasta, idEmpleado);
+    }
+    
+    public List<Turno> traerPorRangoFechasYServicio(LocalDateTime desde, LocalDateTime hasta, int idServicio){
+    	if(turnoDao.traerPorRangoFechasYServicio(desde, hasta, idServicio)== null) {
+    		throw new TurnosException("No hay turnos en ese intervalo de fechas de ese servicio");
+    	}
+    	return turnoDao.traerPorRangoFechasYServicio(desde, hasta, idServicio);
+    }
+    public List<Turno> traerPorRangoFechasYCliente(LocalDateTime desde, LocalDateTime hasta, int idCliente){
+    	if(turnoDao.traerPorRangoFechasYCliente(desde, hasta, idCliente)== null) {
+    		throw new TurnosException("No hay turnos en ese intervalo de fechas de ese cliente");
+    	}
+    	return turnoDao.traerPorRangoFechasYCliente(desde, hasta, idCliente);
+    }
+    
+    
 }

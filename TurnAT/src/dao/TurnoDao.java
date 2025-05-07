@@ -289,11 +289,11 @@ public class TurnoDao {
                          "JOIN FETCH t.cli " +
                          "JOIN FETCH t.est " +
                          "WHERE t.fechaYHora BETWEEN :desde AND :hasta " +
-                         "AND t.emp.idEmpleado = :idEmpleado";
+                         "AND t.emp.idPersona = :idPersona";
             lista = session.createQuery(hql, Turno.class)
                           .setParameter("desde", desde)
                           .setParameter("hasta", hasta)
-                          .setParameter("idEmpleado", idEmpleado)
+                          .setParameter("idPersona", idEmpleado)
                           .getResultList();
         } finally {
             session.close();
@@ -333,11 +333,11 @@ public class TurnoDao {
                          "JOIN FETCH t.cli " +
                          "JOIN FETCH t.est " +
                          "WHERE t.fechaYHora BETWEEN :desde AND :hasta " +
-                         "AND t.cli.idCliente = :idCliente";
+                         "AND t.cli.idPersona = :idPersona";
             lista = session.createQuery(hql, Turno.class)
                           .setParameter("desde", desde)
                           .setParameter("hasta", hasta)
-                          .setParameter("idCliente", idCliente)
+                          .setParameter("idPersona", idCliente)
                           .getResultList();
         } finally {
             session.close();
