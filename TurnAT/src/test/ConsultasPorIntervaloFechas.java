@@ -1,40 +1,63 @@
 package test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-
 import negocio.TurnoABM;
-import datos.Turno;
 
 public class ConsultasPorIntervaloFechas {
     public static void main(String[] args) {
         TurnoABM abm = new TurnoABM();
 
-        System.out.println("=== Turnos entre dos fechas ===");
-        LocalDateTime desde = LocalDateTime.now().minusDays(10);
-        LocalDateTime hasta = LocalDateTime.now();
-        List<Turno> entreFechas = abm.traerTurnosEntreFechas(desde, hasta);
-        entreFechas.forEach(t -> 
-            System.out.println(t.getFechaYHora() + " | " + t.getCli().getNombre())
-        );
+        int idCliente = 1;
+        int idEmpleado = 2;
+        int idServicio = 1;
+        int idSucursal = 1;
+        int estadoPendiente = 1;
+        int estadoCancelado = 2;
 
-        System.out.println("\n=== Turnos de hoy ===");
-        List<Turno> hoy = abm.traerTurnosHoy();
-        hoy.forEach(t -> 
-            System.out.println(t.getFechaYHora() + " | " + t.getCli().getNombre())
-        );
+        System.out.println("=== Agregando turnos ===");
 
-        System.out.println("\n=== Turnos de este mes ===");
-        List<Turno> esteMes = abm.traerTurnosEsteMes();
-        esteMes.forEach(t -> 
-            System.out.println(t.getFechaYHora() + " | " + t.getCli().getNombre())
-        );
+        try {
+            abm.agregarTurno(LocalDateTime.now().minusDays(3).withHour(10), idCliente, idEmpleado, idServicio, idSucursal, estadoPendiente);
+            System.out.println("✔ Turno hace 3 días agregado.");
+        } catch (Exception e) {
+            System.err.println("✖ Error al agregar turno hace 3 días: " + e.getMessage());
+            e.printStackTrace();
+        }
 
-        System.out.println("\n=== Turnos cancelados última semana ===");
-        List<Turno> cancelados = abm.traerTurnosCanceladosUltimaSemana();
-        cancelados.forEach(t -> 
-            System.out.println(t.getFechaYHora() + " | Estado: " + t.getEst().getDescripcion())
-        );
+        try {
+            abm.agregarTurno(LocalDateTime.now().withHour(14), idCliente, idEmpleado, idServicio, idSucursal, estadoPendiente);
+            System.out.println("✔ Turno de hoy agregado.");
+        } catch (Exception e) {
+            System.err.println("✖ Error al agregar turno de hoy: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        try {
+            abm.agregarTurno(LocalDateTime.now().minusDays(5).withHour(12), idCliente, idEmpleado, idServicio, idSucursal, estadoPendiente);
+            System.out.println("✔ Turno hace 5 días agregado.");
+        } catch (Exception e) {
+            System.err.println("✖ Error al agregar turno hace 5 días: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        int turnoCanceladoId = -1;
+        try {
+            turnoCanceladoId = abm.agregarTurno(LocalDateTime.now().minusDays(2).withHour(9), idCliente, idEmpleado, idServicio, idSucursal, estadoCancelado);
+            System.out.println("✔ Turno cancelado agregado.");
+        } catch (Exception e) {
+            System.err.println("✖ Error al agregar turno cancelado: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        try {
+            if (turnoCanceladoId != -1) {
+                abm.mostrarDetallesTurno(turnoCanceladoId);
+            }
+        } catch (Exception e) {
+            System.err.println("✖ Error al mostrar detalles del turno cancelado: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        System.out.println("=== Fin del test ===");
     }
 }
