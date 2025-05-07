@@ -1,5 +1,6 @@
 package test;
 
+import excepciones.TurnosException;
 import negocio.ServicioABM;
 
 public class testServicio {
@@ -7,7 +8,21 @@ public class testServicio {
         ServicioABM abm = new ServicioABM();
         
         // Intenta agregar servicios (aunque ya existan)
-        abm.agregar("Corte de pelo", "Corte básico"); // Si ya existe, mostrará advertencia
-        abm.agregar("Coloración", "Tinte profesional"); // Si no existe, lo agregará
-    }
+       try {
+    	   abm.agregar("Corte de pelo", "Corte básico"); // Si ya existe, mostrará advertencia
+       
+        
+        }catch(TurnosException e) {
+        	System.out.println(e.getMessage());
+        }
+
+
+       try {
+    	   abm.agregar("Coloración", "Tinte profesional"); // Si no existe, lo agregará
+       
+        }catch(TurnosException e) {
+        	System.out.println(e.getMessage());
+        }
+	
+	}
 }

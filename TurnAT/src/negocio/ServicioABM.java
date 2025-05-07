@@ -2,8 +2,7 @@ package negocio;
 
 import dao.ServicioDao;
 import datos.Servicio;
-import datos.Sucursal;
-
+import excepciones.TurnosException;
 import java.util.List;
 
 public class ServicioABM {
@@ -11,8 +10,8 @@ public class ServicioABM {
 
     public int agregar(String nombre, String descripcion) {
         if (existeServicio(nombre)) {
-            System.out.println("⚠️ Ya existe un servicio con el nombre: \"" + nombre + "\"");
-            return -1; // Retorno especial para indicar que no se agregó
+            throw new TurnosException("⚠️ Ya existe un servicio con el nombre: \"" + nombre + "\"");
+             // Retorno especial para indicar que no se agregó
         }
         
         Servicio servicio = new Servicio(nombre, descripcion);
@@ -27,6 +26,9 @@ public class ServicioABM {
         return servicioExistente != null;
     }
     public Servicio traer(int idServicio) {
+    	if(dao.traer(idServicio)==null) {
+    		throw new TurnosException("⚠️ No existe servicio con ese ID");
+    	}
     	return dao.traer(idServicio);
     }
 

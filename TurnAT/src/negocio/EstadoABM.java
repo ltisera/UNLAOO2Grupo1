@@ -2,6 +2,8 @@ package negocio;
 
 import dao.EstadoDao;
 import datos.Estado;
+import excepciones.TurnosException;
+
 import java.util.List;
 
 public class EstadoABM {
@@ -12,8 +14,8 @@ public class EstadoABM {
         // Validar si ya existe
         Estado existente = dao.traerPorDescripcion(descripcion);
         if (existente != null) {
-            System.out.println("⚠️ Ya existe el estado '" + descripcion + "' con ID: " + existente.getIdEstado());
-            return existente.getIdEstado(); // Devolvemos el ID existente
+           throw new TurnosException("⚠️ Ya existe el estado '" + descripcion + "' con ID: " + existente.getIdEstado());
+          
         }
 
         Estado estado = new Estado(descripcion);
@@ -25,15 +27,15 @@ public class EstadoABM {
     public void actualizar(int idEstado, String nuevaDescripcion) {
         Estado estado = dao.traer(idEstado);
         if (estado == null) {
-            System.out.println("⚠️ No existe el estado con ID: " + idEstado);
-            return;
+        	throw new TurnosException("⚠️ No existe el estado con ID: " + idEstado);
+            
         }
 
         // Validar si la nueva descripción ya existe en otro estado
         Estado estadoConMismaDesc = dao.traerPorDescripcion(nuevaDescripcion);
         if (estadoConMismaDesc != null && estadoConMismaDesc.getIdEstado() != idEstado) {
-            System.out.println("⚠️ Ya existe otro estado con la descripción: '" + nuevaDescripcion + "'");
-            return;
+        	throw new TurnosException("⚠️ Ya existe otro estado con la descripción: '" + nuevaDescripcion + "'");
+           
         }
 
         estado.setDescripcion(nuevaDescripcion);
@@ -44,14 +46,14 @@ public class EstadoABM {
     public void eliminar(int idEstado) {
         Estado estado = dao.traer(idEstado);
         if (estado == null) {
-            System.out.println("⚠️ No se encontró estado con ID: " + idEstado);
-            return;
+        	throw new TurnosException("⚠️ No se encontró estado con ID: " + idEstado);
+        
         }
 
         // Validar uso (opcional)
         if (estaEnUso(idEstado)) {
-            System.out.println("⚠️ No se puede eliminar - El estado está en uso");
-            return;
+        	throw new TurnosException("⚠️ No se puede eliminar - El estado está en uso");
+            
         }
 
         dao.eliminar(estado);

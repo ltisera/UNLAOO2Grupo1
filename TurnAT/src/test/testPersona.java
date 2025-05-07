@@ -1,16 +1,20 @@
 package test;
 
+import excepciones.TurnosException;
 import negocio.PersonaABM;
 
 public class testPersona {
     public static void main(String[] args) {
         PersonaABM abm = new PersonaABM();
-        
-        // Agregar cliente
-        abm.agregarCliente("Juan", "Pérez", 12345678, "juan@mail.com", 1122334455);
-        
-        // Agregar empleado
-        abm.agregarEmpleado("Ana", "Gómez", 87654321, 1001, "Recepcionista");
+        try {// Si se corre mas de una vez saltara error al intentar agregar
+        	
+	        // Agregar cliente
+	        abm.agregarCliente("Juan", "Pérez", 12345678, "juan@mail.com", 1122334455);
+	        // Agregar empleado
+	        abm.agregarEmpleado("Ana", "Gómez", 87654321, 1001, "Recepcionista");
+        }catch(TurnosException e) {
+        	System.out.println(e.getMessage());
+        }
         
         // Listar todos
         System.out.println("\nTodos los clientes:");
