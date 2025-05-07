@@ -7,7 +7,7 @@
             <generator class="identity"/>
         </id>
 
-        <property name="fechaYHora" column="fechaYHora" type="java.time.LocalDate"/>
+        <property name="fechaYHora" column="fechaYHora" type="java.time.LocalDateTime"/>
 
         <many-to-one name="srv" class="Servicio" column="Servicio_idServicio" not-null="true"/>
         <many-to-one name="suc" class="Sucursal" column="Sucursal_idSucursal" not-null="true"/>

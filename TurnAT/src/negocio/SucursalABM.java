@@ -25,6 +25,10 @@ public class SucursalABM {
         System.out.println("📋 Total de sucursales: " + sucursales.size());
         return sucursales;
     }
+    
+    public Sucursal traer(int idSucursal) {
+    	return dao.traer(idSucursal);
+    }
 
     private boolean existeSucursal(String nombre, String direccion) {
         List<Sucursal> sucursales = dao.traer();

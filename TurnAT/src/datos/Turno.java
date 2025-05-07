@@ -65,6 +65,11 @@ public class Turno {
 	public void setEst(Estado est) {
 		this.est = est;
 	}
+	@Override
+	public String toString() {
+		return "Turno [idTurno=" + idTurno + ", fechaYHora=" + fechaYHora + ", srv=" + srv + ", suc=" + suc + ", cli="
+				+ cli + ", emp=" + emp + ", est=" + est + "]";
+	}
 
 
 }

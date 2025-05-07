@@ -2,6 +2,8 @@ package negocio;
 
 import dao.ServicioDao;
 import datos.Servicio;
+import datos.Sucursal;
+
 import java.util.List;
 
 public class ServicioABM {
@@ -24,6 +26,10 @@ public class ServicioABM {
         Servicio servicioExistente = traerPorNombre(nombre);
         return servicioExistente != null;
     }
+    public Servicio traer(int idServicio) {
+    	return dao.traer(idServicio);
+    }
+
 
     public Servicio traerPorNombre(String nombre) {
         List<Servicio> servicios = dao.traer();

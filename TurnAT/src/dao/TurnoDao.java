@@ -78,7 +78,16 @@ public class TurnoDao {
         Turno objeto = null;
         try {
             iniciaOperacion();
-            objeto = session.get(Turno.class, idTurno);
+            String hql = "FROM Turno t " +
+                    "JOIN FETCH t.srv " +
+                    "JOIN FETCH t.emp " +
+                    "JOIN FETCH t.suc " +
+                    "JOIN FETCH t.cli " +
+                    "JOIN FETCH t.est " +
+                    "WHERE t.idTurno = :idTurno";
+            objeto = session.createQuery(hql, Turno.class)
+                             .setParameter("idTurno", idTurno)
+                             .uniqueResult();
         } finally {
             session.close();
         }
