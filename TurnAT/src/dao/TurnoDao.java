@@ -7,8 +7,8 @@ import org.hibernate.Transaction;
 import org.hibernate.HibernateException;
 import org.hibernate.query.Query;
 
-
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class TurnoDao {
@@ -179,5 +179,103 @@ public class TurnoDao {
         }
         return lista;
     }
+    
+    
+    
+    //1.5 Minimo cuatro consultas por intervalo de fechas
+    
+    public List<Turno> traerPorRangoFechas(LocalDateTime desde, LocalDateTime hasta) {
+        List<Turno> lista = null;
+        try {
+            iniciaOperacion();
+            String hql = "FROM Turno t " +
+                         "JOIN FETCH t.srv " +
+                         "JOIN FETCH t.emp " +
+                         "JOIN FETCH t.suc " +
+                         "JOIN FETCH t.cli " +
+                         "JOIN FETCH t.est " +
+                         "WHERE t.fechaYHora BETWEEN :desde AND :hasta " +
+                         "ORDER BY t.fechaYHora";
+            lista = session.createQuery(hql, Turno.class)
+                          .setParameter("desde", desde)
+                          .setParameter("hasta", hasta)
+                          .getResultList();
+        } finally {
+            session.close();
+        }
+        return lista;
+    }
 
+    public List<Turno> traerPorDia(LocalDate dia) {
+        List<Turno> lista = null;
+        try {
+            iniciaOperacion();
+            LocalDateTime inicioDia = dia.atStartOfDay();
+            LocalDateTime finDia = dia.plusDays(1).atStartOfDay();
+            
+            String hql = "FROM Turno t " +
+                         "JOIN FETCH t.srv " +
+                         "JOIN FETCH t.emp " +
+                         "JOIN FETCH t.suc " +
+                         "JOIN FETCH t.cli " +
+                         "JOIN FETCH t.est " +
+                         "WHERE t.fechaYHora >= :inicioDia " +
+                         "AND t.fechaYHora < :finDia";
+            lista = session.createQuery(hql, Turno.class)
+                          .setParameter("inicioDia", inicioDia)
+                          .setParameter("finDia", finDia)
+                          .getResultList();
+        } finally {
+            session.close();
+        }
+        return lista;
+    }
+    
+    public List<Turno> traerPorMes(int anio, int mes) {
+        List<Turno> lista = null;
+        try {
+            iniciaOperacion();
+            LocalDateTime inicioMes = LocalDateTime.of(anio, mes, 1, 0, 0);
+            LocalDateTime finMes = inicioMes.plusMonths(1);
+            
+            String hql = "FROM Turno t " +
+                         "JOIN FETCH t.srv " +
+                         "JOIN FETCH t.emp " +
+                         "JOIN FETCH t.suc " +
+                         "JOIN FETCH t.cli " +
+                         "JOIN FETCH t.est " +
+                         "WHERE t.fechaYHora >= :inicioMes " +
+                         "AND t.fechaYHora < :finMes";
+            lista = session.createQuery(hql, Turno.class)
+                          .setParameter("inicioMes", inicioMes)
+                          .setParameter("finMes", finMes)
+                          .getResultList();
+        } finally {
+            session.close();
+        }
+        return lista;
+    }
+    
+    public List<Turno> traerPorRangoFechasYEstado(LocalDateTime desde, LocalDateTime hasta, int idEstado) {
+        List<Turno> lista = null;
+        try {
+            iniciaOperacion();
+            String hql = "FROM Turno t " +
+                         "JOIN FETCH t.srv " +
+                         "JOIN FETCH t.emp " +
+                         "JOIN FETCH t.suc " +
+                         "JOIN FETCH t.cli " +
+                         "JOIN FETCH t.est " +
+                         "WHERE t.fechaYHora BETWEEN :desde AND :hasta " +
+                         "AND t.est.idEstado = :idEstado";
+            lista = session.createQuery(hql, Turno.class)
+                          .setParameter("desde", desde)
+                          .setParameter("hasta", hasta)
+                          .setParameter("idEstado", idEstado)
+                          .getResultList();
+        } finally {
+            session.close();
+        }
+        return lista;
+    }
 }
