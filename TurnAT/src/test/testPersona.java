@@ -7,9 +7,12 @@ public class testPersona {
     public static void main(String[] args) {
         PersonaABM abm = new PersonaABM();
         try {// Si se corre mas de una vez saltara error al intentar agregar
-        	
+	        abm.agregarCliente("David", "Gonzalez", 111111222, "Jorgi@mail.com", 1135984778);
+
 	        // Agregar cliente
 	        abm.agregarCliente("Juan", "Pérez", 12345678, "juan@mail.com", 1122334455);
+	        abm.agregarCliente("David", "Gonzalez", 111111222, "Jorgi@mail.com", 1135984778);
+
 	        // Agregar empleado
 	        abm.agregarEmpleado("Ana", "Gómez", 87654321, 1001, "Recepcionista");
         }catch(TurnosException e) {

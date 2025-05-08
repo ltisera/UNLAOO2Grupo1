@@ -9,8 +9,8 @@ public class testTurnoABM {
     public static void main(String[] args) {
         TurnoABM abm = new TurnoABM();
 
-        int idCliente = 2;//verificar en bd los id
-        int idEmpleado = 1;//verificar en bd los id
+        int idCliente = 3;//verificar en bd los id
+        int idEmpleado = 2;//verificar en bd los id
         int idServicio = 1;
         int idSucursal = 1;
         int estadoPendiente = 1;
