@@ -1,0 +1,15 @@
+package com.turnat;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+
+public class TurnAtApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TurnAtApplication.class, args);
+		System.out.println("Vamo arriba habemus endpoint");
+	}
+
+}
