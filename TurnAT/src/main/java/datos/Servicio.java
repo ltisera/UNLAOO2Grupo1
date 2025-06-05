@@ -1,26 +1,25 @@
 package datos;
 
 import java.time.LocalTime;
+import java.util.List;
 
 public class Servicio {
 	private int idServicio;
-	private String nombre;
-	private String descripcion;
-	private LocalTime duracion;
-	
-    // Constructor vacío
-	public Servicio() {}
+    private String nombre;
+    private String descripcion;
+    private LocalTime duracion;
+    private List<Disponibilidad> disponibilidades; // Nuevo
 
-    // Constructor con parámetros
-	public Servicio(int idServicio, String nombre, String descripcion, LocalTime duracion) {
+    public Servicio() {}
+
+    public Servicio(int idServicio, String nombre, String descripcion, LocalTime duracion) {
         this.idServicio = idServicio;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.duracion = duracion;
     }
-	
-    // Constructor sin id (para cuando se genera automáticamente)
-	public Servicio(String nombre, String descripcion, LocalTime duracion) {
+
+    public Servicio(String nombre, String descripcion, LocalTime duracion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.duracion = duracion;
@@ -59,9 +58,17 @@ public class Servicio {
         this.duracion = duracion;
     }
 	
-	@Override
-	public String toString() {
-		return "Servicio [idServicio=" + idServicio + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
-	}
+    public List<Disponibilidad> getDisponibilidades() {
+        return disponibilidades;
+    }
 
+    public void setDisponibilidades(List<Disponibilidad> disponibilidades) {
+        this.disponibilidades = disponibilidades;
+    }
+
+    @Override
+    public String toString() {
+        return "Servicio [idServicio=" + idServicio + ", nombre=" + nombre +
+               ", descripcion=" + descripcion + ", duración=" + duracion + "]";
+    }
 }
