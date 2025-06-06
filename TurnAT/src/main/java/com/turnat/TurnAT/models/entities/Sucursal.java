@@ -1,4 +1,4 @@
-package com.turnat.TurnAT.models.entities;
+/*package com.turnat.TurnAT.models.entities;
 
 import java.util.Set;
 
@@ -50,3 +50,4 @@ public class Sucursal {
         this.direccion = direccion;
     }
 }
+*/

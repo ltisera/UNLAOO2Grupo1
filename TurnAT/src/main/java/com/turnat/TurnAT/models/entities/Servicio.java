@@ -1,4 +1,4 @@
-package com.turnat.TurnAT.models.entities;
+/*package com.turnat.TurnAT.models.entities;
 
 import java.time.LocalTime;
 import java.util.Set;
@@ -60,3 +60,4 @@ public class Servicio {
         this.disponibilidad = disponibilidad;
     }
 }
+*/
