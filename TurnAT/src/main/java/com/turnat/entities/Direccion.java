@@ -1,4 +1,4 @@
-package entities;
+package com.turnat.entities;
 
 public class Direccion {
 	private int idDireccion;
@@ -9,17 +9,15 @@ public class Direccion {
 	
 	public Direccion() {}
 
-	public Direccion(int idDireccion, String localidad, String calle, int altura) {
+	public Direccion(String localidad, String calle, int altura) {
 		super();
-		this.idDireccion = idDireccion;
 		this.localidad = localidad;
 		this.calle = calle;
 		this.altura = altura;
 	}
 
-	public Direccion(int idDireccion, String localidad, String calle, int altura, String depto) {
+	public Direccion(String localidad, String calle, int altura, String depto) {
 		super();
-		this.idDireccion = idDireccion;
 		this.localidad = localidad;
 		this.calle = calle;
 		this.altura = altura;

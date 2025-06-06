@@ -1,7 +1,4 @@
-package datos;
-
-import entities.Direccion;
-import entities.Persona;
+package com.turnat.entities;
 
 public class Cliente extends Persona {
 	private String telefono;
@@ -14,6 +11,19 @@ public class Cliente extends Persona {
 		this.dni= dni; 
 		this.email = email;
 		this.direccion = direccion;
+	}
+	
+	public String getTelefono() {
+		return telefono;
+	}
+	
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	
+	@Override
+	public String toString() {
+		return "Cliente [telefono=" + telefono + "]";
 	}
 	
 	

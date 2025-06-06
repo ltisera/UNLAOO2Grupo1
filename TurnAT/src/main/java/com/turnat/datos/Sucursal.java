@@ -1,9 +1,9 @@
-package datos;
+package com.turnat.datos;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.Direccion;
+import com.turnat.entities.Direccion;
 
 public class Sucursal {
     private int idSucursal;

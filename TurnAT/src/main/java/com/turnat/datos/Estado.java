@@ -1,4 +1,4 @@
-package datos;
+package com.turnat.datos;
 
 public class Estado {
 	
