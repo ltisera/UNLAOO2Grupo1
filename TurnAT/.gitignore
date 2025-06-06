@@ -1,55 +1,33 @@
-# === Archivos compilados de Java ===
-*.class
-*.jar
-*.war
-*.ear
-
-# === Archivos de log ===
-*.log
-
-# === Configs de IDE ===
-# VS Code
-.vscode/
-# Eclipse
-.project
-.classpath
-.settings/
-# IntelliJ IDEA
-*.iml
-.idea/
-# NetBeans
-nbproject/private/
-dist/
-
-# === Archivos del sistema ===
-.DS_Store
-Thumbs.db
-
-# === Docker ===
-docker-compose.override.yml
-.env
-
-# === Maven / Gradle ===
+HELP.md
 target/
-.gradle/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
 build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# === Archivos de swap o edición accidental ===
-*.swp
-*.swo
-*~
-
-# === Otros ===
-*.bak
-*.tmp
-
-# === Node.js o Python (por si mezclan techs más adelante) ===
-node_modules/
-__pycache__/
-*.pyc
-/bin/
-TurnAT/src/hibernate.cfg.xml
-/src/hibernate.cfg.xml
-src/hibernate.cfg.xml
-
-#Solo me quiero asegurar
+### VS Code ###
+.vscode/
