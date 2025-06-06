@@ -1,4 +1,4 @@
-package com.turnat.TurnAT.models.entities;
+/*package com.turnat.TurnAT.models.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,3 +26,4 @@ public class Sucursal {
     @JoinColumn(name = "Direccion_idDireccion", nullable = false)
     private Direccion direccion;
 }
+*/

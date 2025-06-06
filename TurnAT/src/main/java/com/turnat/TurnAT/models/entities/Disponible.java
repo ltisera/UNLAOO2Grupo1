@@ -33,25 +33,25 @@ public class Disponible {
     @Column(name = "horaFin")
     private LocalTime horaFin;
 
-    @Column(name = "lunes")
+    @Column(name = "lunes", columnDefinition = "TINYINT")
     private boolean lunes;
 
-    @Column(name = "martes")
+    @Column(name = "martes", columnDefinition = "TINYINT")
     private boolean martes;
 
-    @Column(name = "miercoles")
+    @Column(name = "miercoles", columnDefinition = "TINYINT")
     private boolean miercoles;
 
-    @Column(name = "jueves")
+    @Column(name = "jueves", columnDefinition = "TINYINT")
     private boolean jueves;
 
-    @Column(name = "viernes")
+    @Column(name = "viernes", columnDefinition = "TINYINT")
     private boolean viernes;
 
-    @Column(name = "sabado")
+    @Column(name = "sabado", columnDefinition = "TINYINT")
     private boolean sabado;
 
-    @Column(name = "domingo")
+    @Column(name = "domingo", columnDefinition = "TINYINT")
     private boolean domingo;
 
     public Disponible(LocalTime horaInicio, LocalTime horaFin,
