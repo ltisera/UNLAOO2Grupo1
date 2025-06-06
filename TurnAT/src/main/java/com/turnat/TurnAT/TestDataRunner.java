@@ -24,7 +24,7 @@ public class TestDataRunner implements CommandLineRunner {
         // Ejemplo: Instanciando objetos Cliente y Empleado
         
         Direccion dir = new Direccion("glew", "Alguna" , 7888);
-        Cliente cli = new Cliente("Nico", "mipass", "Carpinchjo", 3332423, "m@mail", dir, "2333");
+        Cliente cli = new Cliente("Nico", "mipass", "Carpinchjo", 3132423, "m@mail", dir, "2333");
         
         
         // Mostrar datos por consola (o usar repositorios si ya los tenés)
