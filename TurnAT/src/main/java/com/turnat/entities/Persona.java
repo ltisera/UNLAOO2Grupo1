@@ -1,4 +1,4 @@
-package entities;
+package com.turnat.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
