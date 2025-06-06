@@ -1,4 +1,4 @@
-package com.turnat.TurnAT;
+/*package com.turnat.TurnAT;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ public class TestDataRunner implements CommandLineRunner {
         // Ejemplo: Instanciando objetos Cliente y Empleado
         
         Direccion dir = new Direccion("glew", "Alguna" , 7888);
-        Cliente cliente = new Cliente("juan", "poll", 2334233, "arro@arroba.com", dir);
+        Cliente cliente = new Cliente("juan", "poll", 2334233, "arro@arroba.com", dir, "+54 11 1111 1111");
         
         
         // Mostrar datos por consola (o usar repositorios si ya los tenés)
@@ -32,4 +32,4 @@ public class TestDataRunner implements CommandLineRunner {
         
         // Aquí podrías llamar a repositorios para guardar estos datos si los configuraste.
     }
-}
+}*/

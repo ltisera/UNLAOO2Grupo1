@@ -18,6 +18,6 @@ public interface IPersonaRepository extends JpaRepository<Persona, Integer> {
 
     @Query(value = "from persona p order by p.idPersona")
     List<Persona> findAll();
-
+   
     
 }

@@ -1,4 +1,4 @@
-package com.turnat.TurnAT.configurations.security;
+/*package com.turnat.TurnAT.configurations.security;
 
 import com.turnat.TurnAT.services.implementations.PersonaServiceImp;
 import org.springframework.context.annotation.Bean;
@@ -71,4 +71,4 @@ public class SecurityConfiguration {
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-}
+}*/
