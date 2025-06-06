@@ -1,9 +1,20 @@
 package com.turnat.TurnAT.models.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+
+@Entity
+@PrimaryKeyJoinColumn(name = "Cliente_idPersona")
 public class Cliente extends Persona {
 	private String telefono;
 	
 	public Cliente() {}
+	
+	public Cliente(String nombre, String password, String apellido, int dni, String email, Direccion direccion, String telefono){
+		super(nombre, password, apellido, dni, email, direccion); // 👈 usamos el constructor de Persona
+		this.telefono = telefono;
+	}
+	/*
 	public Cliente(String nombre, String apellido, int dni, String email, Direccion direccion, String telefono){
 		super();
 		this.nombre = nombre;
@@ -13,7 +24,7 @@ public class Cliente extends Persona {
 		this.direccion = direccion;
 		this.telefono = telefono;
 	}
-	
+	*/
 	public String getTelefono() {
 		return telefono;
 	}
