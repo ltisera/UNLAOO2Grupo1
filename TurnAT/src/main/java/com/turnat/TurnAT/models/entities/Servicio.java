@@ -1,4 +1,5 @@
-/*package com.turnat.TurnAT.models.entities;
+/*
+package com.turnat.TurnAT.models.entities;
 
 import java.time.LocalTime;
 import java.util.Set;
@@ -44,6 +45,8 @@ public class Servicio {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "idDisponible")
     private Disponible disponibilidad;
+
+	@JoinColumn(name = "Servicio_idServicio") 
 
     @ManyToMany
     @JoinTable(

@@ -1,4 +1,5 @@
-/*package com.turnat.TurnAT.models.entities;
+/*
+package com.turnat.TurnAT.models.entities;
 
 import java.time.LocalTime;
 
@@ -7,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 import lombok.Getter;
