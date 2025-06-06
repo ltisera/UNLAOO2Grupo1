@@ -3,6 +3,9 @@ package datos;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Direccion;
+import entities.Persona;
+
 public class Empleado extends Persona {
 	private int legajo;
 	private String cargo;

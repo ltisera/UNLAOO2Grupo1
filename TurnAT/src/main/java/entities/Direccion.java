@@ -1,4 +1,4 @@
-package datos;
+package entities;
 
 public class Direccion {
 	private int idDireccion;

@@ -3,6 +3,8 @@ package datos;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Direccion;
+
 public class Sucursal {
     private int idSucursal;
     private String nombre;
