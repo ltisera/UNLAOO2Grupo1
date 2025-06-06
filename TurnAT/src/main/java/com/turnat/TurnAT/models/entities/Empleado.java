@@ -1,4 +1,4 @@
-package com.turnat.TurnAT.models.entities;
+/*package com.turnat.TurnAT.models.entities;
 
 import com.turnat.TurnAT.models.entities.Servicio;
 
@@ -31,3 +31,4 @@ public class Empleado {
 
 	
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.turnat.TurnAT.models.entities;
 
 import java.time.LocalTime;
@@ -45,6 +46,8 @@ public class Servicio {
     @JoinColumn(name = "idDisponible")
     private Disponible disponibilidad;
 
+	@JoinColumn(name = "Servicio_idServicio") 
+
     @ManyToMany
     @JoinTable(
         name = "sucursal_servicio", // tabla intermedia
@@ -60,3 +63,4 @@ public class Servicio {
         this.disponibilidad = disponibilidad;
     }
 }
+*/
