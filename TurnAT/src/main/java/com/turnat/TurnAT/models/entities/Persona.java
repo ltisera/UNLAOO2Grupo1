@@ -48,9 +48,9 @@ public abstract class Persona {
 	
 
 	
-	 // siempre hay que implementar el constructor vacío
-	public Persona(){}
-
+	public Persona() {
+		
+	}
 	public Persona(String nombre, String password, String apellido, int dni, String email, Direccion direccion) {
 		super();
 		this.nombre = nombre;
