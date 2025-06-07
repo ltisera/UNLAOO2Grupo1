@@ -1,5 +1,6 @@
 package com.turnat.TurnAT;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,8 +9,10 @@ import org.springframework.boot.CommandLineRunner;
 
 import org.springframework.stereotype.Component;
 import com.turnat.TurnAT.models.entities.Estado;
+import com.turnat.TurnAT.models.entities.FechaYHora;
 import com.turnat.TurnAT.models.entities.Servicio;
 import com.turnat.TurnAT.models.entities.Sucursal;
+import com.turnat.TurnAT.models.entities.Turno;
 import com.turnat.TurnAT.models.entities.Direccion;
 import com.turnat.TurnAT.models.entities.Disponible;
 import com.turnat.TurnAT.models.entities.Empleado;
@@ -17,21 +20,26 @@ import com.turnat.TurnAT.models.entities.Cliente;
 import com.turnat.TurnAT.repositories.IClienteRepository;
 import com.turnat.TurnAT.repositories.IEmpleadoRepository;
 import com.turnat.TurnAT.repositories.IEstadoRepository;
+import com.turnat.TurnAT.repositories.IFechaYHoraRepository;
 import com.turnat.TurnAT.repositories.IServicioRepository;
 import com.turnat.TurnAT.repositories.ISucursalRepository;
+import com.turnat.TurnAT.repositories.ITurnoRepository;
+import com.turnat.TurnAT.services.implementations.EstadoService;
 import com.turnat.TurnAT.services.interfaces.IClienteService;
 import com.turnat.TurnAT.services.interfaces.IEmpleadoService;
+import com.turnat.TurnAT.services.interfaces.IFechaYHoraService;
 import com.turnat.TurnAT.services.interfaces.IServicioService;
 import com.turnat.TurnAT.services.interfaces.ISucursalService;
+import com.turnat.TurnAT.services.interfaces.ITurnoService;
 
 @Component
 
 public class TestDataRunner implements CommandLineRunner {
 	
 	
-	// testeo de sucursal
+	/*// testeo de sucursal
 	
-	/*private final ISucursalRepository repoS;
+	private final ISucursalRepository repoS;
 	private final ISucursalService servS;
 	
 	public TestDataRunner(ISucursalRepository repoS, ISucursalService servS) {
@@ -54,8 +62,8 @@ public class TestDataRunner implements CommandLineRunner {
         servS.agregar(suc);
         
         // Aquí podrías llamar a repositorios para guardar estos datos si los configuraste.
-    }*/
-	
+    }
+	*/
 	
 	//------------------------------------------------
 	//| TESTEO DE SEERVCIO Y ASIGNANDOLE UNA SUCURSAL  |
@@ -91,11 +99,11 @@ public class TestDataRunner implements CommandLineRunner {
         servS.agregar(srv);
         
         // Aquí podrías llamar a repositorios para guardar estos datos si los configuraste.
-    }*/
-	
+    }
+	*/
 	//------------------------------------------------
 		//| TESTEO DE EMPLEADO Y ASIGNANDOLE UN SERVICIO Y ESAS COSAS |
-		//------------------------------------------------	
+	/*	//------------------------------------------------	
 	private final IEmpleadoRepository repoE;
 	private final IEmpleadoService empS;
 	private final IServicioRepository repoS;
@@ -124,6 +132,60 @@ public class TestDataRunner implements CommandLineRunner {
         
         // Aquí podrías llamar a repositorios para guardar estos datos si los configuraste.
     }
+	*/
 	
+	//------------------------------------------------------
+	//  Test de Turno waos:
+	//------------------------------------------------------
+	//------------------------------------------------------
+
+	private final ITurnoRepository repoTurno;
+	private final ITurnoService turnoService;
+	private final IClienteService clienteService;
+	private final IServicioService servicioService;
+	private final EstadoService estadoService;
+	private final IFechaYHoraService fechaYHoraService;
+
+	public TestDataRunner(ITurnoRepository repoTurno, ITurnoService turnoService, 
+	                      IClienteService clienteService, IServicioService servicioService,
+	                      EstadoService estadoService, IFechaYHoraService fechaYHoraService) {
+	    this.repoTurno = repoTurno;
+	    this.turnoService = turnoService;
+	    this.clienteService = clienteService;
+	    this.servicioService = servicioService;
+	    this.estadoService = estadoService;
+	    this.fechaYHoraService = fechaYHoraService;
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+	    System.out.println("Ejecutando prueba rápida con datos hardcodeados...");
+	
+	    // Crear un cliente
+	    Direccion direccionCliente = new Direccion("Calle Falsa", "123", 456);
+	    Cliente cliente = new Cliente("Juan", "password", "Pérez", 12345678, "juan@example.com", direccionCliente, "123456789");
+	    clienteService.agregar(cliente);
+	
+	    // Crear un servicio
+	    Disponible disponible = new Disponible(LocalTime.of(10, 00), LocalTime.of(18, 00), true, true, true, true, true, true, false);
+	    Servicio servicio = new Servicio("Corte de Pelo", "Corte de cabello", LocalTime.of(0, 30), disponible);
+	    servicioService.agregar(servicio);
+	
+	    // Crear un estado
+	    Estado estado = estadoService.agregarEstado("Confirmado");
+	
+	    // Crear una fecha y hora
+	    FechaYHora fechaYHora = new FechaYHora(LocalDate.now(), LocalTime.of(15, 00));
+	    fechaYHoraService.agregar(fechaYHora);
+	
+	    // Crear un turno
+	    Turno turno = new Turno(cliente, servicio, estado, fechaYHora);
+	    Turno turnoGuardado = turnoService.agregar(turno);
+	
+	    // Mostrar datos por consola
+	    System.out.println("Turno creado: " + turnoGuardado.toString());
+	}
+
+		
 	
 }
