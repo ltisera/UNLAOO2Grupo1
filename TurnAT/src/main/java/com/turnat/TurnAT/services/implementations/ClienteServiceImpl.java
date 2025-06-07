@@ -1,7 +1,7 @@
 package com.turnat.TurnAT.services.implementations;
 
 import com.turnat.TurnAT.repositories.IClienteRepository;
-import com.turnat.TurnAT.services.IClienteService;
+import com.turnat.TurnAT.services.interfaces.IClienteService;
 
 import java.util.List;
 

@@ -25,8 +25,63 @@ public class Sucursal {
     @Column(name = "telefono", nullable = false)
     private String telefono;
 
-    @Override
-    public String toString() {
-        return "Sucursal [idSucursal=" + idSucursal + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion + "]";
+
+    
+    
+    public Sucursal(String nombre, String telefono, Direccion direccion) {
+    	this.nombre = nombre;
+    	this.telefono = telefono;
+    	this.direccion = direccion;
+    	
     }
+    
+
+	public int getIdSucursal() {
+		return idSucursal;
+	}
+
+
+	public void setIdSucursal(Integer idSucursal) {
+		this.idSucursal = idSucursal;
+	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+
+	public Direccion getDireccion() {
+		return direccion;
+	}
+
+
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Sucursal [idSucursal=" + idSucursal + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion="
+				+ direccion + "]";
+	}
+    
+    
+
 }

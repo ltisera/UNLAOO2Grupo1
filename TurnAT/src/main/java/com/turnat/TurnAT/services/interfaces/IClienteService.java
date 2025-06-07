@@ -1,4 +1,4 @@
-package com.turnat.TurnAT.services;
+package com.turnat.TurnAT.services.interfaces;
 
 import java.util.List;
 
