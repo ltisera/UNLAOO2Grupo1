@@ -2,6 +2,7 @@ package com.turnat.TurnAT.services.interfaces;
 
 import java.util.List;
 
+import com.turnat.TurnAT.models.entities.Cliente;
 import com.turnat.TurnAT.models.entities.Empleado;
 
 
@@ -12,5 +13,6 @@ public interface IEmpleadoService {
 	public void eliminar(Empleado e);
 	public void eliminar(int idEmpleado);
 	public Empleado traerPorId(int idEmpleado);
+	public Empleado actualizar(Empleado empleado);
 	
 }

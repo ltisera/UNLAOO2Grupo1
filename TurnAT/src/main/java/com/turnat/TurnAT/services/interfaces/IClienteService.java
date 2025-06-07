@@ -10,5 +10,6 @@ public interface IClienteService {
 	public List<Cliente> traerTodos();
 	public void eliminar(Cliente c);
 	public void eliminar(int idCliente);
-	
+	public Cliente traerPorId(int idCliente);
+	public Cliente actualizar(Cliente cliente);
 }

@@ -3,6 +3,8 @@ package com.turnat.TurnAT.services.implementations;
 import com.turnat.TurnAT.repositories.IClienteRepository;
 import com.turnat.TurnAT.services.interfaces.IClienteService;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -39,5 +41,14 @@ public class ClienteServiceImpl implements IClienteService{
         clienteRepo.deleteById(cli.getIdPersona());
     }
     
+    public Cliente traerPorId(int idCliente) {
+    	return clienteRepo.findById(idCliente).orElseThrow(()-> new RuntimeException("Cliente no encontrado"));
+    	
+    }
+   
+    @Transactional // Esto lo actualiza si el ID existe
+    public Cliente actualizar(Cliente cliente) {
+        return clienteRepo.save(cliente); 
+    }
 	
 }

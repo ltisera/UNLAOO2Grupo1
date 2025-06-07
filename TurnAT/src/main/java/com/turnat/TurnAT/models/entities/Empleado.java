@@ -24,7 +24,9 @@ public class Empleado extends Persona {
 	@JoinColumn(name = "Servicio_idServicio") 
 	private Servicio servicio;
 	
-	
+	public Empleado() {
+		
+	}
 	public Empleado(String nombre, String password, String apellido, int dni, String email, Direccion direccion,String legajo, Servicio servicio) {
 		super(nombre, password, apellido, dni, email, direccion); // 👈 usamos el constructor de Persona
 		this.legajo = legajo;

@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import com.turnat.TurnAT.models.entities.Estado;
 import com.turnat.TurnAT.models.entities.FechaYHora;
+import com.turnat.TurnAT.models.entities.Rol;
 import com.turnat.TurnAT.models.entities.Servicio;
 import com.turnat.TurnAT.models.entities.Sucursal;
 import com.turnat.TurnAT.models.entities.Turno;
@@ -28,6 +29,7 @@ import com.turnat.TurnAT.services.implementations.EstadoService;
 import com.turnat.TurnAT.services.interfaces.IClienteService;
 import com.turnat.TurnAT.services.interfaces.IEmpleadoService;
 import com.turnat.TurnAT.services.interfaces.IFechaYHoraService;
+import com.turnat.TurnAT.services.interfaces.IRolService;
 import com.turnat.TurnAT.services.interfaces.IServicioService;
 import com.turnat.TurnAT.services.interfaces.ISucursalService;
 import com.turnat.TurnAT.services.interfaces.ITurnoService;
@@ -145,16 +147,20 @@ public class TestDataRunner implements CommandLineRunner {
 	private final IServicioService servicioService;
 	private final EstadoService estadoService;
 	private final IFechaYHoraService fechaYHoraService;
+	private final IRolService rolService;
+	private final IEmpleadoService empleadoService;
 
 	public TestDataRunner(ITurnoRepository repoTurno, ITurnoService turnoService, 
 	                      IClienteService clienteService, IServicioService servicioService,
-	                      EstadoService estadoService, IFechaYHoraService fechaYHoraService) {
+	                      EstadoService estadoService, IFechaYHoraService fechaYHoraService,IRolService rolService, IEmpleadoService empleadoService ) {
 	    this.repoTurno = repoTurno;
 	    this.turnoService = turnoService;
 	    this.clienteService = clienteService;
 	    this.servicioService = servicioService;
 	    this.estadoService = estadoService;
 	    this.fechaYHoraService = fechaYHoraService;
+	    this.rolService = rolService;
+	    this.empleadoService = empleadoService;
 	}
 
 	@Override
@@ -186,8 +192,21 @@ public class TestDataRunner implements CommandLineRunner {
 	    Turno turnoGuardado = turnoService.agregar(turno);
 		*/
 	    // Mostrar datos por consola
-	    clienteService.eliminar(1);
-	    System.out.println("Fecha y hora agregada");
+	    
+	    
+	    Rol rol = new Rol("Empleado");
+	    rolService.agregar(rol);
+	    //Rol rol = rolService.traerPorId(1);
+	   Empleado emp = empleadoService.traerPorId(3);
+	    
+	    Set<Rol> roles = new HashSet<>(); //se crea el set de rol
+	    roles.add(rol); //le meto el rol creado o levantado
+	   emp.setRoles(roles);//se lo meto al cliente
+	  
+	   empleadoService.actualizar(emp);
+	    System.out.println(rol.toString());
+	    System.out.println(emp.getRoles());
+	   
 	}
 
 		

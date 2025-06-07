@@ -79,6 +79,12 @@ public class Sucursal {
 	}
 
 
+	public Set<Servicio> getServicios() {
+		return servicios;
+	}
+	public void setServicios(Set<Servicio> servicios) {
+		this.servicios = servicios;
+	}
 	@Override
 	public String toString() {
 		return "Sucursal [idSucursal=" + idSucursal + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion="

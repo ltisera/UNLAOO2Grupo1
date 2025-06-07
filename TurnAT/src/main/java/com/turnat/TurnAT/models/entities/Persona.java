@@ -19,6 +19,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -46,7 +48,13 @@ public abstract class Persona {
     @JoinColumn(name = "Direccion_idDireccion") // nombre de la columna en la tabla 'persona'
 	protected Direccion direccion;
 	
-
+	@ManyToMany
+	@JoinTable(
+			    name = "Persona_has_Rol",
+			    joinColumns = @JoinColumn(name = "Persona_idPersona"),
+			    inverseJoinColumns = @JoinColumn(name = "Rol_idRol")
+			)
+	private Set<Rol> roles; 
 	
 	public Persona() {
 		
@@ -118,6 +126,13 @@ public abstract class Persona {
 		this.direccion = direccion;
 	}
 
+	
+	public Set<Rol> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<Rol> roles) {
+		this.roles = roles;
+	}
 	@Override
 	public String toString() {
 		return "Persona [idPersona=" + idPersona + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.turnat.TurnAT.models.entities.Empleado;
 import com.turnat.TurnAT.repositories.IEmpleadoRepository;
 import com.turnat.TurnAT.services.interfaces.IEmpleadoService;
+
+import jakarta.transaction.Transactional;
 @Service
 public class EmpleadoServiceImp implements IEmpleadoService{
 	
@@ -31,5 +33,10 @@ public class EmpleadoServiceImp implements IEmpleadoService{
 	}
 	public Empleado traerPorId(int idEmpleado) {
 		return repoEmpleado.findById(idEmpleado).orElseThrow(() -> new RuntimeException("Empleade no encontrade"));
+	}
+	
+	@Transactional // Esto lo actualiza si el ID existe
+	public Empleado actualizar(Empleado empleado) {
+		return repoEmpleado.save(empleado);
 	}
 }
