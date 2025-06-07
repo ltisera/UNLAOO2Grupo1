@@ -1,29 +1,32 @@
-/*package com.turnat.TurnAT.models.entities;
+package com.turnat.TurnAT.models.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "Sucursal")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter @Setter @NoArgsConstructor
+@Table(name = "sucursal")
 public class Sucursal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idSucursal")
-    private Integer idSucursal;
+    private int idSucursal;
 
-    @Column(name = "nombre", nullable = false, length = 45)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "Direccion_idDireccion") // nombre de la columna en la tabla 'sucursal'
+    private Direccion direccion;
+
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "telefono", nullable = false, length = 45)
+    @Column(name = "telefono", nullable = false)
     private String telefono;
 
-    @ManyToOne
-    @JoinColumn(name = "Direccion_idDireccion", nullable = false)
-    private Direccion direccion;
+    @Override
+    public String toString() {
+        return "Sucursal [idSucursal=" + idSucursal + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion + "]";
+    }
 }
-*/
