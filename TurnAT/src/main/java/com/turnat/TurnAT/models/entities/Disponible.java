@@ -1,4 +1,4 @@
-/*
+
 package com.turnat.TurnAT.models.entities;
 
 import java.time.LocalTime;
@@ -67,8 +67,109 @@ public class Disponible {
         this.sabado = sabado;
         this.domingo = domingo;
     }
+    
 
-    @Override
+    public int getIdDisponibilidad() {
+		return idDisponibilidad;
+	}
+
+
+	public void setIdDisponibilidad(int idDisponibilidad) {
+		this.idDisponibilidad = idDisponibilidad;
+	}
+
+
+	public LocalTime getHoraInicio() {
+		return horaInicio;
+	}
+
+
+	public void setHoraInicio(LocalTime horaInicio) {
+		this.horaInicio = horaInicio;
+	}
+
+
+	public LocalTime getHoraFin() {
+		return horaFin;
+	}
+
+
+	public void setHoraFin(LocalTime horaFin) {
+		this.horaFin = horaFin;
+	}
+
+
+	public boolean isLunes() {
+		return lunes;
+	}
+
+
+	public void setLunes(boolean lunes) {
+		this.lunes = lunes;
+	}
+
+
+	public boolean isMartes() {
+		return martes;
+	}
+
+
+	public void setMartes(boolean martes) {
+		this.martes = martes;
+	}
+
+
+	public boolean isMiercoles() {
+		return miercoles;
+	}
+
+
+	public void setMiercoles(boolean miercoles) {
+		this.miercoles = miercoles;
+	}
+
+
+	public boolean isJueves() {
+		return jueves;
+	}
+
+
+	public void setJueves(boolean jueves) {
+		this.jueves = jueves;
+	}
+
+
+	public boolean isViernes() {
+		return viernes;
+	}
+
+
+	public void setViernes(boolean viernes) {
+		this.viernes = viernes;
+	}
+
+
+	public boolean isSabado() {
+		return sabado;
+	}
+
+
+	public void setSabado(boolean sabado) {
+		this.sabado = sabado;
+	}
+
+
+	public boolean isDomingo() {
+		return domingo;
+	}
+
+
+	public void setDomingo(boolean domingo) {
+		this.domingo = domingo;
+	}
+
+
+	@Override
     public String toString() {
         return "Disponible [idDisponibilidad=" + idDisponibilidad +
                ", horaInicio=" + horaInicio +
@@ -82,4 +183,3 @@ public class Disponible {
                ", domingo=" + domingo + "]";
     }
 }
-*/

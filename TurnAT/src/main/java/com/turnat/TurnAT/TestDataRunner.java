@@ -1,23 +1,34 @@
 package com.turnat.TurnAT;
 
+import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.boot.CommandLineRunner;
 
 import org.springframework.stereotype.Component;
 import com.turnat.TurnAT.models.entities.Estado;
+import com.turnat.TurnAT.models.entities.Servicio;
 import com.turnat.TurnAT.models.entities.Sucursal;
 import com.turnat.TurnAT.models.entities.Direccion;
+import com.turnat.TurnAT.models.entities.Disponible;
 import com.turnat.TurnAT.models.entities.Cliente;
 import com.turnat.TurnAT.repositories.IClienteRepository;
 import com.turnat.TurnAT.repositories.IEstadoRepository;
+import com.turnat.TurnAT.repositories.IServicioRepository;
 import com.turnat.TurnAT.repositories.ISucursalRepository;
 import com.turnat.TurnAT.services.interfaces.IClienteService;
+import com.turnat.TurnAT.services.interfaces.IServicioService;
 import com.turnat.TurnAT.services.interfaces.ISucursalService;
 
 @Component
 
 public class TestDataRunner implements CommandLineRunner {
 	
-	private final ISucursalRepository repoS;
+	
+	// testeo de sucursal
+	
+	/*private final ISucursalRepository repoS;
 	private final ISucursalService servS;
 	
 	public TestDataRunner(ISucursalRepository repoS, ISucursalService servS) {
@@ -40,5 +51,40 @@ public class TestDataRunner implements CommandLineRunner {
         servS.agregar(suc);
         
         // Aquí podrías llamar a repositorios para guardar estos datos si los configuraste.
+    }*/
+	//TESTEO DE SEERVCIO Y ASIGNANDOLE UNA SUCURSAL
+	private final IServicioRepository repoS;
+	private final IServicioService servS;
+	private final ISucursalRepository repoSuc;
+	private final ISucursalService servSuc;
+	public TestDataRunner(IServicioRepository repoS, IServicioService servS, ISucursalRepository repoSuc, ISucursalService servSuc) {
+        this.repoS = repoS;
+        this.servS = servS;
+        this.repoSuc = repoSuc;
+        this.servSuc = servSuc;
     }
+	
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println("Ejecutando prueba rápida con datos hardcodeados...");
+
+       
+        Disponible disp = new Disponible(LocalTime.of(10,00) , LocalTime.of(18,00),true, true, true,true, true, true, false);
+        Servicio srv = new Servicio("Peluqueria", "Corte de pelo", LocalTime.of(0, 30),disp);
+        
+        Sucursal suc = servSuc.traerPorId(1);
+        
+        Set<Sucursal> sucursales = new HashSet<>(); //creo el set de sucursales
+        sucursales.add(suc); //le meto la q cree recien
+        srv.setSucursales(sucursales); //se la seteo a servicio
+        
+        // Mostrar datos por consola (o usar repositorios si ya los tenés)
+        System.out.println("Servicio:" + srv.toString());
+        
+        servS.agregar(srv);
+        
+        // Aquí podrías llamar a repositorios para guardar estos datos si los configuraste.
+    }
+	
+	
 }

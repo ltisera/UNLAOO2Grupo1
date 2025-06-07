@@ -35,5 +35,8 @@ public class SucursalServiceImp implements ISucursalService{
     public void eliminar(Sucursal suc) {
         sucursalRepo.deleteById(suc.getIdSucursal());
     }
+    public Sucursal traerPorId(int idSucursal) {
+    	return sucursalRepo.findById(idSucursal).orElseThrow(() -> new RuntimeException("Sucursal no encontrada"));
+    }
 
 }

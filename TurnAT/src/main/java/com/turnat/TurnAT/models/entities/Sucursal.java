@@ -1,5 +1,7 @@
 package com.turnat.TurnAT.models.entities;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,8 +27,10 @@ public class Sucursal {
     @Column(name = "telefono", nullable = false)
     private String telefono;
 
+    @ManyToMany(mappedBy = "sucursales")// en el mappedby va el atributo de la clase servicio y esto hace el mapeo bidireccional de muchos a muchos 
+    private Set<Servicio> servicios;
 
-    
+    public Sucursal() {}
     public Sucursal(String nombre, String telefono, Direccion direccion) {
     	this.nombre = nombre;
     	this.telefono = telefono;

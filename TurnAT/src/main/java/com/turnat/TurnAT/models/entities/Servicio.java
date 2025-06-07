@@ -1,4 +1,4 @@
-/*
+
 package com.turnat.TurnAT.models.entities;
 
 import java.time.LocalTime;
@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -42,19 +43,20 @@ public class Servicio {
     @Column(name = "duracion")
     private LocalTime duracion;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "idDisponible")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "Disponible_idDisponibilidad")
     private Disponible disponibilidad;
 
-	@JoinColumn(name = "Servicio_idServicio") 
+	
 
     @ManyToMany
     @JoinTable(
-        name = "sucursal_servicio", // tabla intermedia
-        joinColumns = @JoinColumn(name = "idServicio"),
-        inverseJoinColumns = @JoinColumn(name = "idSucursal")
+        name = "Servicio_has_Sucursal", // tabla intermedia
+        joinColumns = @JoinColumn(name = "Servicio_idServicio"),
+        inverseJoinColumns = @JoinColumn(name = "Sucursal_idSucursal")
     )
-    private Set<Sucursal> sucursales;
+    private Set<Sucursal> sucursales;//esta es la q va en sucursal
+    //asi se relacionan cachai
 
     public Servicio(String nombre, String descripcion, LocalTime duracion, Disponible disponibilidad) {
         this.nombre = nombre;
@@ -62,5 +64,55 @@ public class Servicio {
         this.duracion = duracion;
         this.disponibilidad = disponibilidad;
     }
+
+	public int getIdServicio() {
+		return idServicio;
+	}
+
+	public void setIdServicio(int idServicio) {
+		this.idServicio = idServicio;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public LocalTime getDuracion() {
+		return duracion;
+	}
+
+	public void setDuracion(LocalTime duracion) {
+		this.duracion = duracion;
+	}
+
+	public Disponible getDisponibilidad() {
+		return disponibilidad;
+	}
+
+	public void setDisponibilidad(Disponible disponibilidad) {
+		this.disponibilidad = disponibilidad;
+	}
+
+	public Set<Sucursal> getSucursales() {
+		return sucursales;
+	}
+
+	public void setSucursales(Set<Sucursal> sucursales) {
+		this.sucursales = sucursales;
+	}
+    
+    
+    
 }
-*/

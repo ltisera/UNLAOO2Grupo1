@@ -11,5 +11,6 @@ public interface ISucursalService {
 	public List<Sucursal> traerTodos();
 	public void eliminar(Sucursal s);
 	public void eliminar(int idSucursal);
+	public Sucursal traerPorId(int idSucursal);
 	
 }
