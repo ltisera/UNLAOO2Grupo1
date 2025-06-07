@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turnat.TurnAT.models.entities.Estado;
-import com.turnat.TurnAT.services.implementations.EstadoService;
+import com.turnat.TurnAT.services.implementations.EstadoServiceImp;
 
 @RestController
 @RequestMapping("/api/estados")
 public class EstadoController {
 
     @Autowired
-    private EstadoService estadoService;
+    private EstadoServiceImp estadoService;
 
     @GetMapping
     @PostMapping

@@ -25,9 +25,9 @@ import com.turnat.TurnAT.repositories.IFechaYHoraRepository;
 import com.turnat.TurnAT.repositories.IServicioRepository;
 import com.turnat.TurnAT.repositories.ISucursalRepository;
 import com.turnat.TurnAT.repositories.ITurnoRepository;
-import com.turnat.TurnAT.services.implementations.EstadoService;
 import com.turnat.TurnAT.services.interfaces.IClienteService;
 import com.turnat.TurnAT.services.interfaces.IEmpleadoService;
+import com.turnat.TurnAT.services.interfaces.IEstadoService;
 import com.turnat.TurnAT.services.interfaces.IFechaYHoraService;
 import com.turnat.TurnAT.services.interfaces.IRolService;
 import com.turnat.TurnAT.services.interfaces.IServicioService;
@@ -145,14 +145,14 @@ public class TestDataRunner implements CommandLineRunner {
 	private final ITurnoService turnoService;
 	private final IClienteService clienteService;
 	private final IServicioService servicioService;
-	private final EstadoService estadoService;
+	private final IEstadoService estadoService;
 	private final IFechaYHoraService fechaYHoraService;
 	private final IRolService rolService;
 	private final IEmpleadoService empleadoService;
 
 	public TestDataRunner(ITurnoRepository repoTurno, ITurnoService turnoService, 
 	                      IClienteService clienteService, IServicioService servicioService,
-	                      EstadoService estadoService, IFechaYHoraService fechaYHoraService,IRolService rolService, IEmpleadoService empleadoService ) {
+	                      IEstadoService estadoService, IFechaYHoraService fechaYHoraService,IRolService rolService, IEmpleadoService empleadoService ) {
 	    this.repoTurno = repoTurno;
 	    this.turnoService = turnoService;
 	    this.clienteService = clienteService;
@@ -169,28 +169,30 @@ public class TestDataRunner implements CommandLineRunner {
 	
 	    
 	    // Crear un cliente
-	    Direccion direccionCliente = new Direccion("Calle Falsa", "123", 456);
-	    Cliente cliente = new Cliente("Juan", "password", "Pérez", 12345678, "juan@example.com", direccionCliente, "123456789");
+	    Direccion direccionCliente = new Direccion("Lome ", "calle", 34);
+	    Cliente cliente = new Cliente("pablo", "password", "lopez", 87654321, "pablo@example.com", direccionCliente, "+54 11 2222 2222");
 	    clienteService.agregar(cliente);
 	
 	    // Crear un servicio
-	    Disponible disponible = new Disponible(LocalTime.of(10, 00), LocalTime.of(18, 00), true, true, true, true, true, true, false);
-	    Servicio servicio = new Servicio("Corte de Pelo", "Corte de cabello", LocalTime.of(0, 30), disponible);
+	    Disponible disponible = new Disponible(LocalTime.of(00, 00), LocalTime.of(8, 00), true, true, true, true, true, true, false);
+	    Servicio servicio = new Servicio("Corte", "corte nocturno ", LocalTime.of(0, 30), disponible);
 	    servicioService.agregar(servicio);
 	
 	    // Crear un estado
-	    Estado estado = estadoService.agregarEstado("Confirmado");
+	    Estado estado = estadoService.traerPorId(1);
 		
 	    // Crear una fecha y hora
 	    FechaYHora fechaYHora = new FechaYHora(LocalDate.now(), LocalTime.of(15, 00));
 	    fechaYHoraService.agregar(fechaYHora);
 	    fechaYHoraService.eliminar(23);
 	    
+	    
 	    // Crear un turno
 	    Turno turno = new Turno(cliente, servicio, estado, fechaYHora);
 	    Turno turnoGuardado = turnoService.agregar(turno);
-		System.out.println(turnoGuardado.toString());
-	     
+		
+	    // Mostrar datos por consola
+	    
 	    
 	   /* Rol rol = new Rol("Empleado");
 	    rolService.agregar(rol);

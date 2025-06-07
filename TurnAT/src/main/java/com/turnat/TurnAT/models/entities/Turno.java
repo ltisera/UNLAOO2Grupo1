@@ -76,4 +76,11 @@ public class Turno {
     public void setFechaYHora(FechaYHora fechaYHora) {
         this.fechaYHora = fechaYHora;
     }
+
+	@Override
+	public String toString() {
+		return "Turno [idTurno=" + idTurno + ", cliente=" + cliente + ", servicio=" + servicio + ", estado=" + estado
+				+ ", fechaYHora=" + fechaYHora + "]";
+	}
+    
 }
