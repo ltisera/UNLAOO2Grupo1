@@ -168,7 +168,7 @@ public class TestDataRunner implements CommandLineRunner {
 	    System.out.println("Ejecutando prueba rápida con datos hardcodeados...");
 	
 	    
-	    // Crear un cliente
+	  /*  // Crear un cliente
 	    Direccion direccionCliente = new Direccion("Lome ", "calle", 34);
 	    Cliente cliente = new Cliente("pablo", "password", "lopez", 87654321, "pablo@example.com", direccionCliente, "+54 11 2222 2222");
 	    clienteService.agregar(cliente);
@@ -192,7 +192,7 @@ public class TestDataRunner implements CommandLineRunner {
 	    Turno turnoGuardado = turnoService.agregar(turno);
 		
 	    // Mostrar datos por consola
-	    
+	    */
 	    
 	   /* Rol rol = new Rol("Empleado");
 	    rolService.agregar(rol);
