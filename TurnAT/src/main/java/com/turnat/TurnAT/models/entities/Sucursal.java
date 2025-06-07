@@ -27,7 +27,6 @@ public class Sucursal {
 
 
     
-    
     public Sucursal(String nombre, String telefono, Direccion direccion) {
     	this.nombre = nombre;
     	this.telefono = telefono;
