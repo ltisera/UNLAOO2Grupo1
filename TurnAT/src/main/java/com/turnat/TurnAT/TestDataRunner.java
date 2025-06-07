@@ -167,7 +167,7 @@ public class TestDataRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 	    System.out.println("Ejecutando prueba rápida con datos hardcodeados...");
 	
-	    /*
+	    
 	    // Crear un cliente
 	    Direccion direccionCliente = new Direccion("Calle Falsa", "123", 456);
 	    Cliente cliente = new Cliente("Juan", "password", "Pérez", 12345678, "juan@example.com", direccionCliente, "123456789");
@@ -180,23 +180,21 @@ public class TestDataRunner implements CommandLineRunner {
 	
 	    // Crear un estado
 	    Estado estado = estadoService.agregarEstado("Confirmado");
-		*/
+		
 	    // Crear una fecha y hora
-	    //FechaYHora fechaYHora = new FechaYHora(LocalDate.now(), LocalTime.of(15, 00));
-	    //fechaYHoraService.agregar(fechaYHora);
-	    //fechaYHoraService.eliminar(23);
+	    FechaYHora fechaYHora = new FechaYHora(LocalDate.now(), LocalTime.of(15, 00));
+	    fechaYHoraService.agregar(fechaYHora);
+	    fechaYHoraService.eliminar(23);
 	    
-	    /*
 	    // Crear un turno
 	    Turno turno = new Turno(cliente, servicio, estado, fechaYHora);
 	    Turno turnoGuardado = turnoService.agregar(turno);
-		*/
-	    // Mostrar datos por consola
+		System.out.println(turnoGuardado.toString());
+	     
 	    
-	    
-	    Rol rol = new Rol("Empleado");
+	   /* Rol rol = new Rol("Empleado");
 	    rolService.agregar(rol);
-	    //Rol rol = rolService.traerPorId(1);
+	    //Rol rol = rolService.traerPorId(1); //rol cliente
 	   Empleado emp = empleadoService.traerPorId(3);
 	    
 	    Set<Rol> roles = new HashSet<>(); //se crea el set de rol
@@ -206,7 +204,7 @@ public class TestDataRunner implements CommandLineRunner {
 	   empleadoService.actualizar(emp);
 	    System.out.println(rol.toString());
 	    System.out.println(emp.getRoles());
-	   
+	   */
 	}
 
 		

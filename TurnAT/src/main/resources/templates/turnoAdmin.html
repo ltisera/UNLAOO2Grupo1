@@ -2,37 +2,35 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mis datos</title>
+    <title>Lista de Turnos</title>
     <link rel="stylesheet" href="../css/styles.css">
-
-
 </head>
+
 <body id="cuerpo">
     <nav>
         <a href="blancoAdmin.html">Hola</a>
         <button onclick="window.location.href='login.html'">Cerrar sesión</button>
     </nav>
-    <div id="contenedor">
-    <section>
-        <a href="servicioAdmin.html">Servicios</a>
-        <a href="sucursalAdmin.html">Sucursales</a>
-        <a href="empleadoAdmin.html">Empleados</a>
-        <a href="clienteAdmin.html">Clientes</a>
-        <a href="turnoAdmin.html">Turnos</a>
-    </section>
 
-    <div>
-        <h1>
-            Turnos
-        </h1>    
-        <div class="tarjeta">
-            <p>Turno 1</p>
+    <div id="contenedor">
+        <section>
+            <a href="servicioAdmin.html">Servicios</a>
+            <a href="sucursalAdmin.html">Sucursales</a>
+            <a href="empleadoAdmin.html">Empleados</a>
+            <a href="clienteAdmin.html">Clientes</a>
+            <a href="turnoAdmin.html">Turnos</a>
+        </section>
+
+        <h1>Turnos</h1>
+
+        <div th:each="turno : ${turnos}" class="tarjeta">
+            <p><strong>ID:</strong> <span th:text="${turno.idTurno}"></span></p>
+            <p><strong>Cliente:</strong> <span th:text="${turno.cliente.nombre}"></span></p>
+            <p><strong>Servicio:</strong> <span th:text="${turno.servicio.nombre}"></span></p>
+            <p><strong>Estado:</strong> <span th:text="${turno.estado.descripcion}"></span></p>
+            <p><strong>Fecha:</strong> <span th:text="${turno.fechaYHora.fecha}"></span></p>
+            <p><strong>Hora:</strong> <span th:text="${turno.fechaYHora.hora}"></span></p>
         </div>
-        <div class="tarjeta">
-            <p>Turno 2</p>
-        </div>
-        <div class="tarjeta">
-            <p>Turno 3</p>
-        </div>
-        
     </div>
+</body>
+</html>
