@@ -161,6 +161,7 @@ public class TestDataRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 	    System.out.println("Ejecutando prueba rápida con datos hardcodeados...");
 	
+	    /*
 	    // Crear un cliente
 	    Direccion direccionCliente = new Direccion("Calle Falsa", "123", 456);
 	    Cliente cliente = new Cliente("Juan", "password", "Pérez", 12345678, "juan@example.com", direccionCliente, "123456789");
@@ -173,17 +174,20 @@ public class TestDataRunner implements CommandLineRunner {
 	
 	    // Crear un estado
 	    Estado estado = estadoService.agregarEstado("Confirmado");
-	
+		*/
 	    // Crear una fecha y hora
-	    FechaYHora fechaYHora = new FechaYHora(LocalDate.now(), LocalTime.of(15, 00));
-	    fechaYHoraService.agregar(fechaYHora);
-	
+	    //FechaYHora fechaYHora = new FechaYHora(LocalDate.now(), LocalTime.of(15, 00));
+	    //fechaYHoraService.agregar(fechaYHora);
+	    //fechaYHoraService.eliminar(23);
+	    
+	    /*
 	    // Crear un turno
 	    Turno turno = new Turno(cliente, servicio, estado, fechaYHora);
 	    Turno turnoGuardado = turnoService.agregar(turno);
-	
+		*/
 	    // Mostrar datos por consola
-	    System.out.println("Turno creado: " + turnoGuardado.toString());
+	    clienteService.eliminar(1);
+	    System.out.println("Fecha y hora agregada");
 	}
 
 		

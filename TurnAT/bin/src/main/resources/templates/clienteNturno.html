@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo turno</title>
+    <link rel="stylesheet" href="../css/styles.css">
+
+
+</head>
+<body id="cuerpo">
+    <nav>
+        <a href="blanco.html">Hola</a>
+        <button onclick="window.location.href='login.html'">Cerrar sesión</button>
+    </nav>
+    <div id="contenedor">
+    <section>
+        <a href="clienteDatos.html">Mis Datos</a>
+        <a href="clienteTurnos.html">Mis Turnos</a>
+        <a href="clienteNturno.html">Nuevo turno</a>
+    </section>
+    <section>
+    
+    <div>
+    <div>
+        <h1>Nuevo Turno</h1>
+        
+        <div id="sector">
+            <div>
+                <label>Especialidad</label>
+                <select>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                </select>
+                <label>Sucursal</label>
+                <select>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                </select>
+            </div>
+            <div id="fechas">
+                <div> 
+                    <label for="mes">Mes:</label>
+                    <select id="mes"></select>
+
+                    <label for="anio">Año:</label>
+                    <select id="anio"></select>
+                </div>  
+
+                    <div id="calendario"></div>
+
+                    
+
+                        <script>
+                            const meses = [
+                            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+                            ];
+
+                            const mesSelect = document.getElementById("mes");
+                            const anioSelect = document.getElementById("anio");
+                            const calendarioDiv = document.getElementById("calendario");
+
+                            // Llenar opciones de mes
+                            meses.forEach((mes, i) => {
+                            let option = document.createElement("option");
+                            option.value = i;
+                            option.text = mes;
+                            mesSelect.appendChild(option);
+                            });
+
+                            // Llenar opciones de año
+                            const añoActual = new Date().getFullYear();
+                            for (let i = añoActual - 2; i <= añoActual + 10; i++) {
+                            let option = document.createElement("option");
+                            option.value = i;
+                            option.text = i;
+                            anioSelect.appendChild(option);
+                            }
+
+                            // Establecer mes y año actuales por defecto
+                            mesSelect.value = new Date().getMonth();
+                            anioSelect.value = añoActual;
+
+                            function generarCalendario(mes, anio) {
+                            const primerDia = new Date(anio, mes, 1).getDay();
+                            const diasEnMes = new Date(anio, mes + 1, 0).getDate();
+
+                            let tabla = "<table><thead><tr>";
+                            const diasSemana = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+                            diasSemana.forEach(d => tabla += `<th>${d}</th>`);
+                            tabla += "</tr></thead><tbody><tr>";
+
+                            // Celdas vacías antes del primer día
+                            for (let i = 0; i < primerDia; i++) {
+                                tabla += "<td></td>";
+                            }
+
+                            for (let dia = 1; dia <= diasEnMes; dia++) {
+                                tabla += `<td>${dia}</td>`;
+                                if ((dia + primerDia) % 7 === 0) {
+                                tabla += "</tr><tr>";
+                                }
+                            }
+
+                            tabla += "</tr></tbody></table>";
+                            calendarioDiv.innerHTML = tabla;
+                            }
+
+                            // Generar calendario al cambiar mes o año
+                            mesSelect.addEventListener("change", () => {
+                            generarCalendario(parseInt(mesSelect.value), parseInt(anioSelect.value));
+                            });
+
+                            anioSelect.addEventListener("change", () => {
+                            generarCalendario(parseInt(mesSelect.value), parseInt(anioSelect.value));
+                            });
+
+                            // Generar calendario inicial
+                            generarCalendario(new Date().getMonth(), añoActual);
+                        </script>
+                    </div>    
+                </div>
+            </div>
+            <label>Horarios</label>
+            <select>
+                <option value="Un horario">A</option>
+                <option value="Otro horario">B</option>
+            </select>
+
+        </section>
+    </div>
+</body>
+</html>

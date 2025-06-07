@@ -1,6 +1,7 @@
 package com.turnat.TurnAT.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,16 @@ public class EstadoController {
     @Autowired
     private EstadoService estadoService;
 
+    @GetMapping
     @PostMapping
-    public Estado crearEstado(@RequestBody Estado estado) {
-        return estadoService.agregarEstado(estado.getDescripcion());
+    public void crearEstado() {
+    	System.out.println("ENTRE A EL CONTROLADOR");
+        //return estadoService.agregarEstado(estado.getDescripcion());
     }
+    
+    //map
+    //Traigas turno de TODOS
+    
+    //map
+    //turno.TraerEstado()
 }

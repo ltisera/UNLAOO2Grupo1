@@ -4,4 +4,5 @@ import com.turnat.TurnAT.models.entities.FechaYHora;
 
 public interface IFechaYHoraService {
     FechaYHora agregar(FechaYHora f);
+    void eliminar(int id);
 }

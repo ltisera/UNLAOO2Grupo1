@@ -13,6 +13,9 @@ public class FechaYHoraServiceImp implements IFechaYHoraService {
     @Autowired
     private IFechaYHoraRepository fechaYHoraRepo;
 
+    public void eliminar(int id) {
+    	fechaYHoraRepo.deleteById(id);
+    }
     @Override
     public FechaYHora agregar(FechaYHora f) {
         return fechaYHoraRepo.save(f);

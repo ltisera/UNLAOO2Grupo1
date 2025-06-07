@@ -15,6 +15,10 @@ import lombok.Setter;
 public class Cliente extends Persona {
 	private String telefono;
 	
+	public Cliente() {
+		
+	}
+	
 	public Cliente(String nombre, String password, String apellido, int dni, String email, Direccion direccion, String telefono){
 		super(nombre, password, apellido, dni, email, direccion); // 👈 usamos el constructor de Persona
 		this.telefono = telefono;
