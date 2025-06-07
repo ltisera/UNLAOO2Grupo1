@@ -10,5 +10,6 @@ public interface IServicioService {
 	public List<Servicio> traerTodos();
 	public void eliminar(Servicio s);
 	public void eliminar(int idServicio);
+	public Servicio traerPorId(int idServicio);
 
 }

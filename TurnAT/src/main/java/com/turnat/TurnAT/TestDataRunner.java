@@ -12,12 +12,15 @@ import com.turnat.TurnAT.models.entities.Servicio;
 import com.turnat.TurnAT.models.entities.Sucursal;
 import com.turnat.TurnAT.models.entities.Direccion;
 import com.turnat.TurnAT.models.entities.Disponible;
+import com.turnat.TurnAT.models.entities.Empleado;
 import com.turnat.TurnAT.models.entities.Cliente;
 import com.turnat.TurnAT.repositories.IClienteRepository;
+import com.turnat.TurnAT.repositories.IEmpleadoRepository;
 import com.turnat.TurnAT.repositories.IEstadoRepository;
 import com.turnat.TurnAT.repositories.IServicioRepository;
 import com.turnat.TurnAT.repositories.ISucursalRepository;
 import com.turnat.TurnAT.services.interfaces.IClienteService;
+import com.turnat.TurnAT.services.interfaces.IEmpleadoService;
 import com.turnat.TurnAT.services.interfaces.IServicioService;
 import com.turnat.TurnAT.services.interfaces.ISucursalService;
 
@@ -52,8 +55,12 @@ public class TestDataRunner implements CommandLineRunner {
         
         // Aquí podrías llamar a repositorios para guardar estos datos si los configuraste.
     }*/
-	//TESTEO DE SEERVCIO Y ASIGNANDOLE UNA SUCURSAL
-	private final IServicioRepository repoS;
+	
+	
+	//------------------------------------------------
+	//| TESTEO DE SEERVCIO Y ASIGNANDOLE UNA SUCURSAL  |
+	//------------------------------------------------	
+	/*private final IServicioRepository repoS;
 	private final IServicioService servS;
 	private final ISucursalRepository repoSuc;
 	private final ISucursalService servSuc;
@@ -82,6 +89,38 @@ public class TestDataRunner implements CommandLineRunner {
         System.out.println("Servicio:" + srv.toString());
         
         servS.agregar(srv);
+        
+        // Aquí podrías llamar a repositorios para guardar estos datos si los configuraste.
+    }*/
+	
+	//------------------------------------------------
+		//| TESTEO DE EMPLEADO Y ASIGNANDOLE UN SERVICIO Y ESAS COSAS |
+		//------------------------------------------------	
+	private final IEmpleadoRepository repoE;
+	private final IEmpleadoService empS;
+	private final IServicioRepository repoS;
+	private final IServicioService servS;
+	
+	public TestDataRunner(IEmpleadoRepository repoE, IEmpleadoService empS,IServicioRepository repoS,IServicioService servS) {
+        this.repoE = repoE;
+        this.empS = empS;
+        this.repoS = repoS;
+        this.servS = servS;
+    }
+	
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println("Ejecutando prueba rápida con datos hardcodeados...");
+
+       Servicio srv = servS.traerPorId(1);
+        Direccion dir = new Direccion("Lanu", "Pavon" , 1000);
+        Empleado emp = new Empleado("Jorge","unapass","perezito",8888888,"jorgeperezito@gmail.com",dir, "405", srv);
+        
+        
+        // Mostrar datos por consola (o usar repositorios si ya los tenés)
+        System.out.println("Empleado:" + emp.toString());
+        
+        empS.agregar(emp);
         
         // Aquí podrías llamar a repositorios para guardar estos datos si los configuraste.
     }

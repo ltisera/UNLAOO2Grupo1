@@ -40,6 +40,9 @@ public class ServicioServiceImp implements IServicioService{
 		
 	}
 	
+	public Servicio traerPorId(int idServicio) {
+		return servicioRepo.findById(idServicio).orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+	}
 	
 	
 

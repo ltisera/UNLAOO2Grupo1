@@ -57,7 +57,7 @@ public class Servicio {
     )
     private Set<Sucursal> sucursales;//esta es la q va en sucursal
     //asi se relacionan cachai
-
+    public Servicio(){}
     public Servicio(String nombre, String descripcion, LocalTime duracion, Disponible disponibilidad) {
         this.nombre = nombre;
         this.descripcion = descripcion;

@@ -53,7 +53,7 @@ public class Disponible {
 
     @Column(name = "domingo", columnDefinition = "TINYINT")
     private boolean domingo;
-
+    public Disponible() {}
     public Disponible(LocalTime horaInicio, LocalTime horaFin,
                       boolean lunes, boolean martes, boolean miercoles,
                       boolean jueves, boolean viernes, boolean sabado, boolean domingo) {
