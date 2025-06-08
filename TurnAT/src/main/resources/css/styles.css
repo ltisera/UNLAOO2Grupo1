@@ -1,0 +1,74 @@
+ *{
+  margin: 0px;
+  background-color: rgb(224, 231, 240);
+ }
+ 
+ 
+ 
+ table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 400px;
+    }
+    th, td {
+      border: 1px solid #888;
+      text-align: center;
+      padding: 8px;
+    }
+    select {
+      margin: 10px;
+    }
+
+    #contenedor {
+        display: flex;      
+       
+    }
+    section{
+      padding-left: 50px;
+      padding-right: 100px;
+
+    }
+
+    section a{
+      display: block;
+      padding-top: 25px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      border-bottom: 2px solid rgb(0, 0, 76);
+    }
+
+    .tarjeta{
+      border: solid, cornflowerblue;
+      border-radius: 15px;
+      margin: 20px;
+      padding: 30px;
+    }
+    
+    #sector{
+      display: flex;
+    }
+
+    #fechas{
+      padding-left: 30px;
+    }
+
+    #inicio{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+
+    }
+    #inicio img{
+      width: 115px;
+      
+      
+    }
+    a{
+      text-decoration: none;
+    }
