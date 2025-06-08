@@ -1,5 +1,6 @@
 package com.turnat.TurnAT.models.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
@@ -13,6 +14,8 @@ import lombok.Setter;
 
 @Table(name = "cliente")
 public class Cliente extends Persona {
+	
+	@Column(name = "telefono")
 	private String telefono;
 	
 	public Cliente() {
@@ -28,6 +31,17 @@ public class Cliente extends Persona {
 	public String toString() {
 		return "Cliente [telefono=" + telefono + "]";
 	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	
+	
+	
 	
 	
 	

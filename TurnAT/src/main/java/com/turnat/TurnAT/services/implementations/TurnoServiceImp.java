@@ -36,4 +36,13 @@ public class TurnoServiceImp implements ITurnoService {
     public Turno traerPorId(int idTurno) {
         return turnoRepo.findById(idTurno).orElseThrow(() -> new RuntimeException("Turno no encontrado"));
     }
+    
+   public List<Turno> findByIdCliente(int idCliente){
+    	
+    	return turnoRepo.findByIdCliente(idCliente);
+    }
+
+	
+    
+    
 }

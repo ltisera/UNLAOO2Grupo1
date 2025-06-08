@@ -9,4 +9,6 @@ public interface ITurnoService {
     List<Turno> traerTodos();
     void eliminar(int idTurno);
     Turno traerPorId(int idTurno);
+    List<Turno> findByIdCliente(int idCliente);
+    
 }
