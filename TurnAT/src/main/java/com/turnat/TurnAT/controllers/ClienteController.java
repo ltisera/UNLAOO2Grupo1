@@ -46,6 +46,7 @@ public class ClienteController {
 	 }
 	 @Autowired
 	 private ITurnoService turnoService;
+	 
 	 @GetMapping("/clienteTurnos")
 	 public String misTurnos(Model model, Authentication authentication) {
 		 
@@ -57,9 +58,7 @@ public class ClienteController {
 	                                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
 	        
 	        List<Turno> turnos=turnoService.findByIdCliente(cliente.getIdPersona());
-	        //if(turnos.isEmpty()) {
-	        //	return "vacio";
-	       // }
+	        
 	        	
 	        model.addAttribute("turnosCliente", turnos);
 	        
