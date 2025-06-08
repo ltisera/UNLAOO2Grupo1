@@ -19,10 +19,14 @@ public class EmailServiceImp implements IEmailService {
         mensaje.setTo(para);
         mensaje.setSubject(asunto);
         mensaje.setText(cuerpo);
-        mensaje.setFrom(System.getenv("oo2grupo01@gmail.com")); 
+        mensaje.setFrom("oo2grupo01@gmail.com"); // Cambia esto a tu dirección de correo
 
-        mailSender.send(mensaje);
-        
-        System.out.println("Correo enviado correctamente!");
+        try {
+            mailSender.send(mensaje);
+            System.out.println("Correo enviado correctamente!");
+        } catch (Exception e) {
+            System.err.println("Error al enviar el correo: " + e.getMessage());
+        }
     }
+    
 }

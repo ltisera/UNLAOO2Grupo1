@@ -1,4 +1,4 @@
-package com.turnat.TurnAT.configurations.security;
+/*package com.turnat.TurnAT.configurations.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +14,11 @@ public class EmailConfiguration {
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
-        mailSender.setHost("smtp.gmail.com");
+        mailSender.setHost("smtp-relay.brevo.com");
         mailSender.setPort(587);
-        mailSender.setUsername(System.getenv("EMAIL_USER"));
-        mailSender.setPassword(System.getenv("EMAIL_PASS"));
+        mailSender.setUsername(System.getenv("EMAIL_USERNAME"));
+        mailSender.setPassword(System.getenv("EMAIL_PASSWORD"));
+
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.smtp.auth", true);
@@ -27,3 +28,4 @@ public class EmailConfiguration {
         return mailSender;
     }
 }
+*/
