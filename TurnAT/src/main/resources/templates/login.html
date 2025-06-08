@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Iniciar sesión</title>
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-    <div id="inicio">
-        <h1>Nuestro sistema</h1>
-        <img src="../img/images.png" alt="logo">
-        <label>Mail</label>
-        <input type="text">
-        <label>Contraseña</label>
-        <input type="text">
-        <button onclick="window.location.href='blanco.html'">Ingresar</button>
-    </div>
-</body>
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Iniciar sesión</title>
+	    <link rel="stylesheet" href="../css/styles.css">
+	</head>
+	<body>
+		<form th:action="@{/login}" method="post">
+			 <label>Email:</label>
+		     <input type="text" name="username" required><br>
+
+		     <label>Contraseña:</label>
+		     <input type="password" name="password" required><br>
+			 <button type="submit">Entrar</button>
+			 
+		</form>	
+		<div th:if="${param.error}">
+		       <p style="color:red;">Email o contraseña incorrectos</p>
+		   </div>
+		   <div th:if="${param.logout}">
+		       <p>Sesión cerrada correctamente</p>
+		   </div>
+	</body>
 </html>

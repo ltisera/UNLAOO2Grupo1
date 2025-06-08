@@ -2,6 +2,8 @@ package com.turnat.TurnAT.services.implementations;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.turnat.TurnAT.models.entities.Empleado;
@@ -39,4 +41,13 @@ public class EmpleadoServiceImp implements IEmpleadoService{
 	public Empleado actualizar(Empleado empleado) {
 		return repoEmpleado.save(empleado);
 	}
+	
+	 @Autowired
+	    private PasswordEncoder passwordEncoder;
+
+	    public void registrarEmpleado(Empleado empleado) {
+	        empleado.setPassword(passwordEncoder.encode(empleado.getPassword()));
+	        repoEmpleado.save(empleado);
+	    }
+	
 }

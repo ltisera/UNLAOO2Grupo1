@@ -25,7 +25,7 @@ public class Rol {
 	 @Column(name = "idRol")
 	private int idRol;
 	
-	private String nombre;
+	private String nombre; // DEBE SER "ADMIN", "CLIENTE", "EMPLEADO"
 	
 	   @ManyToMany(mappedBy = "roles")
 	    private Set<Persona> personas;//esta es la q va en sucursal, rol tiene una "lista" de personas

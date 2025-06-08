@@ -1,74 +1,57 @@
-/*package com.turnat.TurnAT.configurations.security;
+package com.turnat.TurnAT.configurations.security;
 
-import com.turnat.TurnAT.services.implementations.PersonaServiceImp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.turnat.TurnAT.services.implementations.CustomUserDetailsService;
+
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfiguration {
-
-    private final PersonaServiceImp userServiceImp;
-
-    public SecurityConfiguration(PersonaServiceImp userServiceImp) {
-        this.userServiceImp = userServiceImp;
+	@Autowired
+	private CustomUserDetailsService userDetailsService;
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+         	.userDetailsService(userDetailsService)
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/css/**", "/js/**", "/img/**", "/login", "/registro", "/").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/empleado/**").hasRole("EMPLEADO")
+                .requestMatchers("/cliente/**").hasRole("CLIENTE")
+                .anyRequest().authenticated()
+            )
+            .formLogin(login -> login
+                    .loginPage("/login")
+                    .permitAll()
+                    .successHandler((request, response, authentication) -> {
+                        // Redirección según el rol
+                        var roles = authentication.getAuthorities().stream()
+                                .map(Object::toString).toList();
+                        if (roles.contains("ROLE_ADMIN")) {
+                            response.sendRedirect("/blancoAdmin");
+                        } else if (roles.contains("ROLE_EMPLEADO")) {
+                            response.sendRedirect("/blancoEmp");
+                        } else {
+                            response.sendRedirect("/blancoCliente");
+                        }
+                    })
+                )
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+            );
+        return http.build();
     }
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        return http
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*",
-                            "/vendor/jquery/*", "/vendor/bootstrap/js/*", "/api/v1/**").permitAll();
-                    auth.requestMatchers("/auth/login", "/auth/loginProcess", "/auth/loginSuccess", "/auth/logout").permitAll();
-
-                    auth.anyRequest().authenticated();
-                })
-                .formLogin(login -> {
-                    login.loginPage("/auth/login");
-                    login.loginProcessingUrl("/auth/loginProcess");//POST
-                    login.usernameParameter("username");
-                    login.passwordParameter("password");
-                    login.defaultSuccessUrl("/auth/loginSuccess", true);
-                    login.permitAll();
-                })
-                .logout(logout -> {
-                    logout.logoutUrl("/auth/logout");//POST
-                    logout.logoutSuccessUrl("/auth/login");
-                    logout.permitAll();
-                })
-                .build();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(7);
     }
-
-    @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    @Bean
-    AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userServiceImp);
-        return provider;
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-}*/
+}

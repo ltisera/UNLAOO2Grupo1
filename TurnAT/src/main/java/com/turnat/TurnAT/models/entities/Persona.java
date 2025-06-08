@@ -48,7 +48,7 @@ public abstract class Persona {
     @JoinColumn(name = "Direccion_idDireccion") // nombre de la columna en la tabla 'persona'
 	protected Direccion direccion;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			    name = "Persona_has_Rol",
 			    joinColumns = @JoinColumn(name = "Persona_idPersona"),

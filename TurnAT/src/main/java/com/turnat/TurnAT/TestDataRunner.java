@@ -22,6 +22,7 @@ import com.turnat.TurnAT.repositories.IClienteRepository;
 import com.turnat.TurnAT.repositories.IEmpleadoRepository;
 import com.turnat.TurnAT.repositories.IEstadoRepository;
 import com.turnat.TurnAT.repositories.IFechaYHoraRepository;
+import com.turnat.TurnAT.repositories.IRolRepository;
 import com.turnat.TurnAT.repositories.IServicioRepository;
 import com.turnat.TurnAT.repositories.ISucursalRepository;
 import com.turnat.TurnAT.repositories.ITurnoRepository;
@@ -142,6 +143,10 @@ public class TestDataRunner implements CommandLineRunner {
 	//------------------------------------------------------
 
 	private final ITurnoRepository repoTurno;
+	private final IRolRepository repoRol;
+	private final IClienteRepository clienteRepo;
+	private final IEmpleadoRepository empleadoRepo;
+	
 	private final ITurnoService turnoService;
 	private final IClienteService clienteService;
 	private final IServicioService servicioService;
@@ -150,10 +155,13 @@ public class TestDataRunner implements CommandLineRunner {
 	private final IRolService rolService;
 	private final IEmpleadoService empleadoService;
 
-	public TestDataRunner(ITurnoRepository repoTurno, ITurnoService turnoService, 
+	public TestDataRunner(ITurnoRepository repoTurno,IClienteRepository clienteRepo, IEmpleadoRepository empleadoRepo ,IRolRepository repoRol, ITurnoService turnoService, 
 	                      IClienteService clienteService, IServicioService servicioService,
 	                      IEstadoService estadoService, IFechaYHoraService fechaYHoraService,IRolService rolService, IEmpleadoService empleadoService ) {
 	    this.repoTurno = repoTurno;
+	    this.repoRol = repoRol;
+	    this.clienteRepo = clienteRepo;
+	    this.empleadoRepo = empleadoRepo;
 	    this.turnoService = turnoService;
 	    this.clienteService = clienteService;
 	    this.servicioService = servicioService;
@@ -167,6 +175,44 @@ public class TestDataRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 	    System.out.println("Ejecutando prueba rápida con datos hardcodeados...");
 	
+	    //TODOS TIENEN Q TENER ESTOS TRES ROLES ASI EN LA BD
+	    
+	   // Rol rolAdmin = new Rol("ADMIN");
+	   // rolService.agregar(rolAdmin);
+	   // Rol rolEmp = new Rol("EMPLEADO");
+	   // rolService.agregar(rolEmp);
+	   // Rol rolCliente = new Rol("CLIENTE");
+	   // rolService.agregar(rolCliente); 
+	 
+	    // Crear un cliente con rol cliente
+	  /*  Direccion direccionCliente = new Direccion("Lome ", "calle", 34);
+	    Cliente cliente = new Cliente("pablo", "password", "lopez", 87654321, "pablo@example.com", direccionCliente, "+54 11 2222 2222");
+	    clienteService.agregar(cliente);
+	    Rol rol = repoRol.findByNombre("CLIENTE").orElseThrow(() -> new RuntimeException("Rol no encontrado")); 
+		   
+		Set<Rol> roles = new HashSet<>(); //se crea el set de rol
+		roles.add(rol); //le meto el rol creado o levantado
+		cliente.setRoles(roles);//se lo meto al cliente
+		  
+		  clienteService.actualizar(cliente);
+	   */
+
+	   //CREAR UN EMPLEADO CON ROL EMPLEADO
+	    /*
+	    Disponible disponible = new Disponible(LocalTime.of(00, 00), LocalTime.of(8, 00), true, false, true, true, true, true, false);
+	    Servicio servicio = new Servicio("Corte de pelo", "corte nocturno ", LocalTime.of(0, 30), disponible);
+	    servicioService.agregar(servicio);
+	    Direccion direccionEmpleado = new Direccion("Lanu ", "lleca", 4333);
+	    Empleado empleado = new Empleado("marcelo", "password", "cierra", 22222222, "marcelo@example.com", direccionEmpleado, "+54 11 4444 4444", servicio);
+	    empleadoService.agregar(empleado);
+	    Rol rol = repoRol.findByNombre("EMPLEADO").orElseThrow(() -> new RuntimeException("Rol no encontrado")); 
+		   
+		Set<Rol> roles = new HashSet<>(); //se crea el set de rol
+		roles.add(rol); //le meto el rol creado o levantado
+		empleado.setRoles(roles);//se lo meto al cliente
+		  
+		  empleadoService.actualizar(empleado);
+	    */
 	    
 	  /*  // Crear un cliente
 	    Direccion direccionCliente = new Direccion("Lome ", "calle", 34);
@@ -196,7 +242,7 @@ public class TestDataRunner implements CommandLineRunner {
 	    
 	   /* Rol rol = new Rol("Empleado");
 	    rolService.agregar(rol);
-	    //Rol rol = rolService.traerPorId(1); //rol cliente
+	    //Rol rol = rolService.traerPorId(1); 
 	   Empleado emp = empleadoService.traerPorId(3);
 	    
 	    Set<Rol> roles = new HashSet<>(); //se crea el set de rol

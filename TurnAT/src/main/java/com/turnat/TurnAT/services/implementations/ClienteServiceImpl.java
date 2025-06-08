@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.turnat.TurnAT.models.entities.Cliente;
@@ -50,5 +52,14 @@ public class ClienteServiceImpl implements IClienteService{
     public Cliente actualizar(Cliente cliente) {
         return clienteRepo.save(cliente); 
     }
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public void registrarEmpleado(Cliente cliente) {
+        cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
+        clienteRepo.save(cliente);
+    }
+    
 	
 }
