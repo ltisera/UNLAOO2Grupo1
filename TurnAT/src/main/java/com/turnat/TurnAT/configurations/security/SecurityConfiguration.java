@@ -35,11 +35,11 @@ public class SecurityConfiguration {
                         var roles = authentication.getAuthorities().stream()
                                 .map(Object::toString).toList();
                         if (roles.contains("ROLE_ADMIN")) {
-                            response.sendRedirect("/blancoAdmin");
+                            response.sendRedirect("/admin/blancoAdmin");
                         } else if (roles.contains("ROLE_EMPLEADO")) {
-                            response.sendRedirect("/blancoEmp");
+                            response.sendRedirect("/empleado/blancoEmp");
                         } else {
-                            response.sendRedirect("/blancoCliente");
+                            response.sendRedirect("/cliente/indexCliente");
                         }
                     })
                 )

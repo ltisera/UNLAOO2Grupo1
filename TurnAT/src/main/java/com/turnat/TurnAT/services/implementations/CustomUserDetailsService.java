@@ -26,12 +26,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
 
-        Optional<? extends Persona> personaOpt = clienteRepository.findByEmail(mail)
-            .map(cliente -> (Persona) cliente);
+        Optional<? extends Persona> personaOpt = clienteRepository.findByEmail(mail).map(cliente -> (Persona) cliente);
 
         if (personaOpt.isEmpty()) {
-            personaOpt = empleadoRepository.findByEmail(mail)
-                .map(empleado -> (Persona) empleado);
+            personaOpt = empleadoRepository.findByEmail(mail).map(empleado -> (Persona) empleado);//si no lo encuentra como cliente lo busca como empleado
         }
 
         Persona persona = personaOpt.orElseThrow(() ->
