@@ -21,6 +21,7 @@ import com.turnat.TurnAT.models.entities.Turno;
 import com.turnat.TurnAT.repositories.IClienteRepository;
 import com.turnat.TurnAT.repositories.IRolRepository;
 import com.turnat.TurnAT.services.interfaces.IClienteService;
+import com.turnat.TurnAT.services.interfaces.IEmailService;
 import com.turnat.TurnAT.services.interfaces.ITurnoService;
 
 @Controller
@@ -35,6 +36,10 @@ public class ClienteController {
 	    private IRolRepository rolRepository;
 	 @Autowired
 	    private PasswordEncoder passwordEncoder;
+	 @Autowired
+	    private IEmailService emailService;
+	 
+	 
 	 @GetMapping("/registro-cliente")
 	 public String mostrarFormulario (Model model) {
 		 model.addAttribute("cliente", new Cliente());
@@ -43,19 +48,25 @@ public class ClienteController {
 	 
 	 @PostMapping("/registro-cliente")
 	 public String registroCliente(@ModelAttribute("cliente") Cliente cliente, Model model){
+		//validacion de q no exista alguien con ese mail
 		 Optional<Cliente> existente = clienteRepository.findByEmail(cliente.getEmail());
 	        if (existente.isPresent()) {
 	            model.addAttribute("error", "Ya existe agluien registrado con este email.");
 	            return "registroCliente";
 	        }
+	        
 	        cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
-
 	        // Asignar rol cliente
 	        Rol rol = rolRepository.findByNombre("CLIENTE").orElseThrow(() -> new RuntimeException("Rol no encontrado")); 
 			Set<Rol> roles = new HashSet<>(); //se crea el set de rol
 			roles.add(rol); 
 	        cliente.setRoles(roles); 
+	        
 	        clienteService.agregar(cliente);
+	        //envio de mail de registro
+	        String asunto = "¡Te regitraste en TurnAT!";
+	        String cuerpo = "Hola " + cliente.getNombre() + ",\n\nGracias por registrarte en TurnAT.\n\nSaludos,\nEl equipo de TurnAT";
+	        emailService.enviarCorreo(cliente.getEmail(), asunto, cuerpo);
 	        return "redirect:/login";
 		 
 	 }
