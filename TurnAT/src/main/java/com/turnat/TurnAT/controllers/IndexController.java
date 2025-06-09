@@ -8,6 +8,6 @@ public class IndexController {
 
     @GetMapping("/")
     public String home() {
-        return "index"; // busca el archivo inicio.html dentro de templates/
+        return "index"; // busca el archivo index.html dentro de templates/
     }
 }

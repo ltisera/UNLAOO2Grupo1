@@ -70,9 +70,9 @@ public class EmailSenderRunner implements CommandLineRunner {
        */
 
         // Enviar correo de bienvenida
-        String asunto = "¡Bienvenido a TurnAT!";
-        String cuerpo = "Hola Santiago, este es un correo de prueba enviado desde el sistema de turnos. ¡Todo está funcionando correctamente!";
-        emailService.enviarCorreo("santiagogonzaloserrano@gmail.com", asunto, cuerpo);
+        //String asunto = "¡Bienvenido a TurnAT!";
+        //String cuerpo = "Hola Santiago, este es un correo de prueba enviado desde el sistema de turnos. ¡Todo está funcionando correctamente!";
+       // emailService.enviarCorreo("santiagogonzaloserrano@gmail.com", asunto, cuerpo);
 
     }
 }

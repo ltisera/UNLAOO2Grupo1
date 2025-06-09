@@ -26,6 +26,11 @@ public class Cliente extends Persona {
 		super(nombre, password, apellido, dni, email, direccion); // 👈 usamos el constructor de Persona
 		this.telefono = telefono;
 	}
+	public Cliente(String nombre, String password, String apellido, int dni, String email, String telefono) {
+		super(nombre, password, apellido, dni, email); // 👈 usamos el constructor de Persona
+		this.telefono = telefono;
+		
+	}
 	
 	@Override
 	public String toString() {

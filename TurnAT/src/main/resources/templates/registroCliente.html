@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro Cliente</title>
+</head>
+<body>
+    <h2>Registro de Cliente</h2>
+    
+    <form th:action="@{/cliente/registro-cliente}" th:object="${cliente}" method="post">
+        <p th:if="${error}" style="color: red;" th:text="${error}"></p> <!-- en el controller le pasas al model un atributo que es "error" y el mensaje --> 
+        
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required><br>
+        
+        <label>Apellido:</label>
+        <input type="text" th:field="*{apellido}" required><br>
+		
+		<label>DNI:</label>
+		<input type="text" th:field="*{dni}" required><br>
+        
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" required><br>
+        
+        <label>Contraseña:</label>
+        <input type="password" th:field="*{password}" required><br>
+        
+        <label>Teléfono:</label>
+        <input type="text" th:field="*{telefono}"><br>
+
+        <button type="submit">Registrarse</button>
+    </form>
+</body>
+</html>

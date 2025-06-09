@@ -59,6 +59,15 @@ public abstract class Persona {
 	public Persona() {
 		
 	}
+	public Persona(String nombre, String password, String apellido, int dni, String email) {
+		super();
+		this.nombre = nombre;
+		this.password = password;
+		this.apellido = apellido;
+		this.dni = dni;
+		this.email = email;
+		
+	}
 	public Persona(String nombre, String password, String apellido, int dni, String email, Direccion direccion) {
 		super();
 		this.nombre = nombre;

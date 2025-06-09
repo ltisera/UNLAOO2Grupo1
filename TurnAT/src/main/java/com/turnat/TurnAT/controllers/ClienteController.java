@@ -1,18 +1,26 @@
 package com.turnat.TurnAT.controllers;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.turnat.TurnAT.models.entities.Cliente;
+import com.turnat.TurnAT.models.entities.Rol;
 import com.turnat.TurnAT.models.entities.Turno;
 import com.turnat.TurnAT.repositories.IClienteRepository;
+import com.turnat.TurnAT.repositories.IRolRepository;
+import com.turnat.TurnAT.services.interfaces.IClienteService;
 import com.turnat.TurnAT.services.interfaces.ITurnoService;
 
 @Controller
@@ -21,7 +29,39 @@ public class ClienteController {
 	
 	 @Autowired
 	    private IClienteRepository clienteRepository;
-	
+	 @Autowired
+	    private IClienteService clienteService;
+	 @Autowired
+	    private IRolRepository rolRepository;
+	 @Autowired
+	    private PasswordEncoder passwordEncoder;
+	 @GetMapping("/registro-cliente")
+	 public String mostrarFormulario (Model model) {
+		 model.addAttribute("cliente", new Cliente());
+	        return "registroCliente";
+	  }
+	 
+	 @PostMapping("/registro-cliente")
+	 public String registroCliente(@ModelAttribute("cliente") Cliente cliente, Model model){
+		 Optional<Cliente> existente = clienteRepository.findByEmail(cliente.getEmail());
+	        if (existente.isPresent()) {
+	            model.addAttribute("error", "Ya existe agluien registrado con este email.");
+	            return "registroCliente";
+	        }
+	        cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
+
+	        // Asignar rol cliente
+	        Rol rol = rolRepository.findByNombre("CLIENTE").orElseThrow(() -> new RuntimeException("Rol no encontrado")); 
+			Set<Rol> roles = new HashSet<>(); //se crea el set de rol
+			roles.add(rol); 
+	        cliente.setRoles(roles); 
+	        clienteService.agregar(cliente);
+	        return "redirect:/login";
+		 
+	 }
+	 
+	 
+	 
 	
 	 @GetMapping("/indexCliente")
 	 @PostMapping("/indexCliente")   

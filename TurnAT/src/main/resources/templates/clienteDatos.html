@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>Mis datos</title>
     <link rel="stylesheet" href="../css/styles.css">
-
-
 </head>
 <body id="cuerpo">
     <nav>
@@ -13,20 +11,35 @@
         <button onclick="window.location.href='login.html'">Cerrar sesión</button>
     </nav>
     <div id="contenedor">
-    <section>
-        <a href="clienteDatos">Mis Datos</a>
-        <a href="clienteTurnos">Mis Turnos</a>
-        <a href="clienteNturno.html">Nuevo turno</a>
-    </section>
+        <section>
+            <a href="clienteDatos">Mis Datos</a>
+            <a href="clienteTurnos">Mis Turnos</a>
+            <a href="clienteNturno.html">Nuevo turno</a>
+        </section>
 
-    <div>
-        <h1>Datos</h1>
-		<div class="tarjeta">
-		    <p><strong>ID:</strong> <span th:text="${cliente.idPersona}"></span></p>
-		    <p><strong>Nombre:</strong> <span th:text="${cliente.nombre}"></span></p>
-		    <p><strong>Apellido:</strong> <span th:text="${cliente.apellido}"></span></p>
-		    <p><strong>Mail:</strong> <span th:text="${cliente.email}"></span></p>
-		    <p><strong>Teléfono:</strong> <span th:text="${cliente.telefono}"></span></p>
-		    <p><strong>Localidad:</strong> <span th:text="${cliente.direccion.localidad}"></span></p>
-		</div>
+        <div>
+            <h1>Datos</h1>
+            <div class="tarjeta">
+                <p><strong>ID:</strong> <span th:text="${cliente.idPersona}"></span></p>
+                <p><strong>Nombre:</strong> <span th:text="${cliente.nombre}"></span></p>
+                <p><strong>Apellido:</strong> <span th:text="${cliente.apellido}"></span></p>
+                <p><strong>Mail:</strong> <span th:text="${cliente.email}"></span></p>
+                <p><strong>Teléfono:</strong> <span th:text="${cliente.telefono}"></span></p>
+
+                <!-- Si tiene dirección -->
+                <div th:if="${cliente.direccion != null}">
+                    <p><strong>Localidad:</strong> <span th:text="${cliente.direccion.localidad}"></span></p>
+                </div>
+
+                <!-- Si NO tiene dirección -->
+                <div th:if="${cliente.direccion == null}">
+                    <p><strong>Dirección:</strong> No agregada</p>
+                    <form th:action="@{/cliente/agregarDireccion}" method="get">
+                        <button type="submit">Agregar domicilio</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</body>
+</html>
