@@ -77,9 +77,18 @@ body {
 aside {
   background-color: var(--pastel-purple-light);
   min-height: 100vh;
-  width: 200px;
+  width: 149px;
  padding: 30px 15px;
   color:var(--pastel-yellow);
+}
+aside a {
+  display: block;
+  margin-bottom: 30px;
+  text-align: center;
+  color:var(--pastel-yellow);
+  font-weight: bold;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 
