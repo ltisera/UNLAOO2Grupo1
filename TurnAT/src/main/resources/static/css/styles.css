@@ -41,7 +41,7 @@ body {
     background-color: var(--pastel-purple-light);
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    color: white;
+    color:var(--pastel-yellow);
     padding: 40px 30px;
     width: 100%;
     max-width: 400px;
@@ -189,7 +189,7 @@ main {
     }
 	
     .tarjeta{
-      border: solid, cornflowerblue;
+      border-color:var(--pastel-purple-dark);
       border-radius: 15px;
       margin: 20px;
       padding: 30px;
