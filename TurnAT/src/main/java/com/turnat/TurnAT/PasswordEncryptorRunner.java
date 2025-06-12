@@ -32,5 +32,4 @@ public class PasswordEncryptorRunner implements CommandLineRunner {
         }
     }
 }
-
 */

@@ -1,15 +1,20 @@
 package com.turnat.TurnAT.controllers;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.turnat.TurnAT.models.entities.Empleado;
+import com.turnat.TurnAT.models.entities.Rol;
 import com.turnat.TurnAT.models.entities.Servicio;
+import com.turnat.TurnAT.repositories.IRolRepository;
 import com.turnat.TurnAT.services.interfaces.IEmpleadoService;
 import com.turnat.TurnAT.services.interfaces.IServicioService;
 
@@ -22,6 +27,12 @@ public class AdminEmpleadoController {
 
     @Autowired
     private IServicioService servicioService;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder; // Inyectar PasswordEncoder
+    
+    @Autowired
+    private IRolRepository rolRepository; // Inyectar RolRepository
 
     // Mostrar listado de empleados
     @GetMapping("/listado")
@@ -44,6 +55,13 @@ public class AdminEmpleadoController {
     @PostMapping("/registro")
     public String registrarEmpleado(@ModelAttribute Empleado empleado,
                                    @RequestParam("servicioId") Optional<Integer> servicioId) {
+        // Encriptar la contraseña
+        empleado.setPassword(passwordEncoder.encode(empleado.getPassword()));
+        // Asignar rol empleado
+        Rol rol = rolRepository.findByNombre("EMPLEADO").orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+        Set<Rol> roles = new HashSet<>();
+        roles.add(rol);
+        empleado.setRoles(roles);
         // Asociar servicio si fue seleccionado
         if (servicioId.isPresent()) {
             Servicio servicio = servicioService.traerPorId(servicioId.get());
