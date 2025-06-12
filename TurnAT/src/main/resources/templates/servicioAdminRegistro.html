@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Registrar Servicio</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+    <h1>Registrar Nuevo Servicio</h1>
+    <form th:action="@{/admin/servicio/registro}" th:object="${servicio}" method="post">
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required /><br/>
+
+        <label>Descripción:</label>
+        <input type="text" th:field="*{descripcion}" required/><br/>
+
+        <label>Duración (HH:mm:ss):</label>
+        <input type="time" step="1" th:field="*{duracion}" required/><br/>
+
+        <button type="submit">Guardar</button>
+    </form>
+
+    <a th:href="@{/admin/servicio/listado}">Volver al listado</a>
+</body>
+</html>

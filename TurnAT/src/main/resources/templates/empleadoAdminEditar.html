@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Editar Empleado</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+    <h1>Editar Empleado</h1>
+    <form th:action="@{|/admin/empleado/editar/${empleado.idPersona}|}" th:object="${empleado}" method="post">
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required /><br/>
+
+        <label>Apellido:</label>
+        <input type="text" th:field="*{apellido}" required/><br/>
+
+        <label>DNI:</label>
+        <input type="number" th:field="*{dni}" required/><br/>
+
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" required/><br/>
+
+        <label>Contraseña:</label>
+        <input type="password" th:field="*{password}" /><br/>
+
+        <label>Legajo:</label>
+        <input type="text" th:field="*{legajo}" /><br/>
+
+        <label>Servicio:</label>
+        <select name="servicioId">
+            <option value="" th:selected="${empleado.servicio == null}">-- Seleccionar Servicio --</option>
+            <option th:each="servicio : ${servicios}" 
+                    th:value="${servicio.idServicio}" 
+                    th:text="${servicio.nombre}" 
+                    th:selected="${empleado.servicio != null and servicio.idServicio == empleado.servicio.idServicio}">Servicio</option>
+        </select><br/>
+
+        <button type="submit">Actualizar</button>
+    </form>
+
+    <a th:href="@{/admin/empleado/listado}">Volver al Listado</a>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Listado de Servicios</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+    <h1>Listado de Servicios</h1>
+    <a th:href="@{/admin/servicio/registro}">Agregar Nuevo Servicio</a>
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th><th>Nombre</th><th>Descripción</th><th>Duración</th><th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="servicio : ${servicios}">
+                <td th:text="${servicio.idServicio}">1</td>
+                <td th:text="${servicio.nombre}">Nombre</td>
+                <td th:text="${servicio.descripcion}">Descripción</td>
+                <td th:text="${servicio.duracion}">Duración</td>
+                <td>
+                    <a th:href="@{|/admin/servicio/editar/${servicio.idServicio}|}">Editar</a> | 
+                    <a th:href="@{|/admin/servicio/eliminar/${servicio.idServicio}|}" onclick="return confirm('¿Seguro que quieres eliminar?');">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
