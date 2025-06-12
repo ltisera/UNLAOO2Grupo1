@@ -1,34 +1,30 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Registro Cliente</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
-<body>
-    <h2>Registro de Cliente</h2>
-    
-    <form th:action="@{/cliente/registro-cliente}" th:object="${cliente}" method="post">
-        <p th:if="${error}" style="color: red;" th:text="${error}"></p> <!-- en el controller le pasas al model un atributo que es "error" y el mensaje --> 
-        
-        <label>Nombre:</label>
-        <input type="text" th:field="*{nombre}" required><br>
-        
-        <label>Apellido:</label>
-        <input type="text" th:field="*{apellido}" required><br>
-		
-		<label>DNI:</label>
-		<input type="text" th:field="*{dni}" required><br>
-        
-        <label>Email:</label>
-        <input type="email" th:field="*{email}" required><br>
-        
-        <label>Contraseña:</label>
-        <input type="password" th:field="*{password}" required><br>
-        
-        <label>Teléfono:</label>
-        <input type="text" th:field="*{telefono}"><br>
+<body class="center-screen">
+    <form th:action="@{/cliente/registro-cliente}" th:object="${cliente}" method="post" class="login-card">
+        <h3 class="text-c">Registro de Cliente</h3>
 
-        <button type="submit">Registrarse</button>
+        <input type="text" class="form-control" th:field="*{nombre}" placeholder="Nombre" required>
+
+        <input type="text" class="form-control" th:field="*{apellido}" placeholder="Apellido" required>
+
+        <input type="text" class="form-control" th:field="*{dni}" placeholder="DNI" required>
+
+        <input type="email" class="form-control" th:field="*{email}" placeholder="Email" required>
+
+        <input type="password" class="form-control" th:field="*{password}" placeholder="Contraseña" required>
+
+        <input type="text" class="form-control" th:field="*{telefono}" placeholder="Teléfono">
+
+        <div th:if="${error}" class="error-message" th:text="${error}"></div>
+
+        <button type="submit" class="btn btn-primary">Registrarse</button>
     </form>
 </body>
 </html>
