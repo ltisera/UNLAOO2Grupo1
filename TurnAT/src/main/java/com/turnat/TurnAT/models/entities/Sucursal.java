@@ -17,7 +17,7 @@ public class Sucursal {
     @Column(name = "idSucursal")
     private int idSucursal;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "Direccion_idDireccion") // nombre de la columna en la tabla 'sucursal'
     private Direccion direccion;
 

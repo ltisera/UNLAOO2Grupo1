@@ -2,6 +2,7 @@ package com.turnat.TurnAT.controllers.rest;
 
 import com.turnat.TurnAT.models.entities.Sucursal;
 import com.turnat.TurnAT.services.interfaces.ISucursalService;
+import com.turnat.TurnAT.dto.SucursalDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +17,8 @@ public class SucursalRestController {
     private ISucursalService sucursalService;
 
     @GetMapping
-    public List<Sucursal> obtenerTodas() {
+    public List<SucursalDTO> obtenerTodas() {
     	System.out.println("Estoy resteando");
-        return sucursalService.traerTodos();
+        return sucursalService.traerTodos().stream().map(SucursalDTO::new).toList();
     }
 }
