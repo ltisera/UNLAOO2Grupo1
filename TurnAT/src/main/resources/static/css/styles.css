@@ -1,0 +1,150 @@
+
+	 :root {
+	     --pastel-yellow: #FFF6D1;
+	     --pastel-purple-light: #A675FF;
+	     --pastel-purple-medium: #7744C8;
+	     --pastel-purple-dark: #5B32A0;
+	 }
+	
+	 body {
+	     background-color: var(--pastel-yellow);
+	 }
+	
+	 .login-card {
+	   background-color: var(--pastel-purple-light);
+	   border-radius: 20px;
+	   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	   color: white;
+	   padding: 40px 30px;
+	   width: 100%;
+	   max-width: 300px; 
+	   min-height: 280px; 
+	   display: flex;
+	   flex-direction: column;
+	   justify-content: space-between;
+	 }
+	 
+	 .login-card .form-group {
+		  background-color: white;
+		  border-radius: 10px;
+		  border: 1px solid #ccc;
+		  height: 50px;         
+		  width: 100%;          
+		  font-size: 1rem;      
+		  padding: 10px 15px;   
+		  box-sizing: border-box;
+	   
+	 }
+	 .login-card .btn-container {
+	   display: flex;
+	   justify-content: center;
+	 }
+	 .btn-primary {
+	   background-color: var(--pastel-yellow);
+	   border: none;
+	   color: #5B32A0;
+	   font-weight: bold;
+	   padding: 8px 20px;
+	   border-radius: 8px;
+	 }
+	
+	 .btn-primary:hover {
+	   background-color: #ffe89b;
+	   color: #4a267c;
+	 }
+	
+	 .form-label {
+	     font-weight: 600;
+	     color: white;
+	 }
+	
+	 .text-danger,
+	 .text-success {
+	     font-weight: bold;
+	 }
+	
+	 
+	 table {
+	      border-collapse: collapse;
+	      width: 100%;
+	      max-width: 400px;
+   		}
+    th, td {
+      border: 1px solid #888;
+      text-align: center;
+      padding: 8px;
+    }
+    select {
+      margin: 10px;
+    }
+
+    #contenedor {
+        display: flex;      
+       
+    }
+    section{
+      padding-left: 50px;
+      padding-right: 100px;
+
+    }
+
+    section a{
+      display: block;
+      padding-top: 25px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      border-bottom: 2px solid rgb(0, 0, 76);
+    }
+
+    .tarjeta{
+      border: solid, cornflowerblue;
+      border-radius: 15px;
+      margin: 20px;
+      padding: 30px;
+    }
+    
+    #sector{
+      display: flex;
+    }
+
+    #fechas{
+      padding-left: 30px;
+    }
+
+    #inicio{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+
+    }
+    #inicio img{
+      width: 115px;
+      
+      
+    }
+    a{
+      text-decoration: none;
+    }
+	
+	
+	.center-screen {
+	  min-height: 100vh;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
+	
+	input.form-control {
+	  background-color: white;
+	  border-radius: 10px;
+	  border: 1px solid #ccc;
+	}
+	
+	
+	
