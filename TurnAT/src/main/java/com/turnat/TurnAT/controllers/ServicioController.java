@@ -1,5 +1,6 @@
 package com.turnat.TurnAT.controllers;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,16 +41,6 @@ public class ServicioController {
         return "servicioAdminRegistro";
     }
 
-    // Procesar registro de servicio
-    @PostMapping("/registro")
-    public String registrarServicio(@ModelAttribute Servicio servicio, @RequestParam("disponibleId") Optional<Integer> disponibleId) {
-        if (disponibleId.isPresent()) {
-            Disponible disponible = disponibleService.traerPorId(disponibleId.get());
-            servicio.setDisponibilidad(disponible); // Asignar el disponible al servicio
-        }
-        servicioService.agregar(servicio);
-        return "redirect:/admin/servicio/listado";
-    }
 
     // Mostrar formulario para editar servicio
     @GetMapping("/editar/{id}")
@@ -80,4 +71,39 @@ public class ServicioController {
         servicioService.eliminar(id);
         return "redirect:/admin/servicio/listado";
     }
+    
+    @PostMapping("/registro")
+    public String registrarServicio(@ModelAttribute Servicio servicio, 
+                                    @RequestParam("disponibilidad.horaInicio") LocalTime horaInicio,
+                                    @RequestParam("disponibilidad.horaFin") LocalTime horaFin,
+                                    @RequestParam(value = "disponibilidad.lunes", defaultValue = "false") boolean lunes,
+                                    @RequestParam(value = "disponibilidad.martes", defaultValue = "false") boolean martes,
+                                    @RequestParam(value = "disponibilidad.miercoles", defaultValue = "false") boolean miercoles,
+                                    @RequestParam(value = "disponibilidad.jueves", defaultValue = "false") boolean jueves,
+                                    @RequestParam(value = "disponibilidad.viernes", defaultValue = "false") boolean viernes,
+                                    @RequestParam(value = "disponibilidad.sabado", defaultValue = "false") boolean sabado,
+                                    @RequestParam(value = "disponibilidad.domingo", defaultValue = "false") boolean domingo) {
+        
+        // Crear un nuevo objeto Disponible
+        Disponible disponible = new Disponible();
+        disponible.setHoraInicio(horaInicio);
+        disponible.setHoraFin(horaFin);
+        disponible.setLunes(lunes);
+        disponible.setMartes(martes);
+        disponible.setMiercoles(miercoles);
+        disponible.setJueves(jueves);
+        disponible.setViernes(viernes);
+        disponible.setSabado(sabado);
+        disponible.setDomingo(domingo);
+
+        // Asignar la disponibilidad al servicio
+        servicio.setDisponibilidad(disponible);
+
+        // Guardar el servicio
+        servicioService.agregar(servicio);
+        return "redirect:/admin/servicio/listado";
+    }
+
+
+
 }
