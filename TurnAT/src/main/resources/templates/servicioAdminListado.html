@@ -11,7 +11,12 @@
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
             <tr>
-                <th>ID</th><th>Nombre</th><th>Descripción</th><th>Duración</th><th>Acciones</th>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Duración</th>
+                <th>Disponibilidad</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +25,17 @@
                 <td th:text="${servicio.nombre}">Nombre</td>
                 <td th:text="${servicio.descripcion}">Descripción</td>
                 <td th:text="${servicio.duracion}">Duración</td>
+                <td>
+                    <span th:text="${servicio.disponibilidad.horaInicio}">Hora Inicio</span> - 
+                    <span th:text="${servicio.disponibilidad.horaFin}">Hora Fin</span><br/>
+                    <span th:text="${servicio.disponibilidad.lunes} ? 'Lunes' : ''"></span>
+                    <span th:text="${servicio.disponibilidad.martes} ? 'Martes' : ''"></span>
+                    <span th:text="${servicio.disponibilidad.miercoles} ? 'Miércoles' : ''"></span>
+                    <span th:text="${servicio.disponibilidad.jueves} ? 'Jueves' : ''"></span>
+                    <span th:text="${servicio.disponibilidad.viernes} ? 'Viernes' : ''"></span>
+                    <span th:text="${servicio.disponibilidad.sabado} ? 'Sábado' : ''"></span>
+                    <span th:text="${servicio.disponibilidad.domingo} ? 'Domingo' : ''"></span>
+                </td>
                 <td>
                     <a th:href="@{|/admin/servicio/editar/${servicio.idServicio}|}">Editar</a> | 
                     <a th:href="@{|/admin/servicio/eliminar/${servicio.idServicio}|}" onclick="return confirm('¿Seguro que quieres eliminar?');">Eliminar</a>

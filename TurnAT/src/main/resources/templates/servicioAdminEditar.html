@@ -17,6 +17,28 @@
         <label>Duración (HH:mm:ss):</label>
         <input type="time" step="1" th:field="*{duracion}" required/><br/>
 
+        <h3>Disponibilidad</h3>
+        <label>Hora de Inicio:</label>
+        <input type="time" th:field="*{disponibilidad.horaInicio}" required/><br/>
+
+        <label>Hora de Fin:</label>
+        <input type="time" th:field="*{disponibilidad.horaFin}" required/><br/>
+
+        <label>Lunes:</label>
+        <input type="checkbox" th:field="*{disponibilidad.lunes}"/><br/>
+        <label>Martes:</label>
+        <input type="checkbox" th:field="*{disponibilidad.martes}"/><br/>
+        <label>Miércoles:</label>
+        <input type="checkbox" th:field="*{disponibilidad.miercoles}"/><br/>
+        <label>Jueves:</label>
+        <input type="checkbox" th:field="*{disponibilidad.jueves}"/><br/>
+        <label>Viernes:</label>
+        <input type="checkbox" th:field="*{disponibilidad.viernes}"/><br/>
+        <label>Sábado:</label>
+        <input type="checkbox" th:field="*{disponibilidad.sabado}"/><br/>
+        <label>Domingo:</label>
+        <input type="checkbox" th:field="*{disponibilidad.domingo}"/><br/>
+
         <button type="submit">Actualizar</button>
     </form>
 
