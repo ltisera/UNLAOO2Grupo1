@@ -34,9 +34,7 @@
                 <!-- Si NO tiene dirección -->
                 <div th:if="${cliente.direccion == null}">
                     <p><strong>Dirección:</strong> No agregada</p>
-                    <form th:action="@{/cliente/agregarDireccion}" method="get">
-                        <button type="submit">Agregar domicilio</button>
-                    </form>
+                    <p><a th:href="@{/cliente/agregarDireccion}">Agregar dirección</a></p>
                 </div>
             </div>
         </div>

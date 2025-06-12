@@ -1,5 +1,6 @@
 package com.turnat.TurnAT.controllers;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.turnat.TurnAT.models.entities.Cliente;
+import com.turnat.TurnAT.models.entities.Direccion;
 import com.turnat.TurnAT.models.entities.Rol;
 import com.turnat.TurnAT.models.entities.Turno;
 import com.turnat.TurnAT.repositories.IClienteRepository;
 import com.turnat.TurnAT.repositories.IRolRepository;
+import com.turnat.TurnAT.services.implementations.DireccionServiceImp;
 import com.turnat.TurnAT.services.interfaces.IClienteService;
 import com.turnat.TurnAT.services.interfaces.IEmailService;
 import com.turnat.TurnAT.services.interfaces.ITurnoService;
@@ -38,7 +42,7 @@ public class ClienteController {
 	    private PasswordEncoder passwordEncoder;
 	 @Autowired
 	    private IEmailService emailService;
-	 
+	  
 	 
 	 @GetMapping("/registro-cliente")
 	 public String mostrarFormulario (Model model) {
@@ -95,8 +99,33 @@ public class ClienteController {
 		 System.out.println("mapeo cliente datos");
 		 return "clienteDatos";
 	 }
+	
+	
+
+	    @GetMapping("/agregarDireccion")
+	    public String mostrarFormularioDireccion(Model model, Principal principal) {
+	        model.addAttribute("direccion", new Direccion());
+	        return "agregarDireccionCliente";
+	    }
+
+	    // Guardar dirección
+	    @PostMapping("/agregarDireccion")
+	    public String guardarDireccion(@ModelAttribute Direccion direccion, Principal principal) {
+	    	//el metodo principal.getName() te devuelve por defecto el username del
+	    	//usuario autenticado, que en nuestro caso sería el email
+	    	 Cliente cliente = clienteRepository.findByEmail(principal.getName())
+	    		        .orElseThrow(() -> new UsernameNotFoundException("Cliente no encontrado"));
+
+	         cliente.setDireccion(direccion);//se crea la direccion automaticamente al guardarse en cliente
+	       
+	        clienteService.actualizar(cliente); 
+
+	        return "redirect:/cliente/clienteDatos";
+	    }
+	 
 	 @Autowired
 	 private ITurnoService turnoService;
+	 
 	 
 	 @GetMapping("/clienteTurnos")
 	 public String misTurnos(Model model, Authentication authentication) {
