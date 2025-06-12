@@ -35,7 +35,7 @@ public class SecurityConfiguration {
                         var roles = authentication.getAuthorities().stream()
                                 .map(Object::toString).toList();
                         if (roles.contains("ROLE_ADMIN")) {
-                            response.sendRedirect("/admin/blancoAdmin");
+                            response.sendRedirect("/admin/indexAdmin");
                         } else if (roles.contains("ROLE_EMPLEADO")) {
                             response.sendRedirect("/empleado/blancoEmp");
                         } else {

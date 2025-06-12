@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Sucursal</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="center-screen">
+    <form th:action="@{/admin/sucursal/registro}" th:object="${sucursal}" method="post" class="login-card">
+        <h3 class="text-c">Registro de Sucursal</h3>
+
+        <input type="text" class="form-control" th:field="*{nombre}" placeholder="Nombre de la sucursal" required>
+
+        <input type="text" class="form-control" th:field="*{direccion}" placeholder="Dirección" required>
+
+        <input type="text" class="form-control" th:field="*{telefono}" placeholder="Teléfono de contacto">
+
+        <div th:if="${error}" class="error-message" th:text="${error}"></div>
+
+        <button type="submit" class="btn btn-primary">Registrar Sucursal</button>
+    </form>
+</body>
+</html>

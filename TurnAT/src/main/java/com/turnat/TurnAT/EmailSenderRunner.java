@@ -34,9 +34,9 @@ public class EmailSenderRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-    	
+    	/*
     	//TODOS TIENEN Q TENER ESTOS TRES ROLES ASI EN LA BD
- 	   /* Rol rolAdmin = new Rol("ADMIN");
+ 	    Rol rolAdmin = new Rol("ADMIN");
  	    rolService.agregar(rolAdmin);
  	   Rol rolEmp = new Rol("EMPLEADO");
  	   rolService.agregar(rolEmp);
