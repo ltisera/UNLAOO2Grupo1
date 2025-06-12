@@ -117,8 +117,32 @@ section a {
 #contenedor {
   display: flex;
 }
-/*--------- */
 
+/*----agregar direccion----- */
+main {
+    flex: 1;
+    padding: 2rem;
+}
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 2rem 1rem;
+}
+
+.formulario-direccion {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: var(--border-seven); /* menos redondeado que el típico 16px o 20px */
+    background-color:var(--pastel-yellow);
+	border-color:grey ;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/*---------- */
 	 table {
 	      border-collapse: collapse;
 	      width: 100%;
