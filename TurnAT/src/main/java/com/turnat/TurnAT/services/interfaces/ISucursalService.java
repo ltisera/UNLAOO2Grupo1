@@ -8,9 +8,9 @@ import com.turnat.TurnAT.models.entities.Sucursal;
 public interface ISucursalService {
 
 	public Sucursal agregar(Sucursal s);
-	public List<Sucursal> traerTodos();
 	public void eliminar(Sucursal s);
 	public void eliminar(int idSucursal);
 	public Sucursal traerPorId(int idSucursal);
+	public List<Sucursal> traerTodos();
 	
 }

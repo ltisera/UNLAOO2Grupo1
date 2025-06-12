@@ -17,6 +17,7 @@ public class SucursalRestController {
 
     @GetMapping
     public List<Sucursal> obtenerTodas() {
+    	System.out.println("Estoy resteando");
         return sucursalService.traerTodos();
     }
 }

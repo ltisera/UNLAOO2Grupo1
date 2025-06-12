@@ -4,37 +4,56 @@
     <meta charset="UTF-8">
     <title>Sucursales</title>
     <link rel="stylesheet" href="../css/styles.css">
-
-
 </head>
 <body id="cuerpo">
     <nav>
         <a href="indexAdmin.html">Hola</a>
         <button onclick="window.location.href='login.html'">Cerrar sesión</button>
     </nav>
-    <div id="contenedor">
-    <section>
-        <a href="servicioAdmin.html">Servicios</a>
-        <a href="sucursalAdmin.html">Sucursales</a>
-        <a href="empleadoAdmin.html">Empleados</a>
-        <a href="clienteAdmin.html">Clientes</a>
-        <a href="turnoAdmin.html">Turnos</a>
-    </section>
 
-    <div>
-		CREAR SUCURSAL
-		
-        <h1>
-            Sucursales
-        </h1>    
-        <div class="tarjeta">
-            <p>Sucursal 1</p>
+    <div id="contenedor">
+        <section>
+            <a href="servicioAdmin.html">Servicios</a>
+            <a href="sucursalAdmin.html">Sucursales</a>
+            <a href="empleadoAdmin.html">Empleados</a>
+            <a href="clienteAdmin.html">Clientes</a>
+            <a href="turnoAdmin.html">Turnos</a>
+        </section>
+
+        <div>
+            <h1>Sucursales</h1>
+            <div id="tarjetas-sucursales"></div>
         </div>
-        <div class="tarjeta">
-            <p>Sucursal 2</p>
-        </div>
-        <div class="tarjeta">
-            <p>Sucursal 3</p>
-        </div>
-        
     </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("http://localhost:8080/admin/sucursales")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error al cargar las sucursales");
+                }
+                return response.json();
+            })
+            .then(data => {
+                const contenedor = document.getElementById("tarjetas-sucursales");
+
+                if (data.length === 0) {
+                    contenedor.innerHTML = `<p>No hay sucursales registradas.</p><button onclick="window.location.href='crearSucursal.html'">Crear sucursal</button>`;
+                    return;
+                }
+
+                data.forEach(sucursal => {
+                    const div = document.createElement("div");
+                    div.className = "tarjeta";
+                    div.innerHTML = `<p>${sucursal.nombre}</p>`;
+                    contenedor.appendChild(div);
+                });
+            })
+            .catch(error => {
+                console.error("Error al cargar sucursales:", error);
+            });
+    });
+    </script>
+</body>
+</html>
