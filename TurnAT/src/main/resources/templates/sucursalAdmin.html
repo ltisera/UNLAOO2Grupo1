@@ -19,43 +19,130 @@
             <a href="clienteAdmin.html">Clientes</a>
             <a href="turnoAdmin.html">Turnos</a>
         </section>
-
+		
+		
+		<div id="formulario-nueva-sucursal">
+				<h2>Nueva sucursal</h2>
+			    <input type="text" id="input-nombre" placeholder="Nombre">
+			    <input type="text" id="input-telefono" placeholder="Teléfono">
+			    
+			    <h3>Dirección</h3>
+			    <input type="text" id="input-localidad" placeholder="Localidad">
+			    <input type="text" id="input-calle" placeholder="Calle">
+			    <input type="number" id="input-altura" placeholder="Altura">
+			    <input type="text" id="input-depto" placeholder="Depto (opcional)">
+		    <button id="btn-crear">Crear sucursal</button>
+		</div>
+		
         <div>
             <h1>Sucursales</h1>
             <div id="tarjetas-sucursales"></div>
         </div>
     </div>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch("http://localhost:8080/admin/sucursales")
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Error al cargar las sucursales");
-                }
-                return response.json();
-            })
-            .then(data => {
-                const contenedor = document.getElementById("tarjetas-sucursales");
+	<script>
+	document.addEventListener("DOMContentLoaded", function () {
+	    fetch("http://localhost:8080/admin/sucursales")
+	        .then(response => {
+	            if (!response.ok) {
+	                throw new Error("Error al cargar las sucursales");
+	            }
+	            return response.json();
+	        })
+	        .then(data => {
+	            const contenedor = document.getElementById("tarjetas-sucursales");
 
-                if (data.length === 0) {
-                    contenedor.innerHTML = `<p>No hay sucursales registradas.</p><button onclick="window.location.href='crearSucursal.html'">Crear sucursal</button>`;
-                    return;
-                }
+	            if (data.length === 0) {
+	                contenedor.innerHTML = `<p>No hay sucursales registradas.</p>`;
+	                return;
+	            }
 
-                data.forEach(sucursal => {
-                    const div = document.createElement("div");
-                    div.className = "tarjeta";
-					div.innerHTML = `<p>${sucursal.nombre}</p>
-					<p>${sucursal.localidad}</p>`;
-										
-                    contenedor.appendChild(div);
-                });
-            })
-            .catch(error => {
-                console.error("Error al cargar sucursales:", error);
-            });
-    });
-    </script>
+	            data.forEach(sucursal => {
+	                const div = document.createElement("div");
+	                div.className = "tarjeta";
+
+	                const pNombre = document.createElement("p");
+	                pNombre.textContent = `Nombre: ${sucursal.nombre}`;
+
+	                const pLocalidad = document.createElement("p");
+	                pLocalidad.textContent = `Localidad: ${sucursal.localidad}`;
+
+	                const boton = document.createElement("button");
+	                boton.textContent = "Editar";
+
+	                div.appendChild(pNombre);
+	                div.appendChild(pLocalidad);
+	                div.appendChild(boton);
+	                contenedor.appendChild(div);
+	            });
+	        })
+	        .catch(error => {
+	            console.error("Error al cargar sucursales:", error);
+	        });
+	});
+	
+	document.getElementById("btn-crear").addEventListener("click", function () {
+	        const nombre = document.getElementById("input-nombre").value.trim();
+	        const telefono = document.getElementById("input-telefono").value.trim();
+	        const localidad = document.getElementById("input-localidad").value.trim();
+	        const calle = document.getElementById("input-calle").value.trim();
+	        const altura = parseInt(document.getElementById("input-altura").value);
+	        const depto = document.getElementById("input-depto").value.trim();
+
+	    if (!nombre || !localidad) {
+	        alert("Completa ambos campos");
+	        return;
+	    }
+
+	    fetch("http://localhost:8080/admin/sucursales", {
+	        method: "POST",
+	        headers: {
+	            "Content-Type": "application/json"
+	        },
+	        body: JSON.stringify({
+				nombre: nombre,
+				            telefono: telefono,
+				            direccion: {
+				                localidad: localidad,
+				                calle: calle,
+				                altura: altura,
+				                depto: depto || null
+				            }
+	        })
+	    })
+	    .then(resp => {
+	        if (!resp.ok) {
+	            throw new Error("Error al crear sucursal");
+	        }
+	        return resp.json();
+	    })
+	    .then(nuevaSucursal => {
+	        document.getElementById("input-nombre").value = "";
+	        document.getElementById("input-localidad").value = "";
+
+	        const contenedor = document.getElementById("tarjetas-sucursales");
+	        const div = document.createElement("div");
+	        div.className = "tarjeta";
+
+	        const pNombre = document.createElement("p");
+	        pNombre.textContent = `Nombre: ${nuevaSucursal.nombre}`;
+
+	        const pLocalidad = document.createElement("p");
+	        pLocalidad.textContent = `Localidad: ${nuevaSucursal.localidad}`;
+
+	        const boton = document.createElement("button");
+	        boton.textContent = "Editar";
+
+	        div.appendChild(pNombre);
+	        div.appendChild(pLocalidad);
+	        div.appendChild(boton);
+	        contenedor.appendChild(div);
+	    })
+	    .catch(error => {
+	        console.error("Error:", error);
+	        alert("No se pudo crear la sucursal.");
+	    });
+	});
+	</script>
 </body>
 </html>
