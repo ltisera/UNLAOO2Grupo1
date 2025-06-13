@@ -65,7 +65,7 @@
 	                pNombre.textContent = `Nombre: ${sucursal.nombre}`;
 
 	                const pLocalidad = document.createElement("p");
-	                pLocalidad.textContent = `Localidad: ${sucursal.localidad}`;
+	                pLocalidad.textContent = `Localidad: ${sucursal.direccion.localidad}`;
 
 	                const boton = document.createElement("button");
 	                boton.textContent = "Editar";
@@ -128,7 +128,7 @@
 	        pNombre.textContent = `Nombre: ${nuevaSucursal.nombre}`;
 
 	        const pLocalidad = document.createElement("p");
-	        pLocalidad.textContent = `Localidad: ${nuevaSucursal.localidad}`;
+	        pLocalidad.textContent = `Localidad: ${nuevaSucursal.direccion.localidad}`;
 
 	        const boton = document.createElement("button");
 	        boton.textContent = "Editar";

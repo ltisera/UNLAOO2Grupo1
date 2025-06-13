@@ -3,8 +3,8 @@ package com.turnat.TurnAT.controllers.rest;
 import com.turnat.TurnAT.models.entities.Sucursal;
 import com.turnat.TurnAT.models.entities.Direccion;
 import com.turnat.TurnAT.services.interfaces.ISucursalService;
-import com.turnat.TurnAT.services.interfaces.IDireccionService;
 
+import com.turnat.TurnAT.services.interfaces.IDireccionService;
 import com.turnat.TurnAT.dto.SucursalDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +18,8 @@ public class SucursalRestController {
 
     @Autowired
     private ISucursalService sucursalService;
+    
+    @Autowired
     private IDireccionService direccionService;
 
     @GetMapping
@@ -28,6 +30,7 @@ public class SucursalRestController {
     @PostMapping
     public SucursalDTO crearSucursal(@RequestBody SucursalDTO sucursalDTO) {
         // Convertir DTO a entidad Dirección
+    	System.out.println("PIOLAAAAAAAAAAAAAA");
         Direccion direccion = new Direccion();
         if (sucursalDTO.getDireccion() != null) {
             direccion.setLocalidad(sucursalDTO.getDireccion().getLocalidad());

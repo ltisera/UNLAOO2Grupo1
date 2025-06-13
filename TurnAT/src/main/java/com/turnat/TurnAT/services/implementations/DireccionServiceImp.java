@@ -2,10 +2,13 @@ package com.turnat.TurnAT.services.implementations;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.turnat.TurnAT.models.entities.Direccion;
 import com.turnat.TurnAT.repositories.IDireccionRepository;
 import com.turnat.TurnAT.services.interfaces.IDireccionService;
 
+@Service
 public class DireccionServiceImp implements IDireccionService  {
 
 	private final IDireccionRepository repoDireccion;
