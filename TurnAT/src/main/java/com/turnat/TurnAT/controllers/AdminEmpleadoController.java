@@ -94,7 +94,6 @@ public class AdminEmpleadoController {
         existente.setApellido(empleado.getApellido());
         existente.setDni(empleado.getDni());
         existente.setEmail(empleado.getEmail());
-        existente.setPassword(empleado.getPassword()); // En producción: hash antes de guardar
         existente.setLegajo(empleado.getLegajo());
         if (servicioId.isPresent()) {
             Servicio servicio = servicioService.traerPorId(servicioId.get());

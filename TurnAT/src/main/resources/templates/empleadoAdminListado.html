@@ -1,34 +1,62 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>Listado de Empleados</title>
-    <link rel="stylesheet" href="../css/styles.css" />
+    <meta charset="UTF-8">
+    <title>Empleados - TurnAT</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body>
-    <h1>Listado de Empleados</h1>
-    <a th:href="@{/admin/empleado/registro}">Agregar Nuevo Empleado</a>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th><th>Nombre</th><th>Apellido</th><th>DNI</th><th>Email</th><th>Legajo</th><th>Servicio</th><th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="empleado : ${empleados}">
-                <td th:text="${empleado.idPersona}">1</td>
-                <td th:text="${empleado.nombre}">Nombre</td>
-                <td th:text="${empleado.apellido}">Apellido</td>
-                <td th:text="${empleado.dni}">12345678</td>
-                <td th:text="${empleado.email}">email@correo.com</td>
-                <td th:text="${empleado.legajo}">0001</td>
-                <td th:text="${empleado.servicio != null ? empleado.servicio.nombre : 'Sin servicio'}">Servicio</td>
-                <td>
-                    <a th:href="@{|/admin/empleado/editar/${empleado.idPersona}|}">Editar</a> | 
-                    <a th:href="@{|/admin/empleado/eliminar/${empleado.idPersona}|}" onclick="return confirm('¿Seguro que quieres eliminar?');">Eliminar</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<body id="cuerpo">
+    <nav>
+        <a class="logo">TurnAt</a>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    </nav>
+
+    <div id="contenedor">
+        <aside>
+            <a href="/admin/servicioAdmin">Servicios</a>
+            <a href="/admin/sucursalAdmin">Sucursales</a>
+            <a href="/admin/empleado/listado" class="activo">Empleados</a>
+            <a href="/admin/clienteAdmin">Clientes</a>
+            <a href="/admin/turnoAdmin">Turnos</a>
+        </aside>
+
+        <main>
+            <h1 class="titulo-seccion">Listado de Empleados</h1>
+
+            <a th:href="@{/admin/empleado/registro}" class="btn-nuevo">+ Agregar Nuevo Empleado</a>
+
+            <table class="tabla-empleados">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Email</th>
+                        <th>Legajo</th>
+                        <th>Servicio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="empleado : ${empleados}">
+                        <td th:text="${empleado.idPersona}">1</td>
+                        <td th:text="${empleado.nombre}">Nombre</td>
+                        <td th:text="${empleado.apellido}">Apellido</td>
+                        <td th:text="${empleado.dni}">12345678</td>
+                        <td th:text="${empleado.email}">email@correo.com</td>
+                        <td th:text="${empleado.legajo}">0001</td>
+                        <td th:text="${empleado.servicio != null ? empleado.servicio.nombre : 'Sin servicio'}">Servicio</td>
+                        <td>
+                            <a th:href="@{|/admin/empleado/editar/${empleado.idPersona}|}" class="accion">Editar</a> |
+                            <a th:href="@{|/admin/empleado/eliminar/${empleado.idPersona}|}" class="accion" onclick="return confirm('¿Seguro que quieres eliminar?');">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
 </body>
 </html>
