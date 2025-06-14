@@ -2,6 +2,9 @@ package com.turnat.TurnAT.models.entities;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +13,7 @@ import lombok.Setter;
 @Entity
 @Getter @Setter @NoArgsConstructor
 @Table(name = "sucursal")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Sucursal {
 
     @Id
@@ -28,6 +32,7 @@ public class Sucursal {
     private String telefono;
 
     @ManyToMany(mappedBy = "sucursales")// en el mappedby va el atributo de la clase servicio y esto hace el mapeo bidireccional de muchos a muchos 
+    @JsonBackReference
     private Set<Servicio> servicios;
 
     public Sucursal() {}

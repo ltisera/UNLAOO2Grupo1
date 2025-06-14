@@ -20,12 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.turnat.TurnAT.models.entities.Cliente;
 import com.turnat.TurnAT.models.entities.Direccion;
 import com.turnat.TurnAT.models.entities.Rol;
+import com.turnat.TurnAT.models.entities.Servicio;
 import com.turnat.TurnAT.models.entities.Turno;
 import com.turnat.TurnAT.repositories.IClienteRepository;
 import com.turnat.TurnAT.repositories.IRolRepository;
 import com.turnat.TurnAT.services.implementations.DireccionServiceImp;
 import com.turnat.TurnAT.services.interfaces.IClienteService;
 import com.turnat.TurnAT.services.interfaces.IEmailService;
+import com.turnat.TurnAT.services.interfaces.IServicioService;
 import com.turnat.TurnAT.services.interfaces.ITurnoService;
 
 @Controller
@@ -42,7 +44,8 @@ public class ClienteController {
 	    private PasswordEncoder passwordEncoder;
 	 @Autowired
 	    private IEmailService emailService;
-	  
+	 @Autowired
+	    private IServicioService servicioService;
 	 
 	 @GetMapping("/registro-cliente")
 	 public String mostrarFormulario (Model model) {
@@ -148,7 +151,12 @@ public class ClienteController {
 	 
 	    @GetMapping("/solicitarTurno")
 	    public String mostrarFormularioTurno(Model model) {
-	        // pasarle datos iniciales necesarios
+	    	List<Servicio> servicios = servicioService.traerTodos(); // o como tengas el método
+	        model.addAttribute("servicios", servicios);
+
+	       
+	        model.addAttribute("turno", new Turno());
+
 	        return "solicitarTurno"; // corresponde al archivo solicitarTurno.html
 	    }
 }

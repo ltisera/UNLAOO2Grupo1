@@ -12,4 +12,5 @@ public interface IEstadoService {
 	public void eliminar(Estado e);
 	public void eliminar(int idEstado);
 	public Estado traerPorId(int idEstado);
+	public Estado traerPorDescripcion(String descripcion);
 }

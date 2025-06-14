@@ -52,6 +52,9 @@ public class EstadoServiceImp implements IEstadoService{
 		return estadoRepository.save(e);
 	}
 	
-    
+	 @Override
+	    public Estado traerPorDescripcion(String descripcion) {
+	        return estadoRepository.findByDescripcion(descripcion).orElseThrow(() -> new RuntimeException("Estado no encontrado"));
+	    }
     
 }

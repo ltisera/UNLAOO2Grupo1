@@ -1,5 +1,8 @@
 package com.turnat.TurnAT.services.implementations;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +22,9 @@ public class FechaYHoraServiceImp implements IFechaYHoraService {
     @Override
     public FechaYHora agregar(FechaYHora f) {
         return fechaYHoraRepo.save(f);
+    }
+    @Override
+    public FechaYHora buscarPorFechaHora(LocalDate fecha, LocalTime hora) {
+        return fechaYHoraRepo.findByFechaAndHora(fecha, hora).orElse(null);
     }
 }

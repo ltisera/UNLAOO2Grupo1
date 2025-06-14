@@ -33,7 +33,7 @@
             <select id="hora" class="form-select" required></select>
         </div>
 
-        <input type="hidden" id="idCliente" value="1"> <!-- Simulando cliente logueado -->
+        <input type="hidden" id="idCliente" value="3"> <!-- Simulando cliente logueado -->
 
         <button type="submit" class="btn btn-primary">Confirmar Turno</button>
     </form>
@@ -46,12 +46,12 @@
         const horaSelect = document.getElementById('hora');
 
         // PASO 1. Cargar servicios
-        fetch('/api/servicios/todos')
+        fetch('/api/turnos/servicios-todos')
             .then(res => res.json())
             .then(servicios => {
                 servicios.forEach(s => {
                     const option = document.createElement('option');
-                    option.value = s.id;
+                    option.value = s.idServicio;
                     option.textContent = s.nombre;
                     servicioSelect.appendChild(option);
                 });

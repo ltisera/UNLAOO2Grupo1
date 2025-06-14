@@ -4,6 +4,8 @@ package com.turnat.TurnAT.models.entities;
 import java.time.LocalTime;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,7 +45,7 @@ public class Servicio {
     @Column(name = "duracion")
     private LocalTime duracion;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "Disponible_idDisponibilidad")
     private Disponible disponibilidad;
 
@@ -55,6 +57,7 @@ public class Servicio {
         joinColumns = @JoinColumn(name = "Servicio_idServicio"),
         inverseJoinColumns = @JoinColumn(name = "Sucursal_idSucursal")
     )
+    @JsonManagedReference
     private Set<Sucursal> sucursales;//esta es la q va en sucursal
     //asi se relacionan cachai
     public Servicio(){}
