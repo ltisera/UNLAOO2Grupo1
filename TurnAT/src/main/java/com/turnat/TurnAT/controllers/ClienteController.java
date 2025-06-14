@@ -145,8 +145,15 @@ public class ClienteController {
 	        return "clienteMisTurnos";
 	        
 	 }
+	 
+	    @GetMapping("/solicitarTurno")
+	    public String mostrarFormularioTurno(Model model) {
+	        // pasarle datos iniciales necesarios
+	        return "solicitarTurno"; // corresponde al archivo solicitarTurno.html
+	    }
+}
 	
 	   
 	
 
-}
+

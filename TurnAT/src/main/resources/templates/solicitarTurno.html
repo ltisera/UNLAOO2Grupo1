@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitar Turno</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+    <h2>Solicitar Turno</h2>
+    <form id="turnoForm">
+        <div class="mb-3">
+            <label for="servicio" class="form-label">Servicio</label>
+            <select id="servicio" class="form-select" required></select>
+        </div>
+
+        <div class="mb-3">
+            <label for="sucursal" class="form-label">Sucursal</label>
+            <select id="sucursal" class="form-select" required></select>
+        </div>
+
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha</label>
+            <input type="month" id="fecha" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="dia" class="form-label">Día disponible</label>
+            <select id="dia" class="form-select" required></select>
+        </div>
+
+        <div class="mb-3">
+            <label for="hora" class="form-label">Hora</label>
+            <select id="hora" class="form-select" required></select>
+        </div>
+
+        <input type="hidden" id="idCliente" value="1"> <!-- Simulando cliente logueado -->
+
+        <button type="submit" class="btn btn-primary">Confirmar Turno</button>
+    </form>
+
+    <script>
+        const servicioSelect = document.getElementById('servicio');
+        const sucursalSelect = document.getElementById('sucursal');
+        const fechaInput = document.getElementById('fecha');
+        const diaSelect = document.getElementById('dia');
+        const horaSelect = document.getElementById('hora');
+
+        // PASO 1. Cargar servicios
+        fetch('/api/servicios/todos')
+            .then(res => res.json())
+            .then(servicios => {
+                servicios.forEach(s => {
+                    const option = document.createElement('option');
+                    option.value = s.id;
+                    option.textContent = s.nombre;
+                    servicioSelect.appendChild(option);
+                });
+            });
+
+        // PASO 2. Cargar sucursales al elegir un servicio
+        servicioSelect.addEventListener('change', () => {
+            const id = servicioSelect.value;
+            sucursalSelect.innerHTML = '';
+            fetch(`/api/turnos/sucursales-por-servicio/${id}`)
+                .then(res => res.json())
+                .then(sucursales => {
+                    sucursales.forEach(s => {
+                        const option = document.createElement('option');
+                        option.value = s.idSucursal;
+                        option.textContent = s.nombre;
+                        sucursalSelect.appendChild(option);
+                    });
+                });
+        });
+
+        // PASO 3. Cargar días disponibles cuando se elige una fecha
+        fechaInput.addEventListener('change', () => {
+            const [anio, mes] = fechaInput.value.split('-');
+            const idServicio = servicioSelect.value;
+            const idSucursal = sucursalSelect.value;
+
+            diaSelect.innerHTML = '';
+
+            fetch(`/api/turnos/dias-disponibles?idServicio=${idServicio}&idSucursal=${idSucursal}&anio=${anio}&mes=${mes}`)
+                .then(res => res.json())
+                .then(dias => {
+                    dias.forEach(d => {
+                        const option = document.createElement('option');
+                        option.value = d;
+                        option.textContent = d;
+                        diaSelect.appendChild(option);
+                    });
+                });
+        });
+
+        // PASO 4. Cargar horarios al elegir un día
+        diaSelect.addEventListener('change', () => {
+            const [anio, mes] = fechaInput.value.split('-');
+            const idServicio = servicioSelect.value;
+            const dia = diaSelect.value;
+
+            horaSelect.innerHTML = '';
+
+            fetch(`/api/turnos/horarios-disponibles?idServicio=${idServicio}&anio=${anio}&mes=${mes}&dia=${dia}`)
+                .then(res => res.json())
+                .then(horarios => {
+                    horarios.forEach(h => {
+                        const option = document.createElement('option');
+                        option.value = h;
+                        option.textContent = h;
+                        horaSelect.appendChild(option);
+                    });
+                });
+        });
+
+        //PASO 5. Confirmar turno
+        document.getElementById('turnoForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const turnoDTO = {
+                idServicio: servicioSelect.value,
+                idSucursal: sucursalSelect.value,
+                anio: parseInt(fechaInput.value.split('-')[0]),
+                mes: parseInt(fechaInput.value.split('-')[1]),
+                dia: parseInt(diaSelect.value),
+                hora: horaSelect.value,
+                idCliente: parseInt(document.getElementById('idCliente').value)
+            };
+
+            fetch('/api/turnos/confirmar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(turnoDTO)
+            })
+            .then(res => {
+                if (res.ok) {
+                    alert('Turno confirmado');
+                    location.reload();
+                } else {
+                    res.text().then(t => alert('Error: ' + t));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
