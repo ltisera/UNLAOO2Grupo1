@@ -1,6 +1,7 @@
 package com.turnat.TurnAT.controllers;
 
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.turnat.TurnAT.models.entities.Disponible;
 import com.turnat.TurnAT.models.entities.Servicio;
+import com.turnat.TurnAT.models.entities.Sucursal;
 import com.turnat.TurnAT.services.interfaces.IServicioService;
+import com.turnat.TurnAT.services.interfaces.ISucursalService;
 import com.turnat.TurnAT.services.interfaces.IDisponibleService;
 
 @Controller
@@ -22,7 +25,9 @@ public class ServicioController {
     private IServicioService servicioService;
 
     @Autowired
-    private IDisponibleService disponibleService; // Inyectar el servicio de Disponible
+    private IDisponibleService disponibleService;
+    @Autowired
+    private ISucursalService sucursalService;
 
     // Listar servicios
     @GetMapping("/listado")
@@ -38,6 +43,8 @@ public class ServicioController {
         model.addAttribute("servicio", new Servicio());
         List<Disponible> disponibles = disponibleService.traerTodos(); // Obtener disponibles
         model.addAttribute("disponibles", disponibles); // Agregar disponibles al modelo
+        List<Sucursal> sucursales = sucursalService.traerTodos(); 
+        model.addAttribute("sucursales", sucursales);
         return "servicioAdminRegistro";
     }
 
@@ -73,7 +80,8 @@ public class ServicioController {
     }
     
     @PostMapping("/registro")
-    public String registrarServicio(@ModelAttribute Servicio servicio, 
+    public String registrarServicio(@ModelAttribute Servicio servicio,
+                                    @RequestParam("idSucursal") int idSucursal,
                                     @RequestParam("disponibilidad.horaInicio") LocalTime horaInicio,
                                     @RequestParam("disponibilidad.horaFin") LocalTime horaFin,
                                     @RequestParam(value = "disponibilidad.lunes", defaultValue = "false") boolean lunes,
@@ -83,8 +91,8 @@ public class ServicioController {
                                     @RequestParam(value = "disponibilidad.viernes", defaultValue = "false") boolean viernes,
                                     @RequestParam(value = "disponibilidad.sabado", defaultValue = "false") boolean sabado,
                                     @RequestParam(value = "disponibilidad.domingo", defaultValue = "false") boolean domingo) {
-        
-        // Crear un nuevo objeto Disponible
+
+        // Crear disponibilidad
         Disponible disponible = new Disponible();
         disponible.setHoraInicio(horaInicio);
         disponible.setHoraFin(horaFin);
@@ -96,14 +104,22 @@ public class ServicioController {
         disponible.setSabado(sabado);
         disponible.setDomingo(domingo);
 
-        // Asignar la disponibilidad al servicio
         servicio.setDisponibilidad(disponible);
 
-        // Guardar el servicio
+        // Buscar la sucursal seleccionada
+        Sucursal sucursal = sucursalService.traerPorId(idSucursal);
+
+        // Asociar la sucursal al servicio (inicializar el set si es null)
+        if (servicio.getSucursales() == null) {
+            servicio.setSucursales(new HashSet<>());
+        }
+        servicio.getSucursales().add(sucursal);
+
+        // Guardar
         servicioService.agregar(servicio);
+
         return "redirect:/admin/servicio/listado";
     }
-
 
 
 }

@@ -38,8 +38,19 @@
         <input type="checkbox" th:field="*{disponibilidad.sabado}"/><br/>
         <label>Domingo:</label>
         <input type="checkbox" th:field="*{disponibilidad.domingo}"/><br/>
-
-        <button type="submit">Guardar</button>
+		
+		<h3>Sucursal</h3>
+		<label>Seleccionar sucursal:</label>
+		<select name="idSucursal" required>
+		    <option value="" disabled selected>-- Seleccione una sucursal --</option>
+		    <option th:each="sucursal : ${sucursales}"
+		            th:value="${sucursal.idSucursal}"
+		            th:text="${sucursal.nombre}"></option>
+		</select>
+		<br/>
+       
+		
+		 <button type="submit">Guardar</button>
     </form>
 
     <a th:href="@{/admin/servicio/listado}">Volver al listado</a>
