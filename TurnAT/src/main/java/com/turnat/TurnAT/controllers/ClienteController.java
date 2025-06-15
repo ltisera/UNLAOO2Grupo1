@@ -149,13 +149,18 @@ public class ClienteController {
 	        
 	 }
 	 
-	    @GetMapping("/solicitarTurno")
-	    public String mostrarFormularioTurno(Model model) {
-	    	List<Servicio> servicios = servicioService.traerTodos(); // o como tengas el método
-	        model.addAttribute("servicios", servicios);
+	 @GetMapping("/solicitarTurno")
+	 public String mostrarFormularioTurno(Model model, Authentication auth) {
+	     // Obtener email del cliente logueado
+	     String email = auth.getName();
 
-	       
-	        model.addAttribute("turno", new Turno());
+	     // Buscar cliente por email
+	     Cliente cliente = clienteRepository.findByEmail(email).orElseThrow(()-> new RuntimeException("Cliente no encontrado"));
+
+	     // Agregar ID al modelo
+	     model.addAttribute("idCliente", cliente.getIdPersona());
+
+	    
 
 	        return "solicitarTurno"; // corresponde al archivo solicitarTurno.html
 	    }

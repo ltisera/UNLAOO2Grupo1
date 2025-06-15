@@ -81,11 +81,11 @@ public class Direccion {
 	@Override
 	public String toString() {
 		if(depto!=null) {
-			return "Direccion [idDireccion=" + idDireccion + ", localidad=" + localidad + ", calle=" + calle + ", altura="
-					+ altura + ", depto=" + depto + "]";
+			return  localidad + ", " + calle + ", "
+					+ altura + ", depto " + depto+".";
 		}
-		return "Direccion [idDireccion=" + idDireccion + ", localidad=" + localidad + ", calle=" + calle + ", altura="
-				+ altura + "]";
+		return localidad + ", " + calle + ", "
+				+ altura +".";
 	}
 
 	

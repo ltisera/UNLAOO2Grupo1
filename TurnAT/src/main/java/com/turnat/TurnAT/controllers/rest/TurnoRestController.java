@@ -2,6 +2,7 @@ package com.turnat.TurnAT.controllers.rest;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 
@@ -17,12 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.turnat.TurnAT.dto.TurnoDTO;
 import com.turnat.TurnAT.models.entities.Cliente;
+import com.turnat.TurnAT.models.entities.Direccion;
 import com.turnat.TurnAT.models.entities.Estado;
 import com.turnat.TurnAT.models.entities.FechaYHora;
 import com.turnat.TurnAT.models.entities.Servicio;
 import com.turnat.TurnAT.models.entities.Sucursal;
 import com.turnat.TurnAT.models.entities.Turno;
 import com.turnat.TurnAT.services.interfaces.IClienteService;
+import com.turnat.TurnAT.services.interfaces.IDireccionService;
+import com.turnat.TurnAT.services.interfaces.IEmailService;
 import com.turnat.TurnAT.services.interfaces.IEstadoService;
 import com.turnat.TurnAT.services.interfaces.IFechaYHoraService;
 import com.turnat.TurnAT.services.interfaces.IServicioService;
@@ -44,10 +48,13 @@ public class TurnoRestController {
     private IFechaYHoraService fechaYHoraService;
     @Autowired
     private IEstadoService estadoService;
-
+    @Autowired
+    private IDireccionService direccionService;
     @Autowired
     private ITurnoService turnoService;
-
+    @Autowired
+    private IEmailService emailService;
+    
     @GetMapping("/servicios-todos")
     public List<Servicio> traerTodosLosServicios() {
         return servicioService.traerTodos();
@@ -99,13 +106,24 @@ public class TurnoRestController {
         if (cliente == null) {
             return ResponseEntity.badRequest().body("Cliente no encontrado");
         }
+       
 
         Servicio servicio = servicioService.traerPorId(dto.getIdServicio());
         if (servicio == null) {
             return ResponseEntity.badRequest().body("Servicio no encontrado");
         }
-
-        // Buscamos el estado "Pendiente" (o el que uses para nuevo turno)
+        
+        //solo para el envio de mail, no la guardamos
+        Sucursal sucursalParaElMail = sucursalService.traerPorId(dto.getIdSucursal());
+        if (sucursalParaElMail == null) {
+            return ResponseEntity.badRequest().body("Sucursal no encontrada");
+        }
+        Direccion direccionParaElMail = direccionService.traerPorId(sucursalParaElMail.getDireccion().getIdDireccion());
+        if (direccionParaElMail == null) {
+            return ResponseEntity.badRequest().body("Direccion no encontrada");
+        }
+        
+        // Buscamos el estado "confirmado" (o el que uses para nuevo turno)
         Estado estado = estadoService.traerPorDescripcion("confirmado");
         if (estado == null) {
             return ResponseEntity.badRequest().body("Estado confirmado no encontrado");
@@ -123,7 +141,20 @@ public class TurnoRestController {
 
         Turno turno = new Turno(cliente, servicio, estado, fechaYHora);
         turnoService.agregar(turno);
-
+       
+        DateTimeFormatter fechaFmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter horaFmt = DateTimeFormatter.ofPattern("HH:mm");
+        String asunto = "¡Turno solicitado en TurnAT!";
+        String cuerpo = "Hola " + cliente.getNombre() + ",\n\n" +
+			            "Tu turno para el servicio *" + servicio.getNombre() + "* fue confirmado.\n" +
+			            "📅 Fecha: " + fecha.format(fechaFmt) + "\n" +
+			            "🕒 Hora: " + hora.format(horaFmt) + " hs\n" +
+			            "🏢 Sucursal: " + sucursalParaElMail.getNombre() + "\n" +
+			            "📍 Dirección: " + direccionParaElMail.toString() + "\n\n" +
+			            "¡Gracias por confiar en TurnAT!";
+        emailService.enviarCorreo(cliente.getEmail(), asunto, cuerpo);
+        
+        
         return ResponseEntity.ok("Turno confirmado");
     }
 }
