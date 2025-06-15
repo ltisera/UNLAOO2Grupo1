@@ -1,0 +1,79 @@
+
+:root {
+    --pastel-yellow: #fffde6;
+    --pastel-purple-light: #A675FF;
+    --pastel-purple-dark: #5B32A0;
+	--border-seven: 7px;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form > div {
+    display: flex;
+    flex-direction: column;
+}
+.formulario-fondo {
+    background-color:var(--pastel-yellow); 
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.btn-violeta {
+    padding: 10px 20px;
+    font-weight: bold;
+    background-color:var(--pastel-yellow);
+    color:var(--pastel-purple-dark);
+    border: 2px solid var(--pastel-purple-dark);
+    border-radius: var(--border-seven);
+    cursor: pointer;
+}
+
+.btn-violeta:hover {
+    background-color:var(--pastel-yellow);
+}
+
+.fila-3 {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+.boton {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+select, input[type="month"] {
+    padding: 6px;
+    font-size: 1rem;
+}
+
+button {
+    padding: 10px 20px;
+    font-weight: bold;
+    background-color: #fdd835;
+    color: #6a1b9a;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #fbc02d;
+}

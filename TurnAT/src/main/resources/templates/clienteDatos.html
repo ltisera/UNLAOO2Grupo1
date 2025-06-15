@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Mis datos</title>
-	
     <link rel="stylesheet" href="../css/styles.css">
 </head>
-<body id="cuerpo">
+<body>
     <nav>
         <a>TurnAt</a>
-        <button onclick="window.location.href='login.html'">Cerrar sesión</button>
+        <button onclick="window.location.href='/login'">Cerrar sesión</button>
     </nav>
-    <div id="contenedor">
-        <section>
-            <a href="clienteDatos">Mis Datos</a>
-            <a href="clienteTurnos">Mis Turnos</a>
-            <a href="clienteNturno.html">Nuevo turno</a>
-        </section>
 
-        <div>
+    <div id="contenedor">
+        <aside>
+            <a href="/cliente/clienteDatos">Mis Datos</a>
+            <a href="/cliente/clienteTurnos">Mis Turnos</a>
+            <a href="/cliente/clienteNturno.html">Nuevo turno</a>
+        </aside>
+
+        <main>
             <h1>Datos</h1>
             <div class="tarjeta">
                 <p><strong>ID:</strong> <span th:text="${cliente.idPersona}"></span></p>
@@ -27,18 +27,16 @@
                 <p><strong>Mail:</strong> <span th:text="${cliente.email}"></span></p>
                 <p><strong>Teléfono:</strong> <span th:text="${cliente.telefono}"></span></p>
 
-                <!-- Si tiene dirección -->
                 <div th:if="${cliente.direccion != null}">
                     <p><strong>Localidad:</strong> <span th:text="${cliente.direccion.localidad}"></span></p>
                 </div>
 
-                <!-- Si NO tiene dirección -->
                 <div th:if="${cliente.direccion == null}">
                     <p><strong>Dirección:</strong> No agregada</p>
                     <p><a th:href="@{/cliente/agregarDireccion}">Agregar dirección</a></p>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
 </body>
 </html>

@@ -3,40 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Solicitar Turno</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/solicitar-turno.css">
 </head>
-<body class="container mt-5">
-    <h2>Solicitar Turno</h2>
-    <form id="turnoForm">
-        <div class="mb-3">
-            <label for="servicio" class="form-label">Servicio</label>
-            <select id="servicio" class="form-select" required></select>
-        </div>
+<body>
+    <nav>
+        <a>TurnAt</a>
+        <button onclick="window.location.href='/login'">Cerrar sesión</button>
+    </nav>
 
-        <div class="mb-3">
-            <label for="sucursal" class="form-label">Sucursal</label>
-            <select id="sucursal" class="form-select" required></select>
-        </div>
+    <div id="contenedor">
+        <aside>
+            <a href="/cliente/clienteDatos">Mis Datos</a>
+            <a href="/cliente/clienteTurnos">Mis Turnos</a>
+            <a href="/cliente/solicitarTurno">Nuevo turno</a>
+        </aside>
 
-        <div class="mb-3">
-            <label for="fecha" class="form-label">Fecha</label>
-            <input type="month" id="fecha" class="form-control" required>
-        </div>
+		<main class="formulario-fondo">
+		    <h1>Solicitar Turno</h1>
+		    <form id="turnoForm">
+		        <div>
+		            <label for="servicio">Servicio:</label>
+		            <select id="servicio" name="servicio" required></select>
+		        </div>
+		        <div>
+		            <label for="sucursal">Sucursal:</label>
+		            <select id="sucursal" name="sucursal" required></select>
+		        </div>
 
-        <div class="mb-3">
-            <label for="dia" class="form-label">Día disponible</label>
-            <select id="dia" class="form-select" required></select>
-        </div>
+		        <div class="fila-3">
+		            <div>
+		                <label for="fecha">Fecha:</label>
+		                <input type="month" id="fecha" name="fecha" required>
+		            </div>
+		            <div>
+		                <label for="dia">Día disponible:</label>
+		                <select id="dia" name="dia" required></select>
+		            </div>
+		            <div>
+		                <label for="hora">Hora:</label>
+		                <select id="hora" name="hora" required></select>
+		            </div>
+		        </div>
 
-        <div class="mb-3">
-            <label for="hora" class="form-label">Hora</label>
-            <select id="hora" class="form-select" required></select>
-        </div>
-
-        <input type="hidden" id="idCliente" value="3"> <!-- Simulando cliente logueado -->
-
-        <button type="submit" class="btn btn-primary">Confirmar Turno</button>
-    </form>
+		        <div class="boton">
+		            <input type="hidden" id="idCliente" value="3">
+		            <button type="submit" class="btn-violeta">Confirmar Turno</button>
+		        </div>
+		    </form>
+		</main>
+    </div>
 
     <script>
         const servicioSelect = document.getElementById('servicio');
@@ -45,7 +61,6 @@
         const diaSelect = document.getElementById('dia');
         const horaSelect = document.getElementById('hora');
 
-        // PASO 1. Cargar servicios
         fetch('/api/turnos/servicios-todos')
             .then(res => res.json())
             .then(servicios => {
@@ -57,7 +72,6 @@
                 });
             });
 
-        // PASO 2. Cargar sucursales al elegir un servicio
         servicioSelect.addEventListener('change', () => {
             const id = servicioSelect.value;
             sucursalSelect.innerHTML = '';
@@ -73,12 +87,10 @@
                 });
         });
 
-        // PASO 3. Cargar días disponibles cuando se elige una fecha
         fechaInput.addEventListener('change', () => {
             const [anio, mes] = fechaInput.value.split('-');
             const idServicio = servicioSelect.value;
             const idSucursal = sucursalSelect.value;
-
             diaSelect.innerHTML = '';
 
             fetch(`/api/turnos/dias-disponibles?idServicio=${idServicio}&idSucursal=${idSucursal}&anio=${anio}&mes=${mes}`)
@@ -93,12 +105,10 @@
                 });
         });
 
-        // PASO 4. Cargar horarios al elegir un día
         diaSelect.addEventListener('change', () => {
             const [anio, mes] = fechaInput.value.split('-');
             const idServicio = servicioSelect.value;
             const dia = diaSelect.value;
-
             horaSelect.innerHTML = '';
 
             fetch(`/api/turnos/horarios-disponibles?idServicio=${idServicio}&anio=${anio}&mes=${mes}&dia=${dia}`)
@@ -113,7 +123,6 @@
                 });
         });
 
-        //PASO 5. Confirmar turno
         document.getElementById('turnoForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const turnoDTO = {
