@@ -3,39 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Mis datos</title>
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-    <nav>
-        <a>TurnAt</a>
-        <button onclick="window.location.href='/login'">Cerrar sesión</button>
-    </nav>
+	<link rel="stylesheet" href="../css/styles.css">
+	<link rel="stylesheet" href="../css/solicitar-turno.css">
 
-    <div id="contenedor">
-        <aside>
-            <a href="/cliente/clienteDatos">Mis Datos</a>
-            <a href="/cliente/clienteTurnos">Mis Turnos</a>
-            <a href="/cliente/clienteNturno.html">Nuevo turno</a>
-        </aside>
+	</head>
+<body id="cuerpo">
+	   <nav>
+	       <a>TurnAt</a>
+	       <button onclick="window.location.href='/login'">Cerrar sesión</button>
+	   </nav>
+	   <div id="contenedor">
+		<aside>				
+		    <a href="clienteDatos">Mis Datos</a>				
+	        <a href="clienteTurnos">Mis Turnos</a>
+	        <a href="solicitarTurno">Nuevo turno</a>		
+		</aside>
 
         <main>
             <h1>Datos</h1>
-            <div class="tarjeta">
-                <p><strong>ID:</strong> <span th:text="${cliente.idPersona}"></span></p>
-                <p><strong>Nombre:</strong> <span th:text="${cliente.nombre}"></span></p>
-                <p><strong>Apellido:</strong> <span th:text="${cliente.apellido}"></span></p>
-                <p><strong>Mail:</strong> <span th:text="${cliente.email}"></span></p>
-                <p><strong>Teléfono:</strong> <span th:text="${cliente.telefono}"></span></p>
+			<div class="tarjeta tarjeta-datos">
+			    <div class="fila-datos">
+			        <p><span class="etiqueta">Nombre:</span> <span th:text="${cliente.nombre}"></span></p>
+			        <p><span class="etiqueta">Apellido:</span> <span th:text="${cliente.apellido}"></span></p>
+			    </div>
 
-                <div th:if="${cliente.direccion != null}">
-                    <p><strong>Localidad:</strong> <span th:text="${cliente.direccion.localidad}"></span></p>
-                </div>
+			    <div class="fila-datos">
+			        <p><span class="etiqueta">Mail:</span> <span th:text="${cliente.email}"></span></p>
+			        <p><span class="etiqueta">Teléfono:</span> <span th:text="${cliente.telefono}"></span></p>
+			    </div>
 
-                <div th:if="${cliente.direccion == null}">
-                    <p><strong>Dirección:</strong> No agregada</p>
-                    <p><a th:href="@{/cliente/agregarDireccion}">Agregar dirección</a></p>
-                </div>
-            </div>
+			    <div class="fila-datos">
+			        <div th:if="${cliente.direccion != null}">
+			            <p>
+			                <span class="etiqueta">Dirección:</span>
+			                <span th:text="${cliente.direccion.localidad}+', '+ ${cliente.direccion.calle} + ' ' + ${cliente.direccion.altura} "></span>
+			            </p>
+			        </div>
+
+			        <div th:if="${cliente.direccion == null}">
+			            <p><span class="etiqueta">Dirección:</span> No agregada</p>
+			            <p><a class="link-direccion" th:href="@{/cliente/agregarDireccion}">Agregar dirección</a></p>
+			        </div>
+			    </div>
+			</div>
         </main>
     </div>
 </body>

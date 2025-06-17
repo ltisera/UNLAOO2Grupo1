@@ -90,14 +90,14 @@ body {
 aside {
   background-color: var(--pastel-purple-light);
   min-height: 100vh;
-  width: 149px;
+  width: 130px;
  padding: 30px 15px;
   color:var(--pastel-yellow);
 }
 aside a {
   display: block;
   margin-bottom: 30px;
-  text-align: center;
+  text-align: left;
   color:var(--pastel-yellow);
   font-weight: bold;
   text-decoration: none;
@@ -194,6 +194,44 @@ main {
       margin: 20px;
       padding: 30px;
     }
+	.tarjeta-datos {
+	    background-color:var(--pastel-yellow);
+	    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	    border: 2px solid var(--pastel-purple-dark);
+	    border-radius: 20px;
+	    padding: 35px;
+	    max-width: 600px;
+	    font-size: 1.1rem;
+	}
+
+	.fila-datos {
+	    display: flex;
+	    justify-content: space-between;
+	    gap: 20px;
+	    margin-bottom: 15px;
+	    flex-wrap: wrap;
+	}
+
+	.fila-datos p {
+	    flex: 1;
+	    margin: 0;
+	}
+
+	.etiqueta {
+	    font-weight: bold;
+	    color: #4a267c;
+	    margin-right: 6px;
+	}
+
+	.link-direccion {
+	    color: var(--pastel-purple-dark);
+	    font-weight: bold;
+	    text-decoration: underline;
+	}
+
+	.link-direccion:hover {
+	    color: #3a1e68;
+	}
     
     #sector{
       display: flex;
