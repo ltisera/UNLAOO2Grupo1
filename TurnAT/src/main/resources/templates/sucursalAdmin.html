@@ -10,35 +10,35 @@
         <a>TurnAt</a>
         <button onclick="window.location.href='login.html'">Cerrar sesión</button>
     </nav>
-
+	 
+		
     <div id="contenedor">
-        <section>
-            <a href="servicioAdmin.html">Servicios</a>
-            <a href="sucursalAdmin.html">Sucursales</a>
-            <a href="empleadoAdmin.html">Empleados</a>
-            <a href="clienteAdmin.html">Clientes</a>
-            <a href="turnoAdmin.html">Turnos</a>
-        </section>
-		
-		
-		<div id="formulario-nueva-sucursal">
-				<h2>Nueva sucursal</h2>
-			    <input type="text" id="input-nombre" placeholder="Nombre">
-			    <input type="text" id="input-telefono" placeholder="Teléfono">
-			    
-			    <h3>Dirección</h3>
-			    <input type="text" id="input-localidad" placeholder="Localidad">
-			    <input type="text" id="input-calle" placeholder="Calle">
-			    <input type="number" id="input-altura" placeholder="Altura">
-			    <input type="text" id="input-depto" placeholder="Depto (opcional)">
-		    <button id="btn-crear">Crear sucursal</button>
-		</div>
-		
-        <div>
-            <h1>Sucursales</h1>
-            <div id="tarjetas-sucursales"></div>
-        </div>
-    </div>
+       <aside>
+			<a href="/admin/servicio/listado">Servicios</a>
+            <a href="/admin/sucursalAdmin" class="activo">Sucursales</a>
+            <a href="/admin/empleado/listado" >Empleados</a>
+            <a href="/admin/clienteAdmin">Clientes</a>
+            <a href="/admin/turnoAdmin">Turnos</a>
+     	</aside>
+		<main>
+				<div id="formulario-nueva-sucursal">
+						<h2>Nueva sucursal</h2>
+					    <input type="text" id="input-nombre" placeholder="Nombre">
+					    <input type="text" id="input-telefono" placeholder="Teléfono">
+					    
+					    <h3>Dirección</h3>
+					    <input type="text" id="input-localidad" placeholder="Localidad">
+					    <input type="text" id="input-calle" placeholder="Calle">
+					    <input type="number" id="input-altura" placeholder="Altura">
+					    <input type="text" id="input-depto" placeholder="Depto (opcional)">
+				    <button id="btn-crear">Crear sucursal</button>
+				</div>
+				
+		        <div>
+		            <h1>Sucursales</h1>
+		            <div id="tarjetas-sucursales"></div>
+		        </div>
+    	</main>
 
 	<script>
 	document.addEventListener("DOMContentLoaded", function () {
