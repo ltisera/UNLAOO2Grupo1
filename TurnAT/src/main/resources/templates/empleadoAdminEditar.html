@@ -1,81 +1,89 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-	<head>
-	    <meta charset="UTF-8">
-	    <title>Empleados - TurnAT</title>
-	    <link rel="stylesheet" href="/css/styles.css">
-	</head>
-	<body id="cuerpo">
-	    <nav>
-	        <a class="logo">TurnAt</a>
-	        <form th:action="@{/logout}" method="post">
-	            <button type="submit">Cerrar sesión</button>
-	        </form>
-	    </nav>
-	
-	    <div id="contenedor">
-	        <aside>
-	            <a href="/admin/servicioAdmin">Servicios</a>
-	            <a href="/admin/sucursalAdmin">Sucursales</a>
-	            <a href="/admin/empleado/listado" class="activo">Empleados</a>
-	            <a href="/admin/clienteAdmin">Clientes</a>
-	            <a href="/admin/turnoAdmin">Turnos</a>
-	        </aside>
+<head>
+    <meta charset="UTF-8">
+    <title>Empleados - TurnAT</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="cuerpo">
+    <nav style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="color: var(--pastel-yellow); font-weight: bold; font-size: 1.2rem;">TurnAt</span>
+        <form th:action="@{/logout}" method="post" style="margin: 0;">
+            <button type="submit" style="padding: 6px 12px; font-weight: bold; background-color: var(--pastel-yellow); color: var(--pastel-purple-dark); border: 2px solid var(--pastel-purple-dark); border-radius: var(--border-seven); cursor: pointer;">Cerrar sesión</button>
+        </form>
+    </nav>
 
-			<main>
-			    <div class="form-wrapper">
-			        <form th:action="@{|/admin/empleado/editar/${empleado.idPersona}|}" th:object="${empleado}" method="post" class="formulario-direccion grid-form">
+    <div id="contenedor">
+        <aside>
+            <a href="/admin/servicioAdmin"
+               style="background-color: var(--pastel-yellow); color: var(--pastel-purple-dark); padding: 10px 12px; border-radius: var(--border-seven); margin-bottom: 20px; display: inline-block;">Servicios</a>
+            <a href="/admin/sucursalAdmin"
+               style="background-color: var(--pastel-yellow); color: var(--pastel-purple-dark); padding: 10px 12px; border-radius: var(--border-seven); margin-bottom: 20px; display: inline-block;">Sucursales</a>
+            <a href="/admin/empleado/listado" class="activo"
+               style="background-color: var(--pastel-yellow); color: var(--pastel-purple-dark); padding: 10px 12px; border-radius: var(--border-seven); margin-bottom: 20px; display: inline-block;">Empleados</a>
+            <a href="/admin/clienteAdmin"
+               style="background-color: var(--pastel-yellow); color: var(--pastel-purple-dark); padding: 10px 12px; border-radius: var(--border-seven); margin-bottom: 20px; display: inline-block;">Clientes</a>
+            <a href="/admin/turnoAdmin"
+               style="background-color: var(--pastel-yellow); color: var(--pastel-purple-dark); padding: 10px 12px; border-radius: var(--border-seven); margin-bottom: 20px; display: inline-block;">Turnos</a>
+        </aside>
 
-			            <div class="form-group">
-			                <label>Nombre:</label>
-			                <input type="text" th:field="*{nombre}" required />
-			            </div>
+        <main>
+            <div class="form-header">
+                <h1 class="titulo-seccion">Editar Empleado</h1>
+                <a th:href="@{/admin/empleado/listado}" class="btn-nuevo">← Volver al Listado</a>
+            </div>
 
-			            <div class="form-group">
-			                <label>Apellido:</label>
-			                <input type="text" th:field="*{apellido}" required />
-			            </div>
+            <div class="form-wrapper">
+                <form th:action="@{|/admin/empleado/editar/${empleado.idPersona}|}" th:object="${empleado}" method="post" class="formulario-direccion">
+                    <div class="form-group">
+                        <label>Nombre:</label>
+                        <input type="text" th:field="*{nombre}" required />
+                    </div>
 
-			            <div class="form-group">
-			                <label>DNI:</label>
-			                <input type="text" th:field="*{dni}" required />
-			            </div>
+                    <div class="form-group">
+                        <label>Apellido:</label>
+                        <input type="text" th:field="*{apellido}" required />
+                    </div>
 
-			            <div class="form-group">
-			                <label>Email:</label>
-			                <input type="email" th:field="*{email}" required />
-			            </div>
+                    <div class="form-group">
+                        <label>DNI:</label>
+                        <input type="text" th:field="*{dni}" required />
+                    </div>
 
-			            <div class="form-group">
-			                <label>Contraseña:</label>
-			                <input type="password" value="********" disabled />
-			            </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" th:field="*{email}" required />
+                    </div>
 
-			            <div class="form-group">
-			                <label>Legajo:</label>
-			                <input type="text" th:field="*{legajo}" required />
-			            </div>
+                    <div class="form-group">
+                        <label>Contraseña:</label>
+                        <input type="password" value="********" disabled />
+                    </div>
 
-			            <div class="form-group full-width">
-			                <label>Servicio:</label>
-			                <select name="servicioId">
-			                    <option value="" th:selected="${empleado.servicio == null}">-- Seleccionar Servicio --</option>
-			                    <option th:each="servicio : ${servicios}" 
-			                            th:value="${servicio.idServicio}" 
-			                            th:text="${servicio.nombre}" 
-			                            th:selected="${empleado.servicio != null and servicio.idServicio == empleado.servicio.idServicio}">
-			                        Servicio
-			                    </option>
-			                </select>
-			            </div>
+                    <div class="form-group">
+                        <label>Legajo:</label>
+                        <input type="text" th:field="*{legajo}" required />
+                    </div>
 
-			            <div class="form-group full-width">
-			                <button type="submit" class="btn-primary">Actualizar</button>
-			            </div>
-			        </form>
-			    </div>
-			</main>
+                    <div class="form-group full-width">
+                        <label>Servicio:</label>
+                        <select name="servicioId">
+                            <option value="" th:selected="${empleado.servicio == null}">-- Seleccionar Servicio --</option>
+                            <option th:each="servicio : ${servicios}" 
+                                    th:value="${servicio.idServicio}" 
+                                    th:text="${servicio.nombre}" 
+                                    th:selected="${empleado.servicio != null and servicio.idServicio == empleado.servicio.idServicio}">
+                                Servicio
+                            </option>
+                        </select>
+                    </div>
 
-	 </div>
-	</body>
+                    <div class="form-group full-width">
+                        <button type="submit" class="btn-primary">Actualizar</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
 </html>
