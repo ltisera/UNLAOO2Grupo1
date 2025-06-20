@@ -1,47 +1,69 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>Listado de Servicios</title>
-    <link rel="stylesheet" href="../css/styles.css" />
+    <meta charset="UTF-8">
+    <title>Servicios - TurnAT</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body>
-    <h1>Listado de Servicios</h1>
-    <a th:href="@{/admin/servicio/registro}">Agregar Nuevo Servicio</a>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Duración</th>
-                <th>Disponibilidad</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="servicio : ${servicios}">
-                <td th:text="${servicio.idServicio}">1</td>
-                <td th:text="${servicio.nombre}">Nombre</td>
-                <td th:text="${servicio.descripcion}">Descripción</td>
-                <td th:text="${servicio.duracion}">Duración</td>
-                <td>
-                    <span th:text="${servicio.disponibilidad.horaInicio}">Hora Inicio</span> - 
-                    <span th:text="${servicio.disponibilidad.horaFin}">Hora Fin</span><br/>
-                    <span th:text="${servicio.disponibilidad.lunes} ? 'Lunes' : ''"></span>
-                    <span th:text="${servicio.disponibilidad.martes} ? 'Martes' : ''"></span>
-                    <span th:text="${servicio.disponibilidad.miercoles} ? 'Miércoles' : ''"></span>
-                    <span th:text="${servicio.disponibilidad.jueves} ? 'Jueves' : ''"></span>
-                    <span th:text="${servicio.disponibilidad.viernes} ? 'Viernes' : ''"></span>
-                    <span th:text="${servicio.disponibilidad.sabado} ? 'Sábado' : ''"></span>
-                    <span th:text="${servicio.disponibilidad.domingo} ? 'Domingo' : ''"></span>
-                </td>
-                <td>
-                    <a th:href="@{|/admin/servicio/editar/${servicio.idServicio}|}">Editar</a> | 
-                    <a th:href="@{|/admin/servicio/eliminar/${servicio.idServicio}|}" onclick="return confirm('¿Seguro que quieres eliminar?');">Eliminar</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<body id="cuerpo">
+    <nav>
+        <a>TurnAt</a>
+        <form th:action="@{/logout}" method="post" style="margin: 0;">
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    </nav>
+
+    <div id="contenedor">
+        <aside>
+            <a href="/admin/servicio/listado" class="activo">Servicios</a>
+            <a href="/admin/sucursalAdmin">Sucursales</a>
+            <a href="/admin/empleado/listado">Empleados</a>
+            <a href="/admin/clienteAdmin">Clientes</a>
+            <a href="/admin/turnoAdmin">Turnos</a>
+        </aside>
+
+        <main>
+            <h1 class="titulo-seccion">Listado de Servicios</h1>
+
+            <a th:href="@{/admin/servicio/registro}" class="btn-nuevo">+ Agregar Nuevo Servicio</a>
+
+            <table class="tabla-empleados">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Duración</th>
+                        <th>Disponibilidad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="servicio : ${servicios}">
+                        <td th:text="${servicio.idServicio}">1</td>
+                        <td th:text="${servicio.nombre}">Nombre</td>
+                        <td th:text="${servicio.descripcion}">Descripción</td>
+                        <td th:text="${servicio.duracion}">30</td>
+                        <td>
+                            <span th:text="${servicio.disponibilidad.horaInicio}">08:00</span> - 
+                            <span th:text="${servicio.disponibilidad.horaFin}">14:00</span><br/>
+                            <span th:if="${servicio.disponibilidad.lunes}">Lunes </span>
+                            <span th:if="${servicio.disponibilidad.martes}">Martes </span>
+                            <span th:if="${servicio.disponibilidad.miercoles}">Miércoles </span>
+                            <span th:if="${servicio.disponibilidad.jueves}">Jueves </span>
+                            <span th:if="${servicio.disponibilidad.viernes}">Viernes </span>
+                            <span th:if="${servicio.disponibilidad.sabado}">Sábado </span>
+                            <span th:if="${servicio.disponibilidad.domingo}">Domingo</span>
+                        </td>
+                        <td>
+                            <a th:href="@{|/admin/servicio/editar/${servicio.idServicio}|}" class="accion">Editar</a> |
+                            <a th:href="@{|/admin/servicio/eliminar/${servicio.idServicio}|}" class="accion" onclick="return confirm('¿Seguro que quieres eliminar?');">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
 </body>
 </html>
+
