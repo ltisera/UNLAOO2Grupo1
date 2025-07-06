@@ -53,6 +53,16 @@ public class ClienteServiceImpl implements IClienteService{
         return clienteRepo.save(cliente); 
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @Autowired
     private PasswordEncoder passwordEncoder;
 

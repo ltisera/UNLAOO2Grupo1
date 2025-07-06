@@ -7,22 +7,19 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body id="cuerpo">
-    <!-- Barra de navegación -->
     <nav>
         <a>TurnAt</a>
         <button onclick="window.location.href='/login'">Cerrar sesión</button>
     </nav>
 
-    <!-- Contenedor principal -->
+   
     <div id="contenedor">
-        <!-- Menú lateral -->
         <aside>
             <a href="clienteDatos">Mis Datos</a>
             <a href="clienteTurnos">Mis Turnos</a>
-            <a href="clienteNturno">Nuevo turno</a>
+            <a href="solicitarTurno">Nuevo turno</a>
         </aside>
 
-        <!-- Formulario de dirección -->
 		<main>
 		    <div class="form-wrapper">
 		        <form th:action="@{/cliente/agregarDireccion}" th:object="${direccion}" method="post" class="formulario-direccion">

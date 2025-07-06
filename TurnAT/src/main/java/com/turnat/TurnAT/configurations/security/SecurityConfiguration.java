@@ -22,7 +22,10 @@ public class SecurityConfiguration {
         .csrf(csrf -> csrf.disable())  // Desactivar CSRF
          	.userDetailsService(userDetailsService)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/css/**", "/js/**", "/img/**", "/login", "/registro", "/","/cliente/registro-cliente","/**","/admin/sucursales","/api/**").permitAll()
+                .requestMatchers(  "/css/**", "/js/**", "/img/**",    // Recursos estáticos
+                        			"/", "/login", "/registro",        // Páginas públicas
+                        			"/cliente/registro-cliente"      // Registro de clientes
+                        ).permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/empleado/**").hasRole("EMPLEADO")
                 .requestMatchers("/cliente/**").hasRole("CLIENTE")
