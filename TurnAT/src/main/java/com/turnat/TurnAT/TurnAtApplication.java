@@ -9,6 +9,7 @@ public class TurnAtApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TurnAtApplication.class, args);
+
 	}
 
 }
