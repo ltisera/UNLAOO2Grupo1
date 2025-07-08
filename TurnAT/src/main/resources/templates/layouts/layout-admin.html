@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+    <div th:fragment="layout">
+        <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+        <div id="contenedor">
+            <aside th:replace="~{fragments/sidebar-admin :: sidebar}"></aside>
+
+            <main>
+                <div th:insert="~{::content}"></div> <!-- Aca va el contenido de cada vista -->
+            </main>
+        </div>
+    </div>
+</body>
+</html>
