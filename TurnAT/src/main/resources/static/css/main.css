@@ -5,6 +5,8 @@
     --border-seven: 7px;
 }
 
+
+
 body {
     background-color: var(--pastel-yellow);
     margin: 0;
@@ -14,7 +16,9 @@ body {
 a {
     text-decoration: none;
 }
-
+.contenido-principal {
+    padding: 30px 50px;
+}
 .btn-primary {
     margin-top: 38px;
     background-color: var(--pastel-yellow);
@@ -74,4 +78,10 @@ th, td {
 .logout-message {
     color: #198754;
     text-align: center;
+}
+input[disabled] {
+    background-color: #e0e0e0;  /* gris clarito */
+    color: #888;                /* texto apagado */
+    cursor: not-allowed;
+    border: 1px solid #ccc;
 }
