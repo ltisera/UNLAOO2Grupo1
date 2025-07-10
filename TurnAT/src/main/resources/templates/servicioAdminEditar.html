@@ -1,47 +1,81 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
     <title>Editar Servicio</title>
-    <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
-    <h1>Editar Servicio</h1>
-    <form th:action="@{|/admin/servicio/editar/${servicio.idServicio}|}" th:object="${servicio}" method="post">
-        <label>Nombre:</label>
-        <input type="text" th:field="*{nombre}" required /><br/>
+    <div th:replace="~{layouts/layout-admin :: layout}">
+        <div th:fragment="content">
+            <main>
+                <!-- Encabezado -->
+                <div class="form-header">
+                    <h1 class="titulo-seccion">Editar Servicio</h1>
+                    <a th:href="@{/admin/servicio/listado}" class="btn-nuevo">← Volver al Listado</a>
+                </div>
 
-        <label>Descripción:</label>
-        <input type="text" th:field="*{descripcion}" required/><br/>
+                <!-- Formulario -->
+                <form th:action="@{|/admin/servicio/editar/${servicio.idServicio}|}" 
+                      th:object="${servicio}" method="post" 
+                      class="formulario-direccion">
 
-        <label>Duración (HH:mm:ss):</label>
-        <input type="time" step="1" th:field="*{duracion}" required/><br/>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" th:field="*{nombre}" id="nombre" required>
+                        </div>
 
-        <h3>Disponibilidad</h3>
-        <label>Hora de Inicio:</label>
-        <input type="time" th:field="*{disponibilidad.horaInicio}" required/><br/>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción:</label>
+                            <input type="text" th:field="*{descripcion}" id="descripcion" required>
+                        </div>
 
-        <label>Hora de Fin:</label>
-        <input type="time" th:field="*{disponibilidad.horaFin}" required/><br/>
+                        <div class="form-group">
+                            <label for="duracion">Duración (HH:mm:ss):</label>
+                            <input type="time" step="1" th:field="*{duracion}" id="duracion" required>
+                        </div>
 
-        <label>Lunes:</label>
-        <input type="checkbox" th:field="*{disponibilidad.lunes}"/><br/>
-        <label>Martes:</label>
-        <input type="checkbox" th:field="*{disponibilidad.martes}"/><br/>
-        <label>Miércoles:</label>
-        <input type="checkbox" th:field="*{disponibilidad.miercoles}"/><br/>
-        <label>Jueves:</label>
-        <input type="checkbox" th:field="*{disponibilidad.jueves}"/><br/>
-        <label>Viernes:</label>
-        <input type="checkbox" th:field="*{disponibilidad.viernes}"/><br/>
-        <label>Sábado:</label>
-        <input type="checkbox" th:field="*{disponibilidad.sabado}"/><br/>
-        <label>Domingo:</label>
-        <input type="checkbox" th:field="*{disponibilidad.domingo}"/><br/>
+                        <div class="form-group">
+                            <label for="horaInicio">Hora de Inicio:</label>
+                            <input type="time" th:field="*{disponibilidad.horaInicio}" id="horaInicio" required>
+                        </div>
 
-        <button type="submit">Actualizar</button>
-    </form>
+                        <div class="form-group">
+                            <label for="horaFin">Hora de Fin:</label>
+                            <input type="time" th:field="*{disponibilidad.horaFin}" id="horaFin" required>
+                        </div>
 
-    <a th:href="@{/admin/servicio/listado}">Volver al listado</a>
+                        <div class="form-group full-width">
+                            <label>Días de la semana:</label>
+                            <div class="checkbox-grid-3col">
+                                <label><input type="checkbox" th:field="*{disponibilidad.lunes}" /> Lunes</label>
+                                <label><input type="checkbox" th:field="*{disponibilidad.martes}" /> Martes</label>
+                                <label><input type="checkbox" th:field="*{disponibilidad.miercoles}" /> Miércoles</label>
+                                <label><input type="checkbox" th:field="*{disponibilidad.jueves}" /> Jueves</label>
+                                <label><input type="checkbox" th:field="*{disponibilidad.viernes}" /> Viernes</label>
+                                <label><input type="checkbox" th:field="*{disponibilidad.sabado}" /> Sábado</label>
+                                <label><input type="checkbox" th:field="*{disponibilidad.domingo}" /> Domingo</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="idSucursal">Seleccionar sucursal:</label>
+                            <select name="idSucursal" id="idSucursal" required>
+                                <option value="" disabled selected>-- Seleccione una sucursal --</option>
+                                <option th:each="sucursal : ${sucursales}"
+                                        th:value="${sucursal.idSucursal}"
+                                        th:text="${sucursal.nombre}"
+                                        th:selected="${servicio.sucursal != null and sucursal.idSucursal == servicio.sucursal.idSucursal}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <button type="submit">Actualizar</button>
+                        </div>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,77 +1,80 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
     <title>Registrar Servicio</title>
-    <link rel="stylesheet" href="/css/styles.css" />
 </head>
-<body id="cuerpo">
-    <nav>
-        <a>TurnAt</a>
-        <form th:action="@{/logout}" method="post" style="margin: 0;">
-            <button type="submit">Cerrar sesión</button>
-        </form>
-    </nav>
+<body>
+    <div th:replace="~{layouts/layout-admin :: layout}">
+        <div th:fragment="content">
+            <main>
+                <!-- Encabezado -->
+                <div class="form-header">
+                    <h1 class="titulo-seccion">Registrar Nuevo Servicio</h1>
+                    <a th:href="@{/admin/servicio/listado}" class="btn-nuevo">← Volver al Listado</a>
+                </div>
 
-    <div id="contenedor">
-        <aside>
-            <a href="/admin/servicio/listado" class="activo">Servicios</a>
-            <a href="/admin/sucursalAdmin">Sucursales</a>
-            <a href="/admin/empleado/listado">Empleados</a>
-            <a href="/admin/clienteAdmin">Clientes</a>
-            <a href="/admin/turnoAdmin">Turnos</a>
-        </aside>
+                <!-- Formulario -->
+				<form th:action="@{/admin/servicio/registro}"
+				      th:object="${servicio}" method="post"
+				      class="formulario-direccion">
 
-        <main>
-            <h1 class="titulo-seccion">Registrar Nuevo Servicio</h1>
+				    <div class="form-grid">
+				        <div class="form-group">
+				            <label for="nombre">Nombre:</label>
+				            <input type="text" th:field="*{nombre}" id="nombre" required>
+				        </div>
 
-            <div class="form-wrapper">
-                <form th:action="@{/admin/servicio/registro}" th:object="${servicio}" method="post" class="formulario-direccion">
+				        <div class="form-group">
+				            <label for="descripcion">Descripción:</label>
+				            <input type="text" th:field="*{descripcion}" id="descripcion" required>
+				        </div>
 
-                    <label>Nombre:</label>
-                    <input type="text" th:field="*{nombre}" required />
+				        <div class="form-group">
+				            <label for="duracion">Duración (HH:mm:ss):</label>
+				            <input type="time" step="1" th:field="*{duracion}" id="duracion" required>
+				        </div>
 
-                    <label>Descripción:</label>
-                    <input type="text" th:field="*{descripcion}" required/>
+				        <div class="form-group">
+				            <label for="horaInicio">Hora de Inicio:</label>
+				            <input type="time" th:field="*{disponibilidad.horaInicio}" id="horaInicio" required>
+				        </div>
 
-                    <label>Duración (HH:mm:ss):</label>
-                    <input type="time" step="1" th:field="*{duracion}" required/>
+				        <div class="form-group">
+				            <label for="horaFin">Hora de Fin:</label>
+				            <input type="time" th:field="*{disponibilidad.horaFin}" id="horaFin" required>
+				        </div>
 
-                    <h3>Disponibilidad</h3>
+						<div class="form-group full-width">
+						    <label>Días de la semana:</label>
+						    <div class="checkbox-grid-3col">
+						        <label><input type="checkbox" th:field="*{disponibilidad.lunes}" /> Lunes</label>
+						        <label><input type="checkbox" th:field="*{disponibilidad.martes}" /> Martes</label>
+						        <label><input type="checkbox" th:field="*{disponibilidad.miercoles}" /> Miércoles</label>
+						        <label><input type="checkbox" th:field="*{disponibilidad.jueves}" /> Jueves</label>
+						        <label><input type="checkbox" th:field="*{disponibilidad.viernes}" /> Viernes</label>
+						        <label><input type="checkbox" th:field="*{disponibilidad.sabado}" /> Sábado</label>
+						        <label><input type="checkbox" th:field="*{disponibilidad.domingo}" /> Domingo</label>
+						    </div>
+						</div>
 
-                    <label>Hora de Inicio:</label>
-                    <input type="time" th:field="*{disponibilidad.horaInicio}" required/>
+				        <div class="form-group full-width">
+				            <label for="idSucursal">Seleccionar sucursal:</label>
+				            <select name="idSucursal" id="idSucursal" required>
+				                <option value="" disabled selected>-- Seleccione una sucursal --</option>
+				                <option th:each="sucursal : ${sucursales}"
+				                        th:value="${sucursal.idSucursal}"
+				                        th:text="${sucursal.nombre}">
+				                </option>
+				            </select>
+				        </div>
 
-                    <label>Hora de Fin:</label>
-                    <input type="time" th:field="*{disponibilidad.horaFin}" required/>
-
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;">
-                        <label><input type="checkbox" th:field="*{disponibilidad.lunes}" /> Lunes</label>
-                        <label><input type="checkbox" th:field="*{disponibilidad.martes}" /> Martes</label>
-                        <label><input type="checkbox" th:field="*{disponibilidad.miercoles}" /> Miércoles</label>
-                        <label><input type="checkbox" th:field="*{disponibilidad.jueves}" /> Jueves</label>
-                        <label><input type="checkbox" th:field="*{disponibilidad.viernes}" /> Viernes</label>
-                        <label><input type="checkbox" th:field="*{disponibilidad.sabado}" /> Sábado</label>
-                        <label><input type="checkbox" th:field="*{disponibilidad.domingo}" /> Domingo</label>
-                    </div>
-
-                    <h3>Sucursal</h3>
-                    <label>Seleccionar sucursal:</label>
-                    <select name="idSucursal" required>
-                        <option value="" disabled selected>-- Seleccione una sucursal --</option>
-                        <option th:each="sucursal : ${sucursales}"
-                                th:value="${sucursal.idSucursal}"
-                                th:text="${sucursal.nombre}"></option>
-                    </select>
-
-                    <button type="submit" class="btn-violeta">Guardar</button>
-                </form>
-            </div>
-
-            <div style="margin-top: 1rem;">
-                <a th:href="@{/admin/servicio/listado}" class="accion">← Volver al listado</a>
-            </div>
-        </main>
+				        <div class="form-group full-width">
+				            <button type="submit">Guardar</button>
+				        </div>
+				    </div>
+				</form>
+            </main>
+        </div>
     </div>
 </body>
 </html>
