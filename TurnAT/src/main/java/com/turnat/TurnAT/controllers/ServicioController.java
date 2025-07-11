@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.turnat.TurnAT.models.entities.Direccion;
 import com.turnat.TurnAT.models.entities.Disponible;
 import com.turnat.TurnAT.models.entities.Servicio;
 import com.turnat.TurnAT.models.entities.Sucursal;
@@ -56,6 +57,8 @@ public class ServicioController {
         model.addAttribute("servicio", servicio);
         List<Disponible> disponibles = disponibleService.traerTodos(); // Obtener disponibles
         model.addAttribute("disponibles", disponibles); // Agregar disponibles al modelo
+        List<Sucursal> sucursales = sucursalService.traerTodos();
+        model.addAttribute("sucursales", sucursales);
         return "servicioAdminEditar";
     }
 
@@ -67,7 +70,6 @@ public class ServicioController {
         existente.setDescripcion(servicio.getDescripcion());
         existente.setDuracion(servicio.getDuracion());
         existente.setDisponibilidad(servicio.getDisponibilidad()); // Ajusta si manejas Disponibles
-
         servicioService.agregar(existente);
         return "redirect:/admin/servicio/listado";
     }

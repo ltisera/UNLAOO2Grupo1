@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registrar Sucursal</title>
+</head>
+<body>
+    <div th:replace="~{layouts/layout-admin :: layout}">
+        <div th:fragment="content">
+            <main>
+                <!-- Encabezado -->
+                <div class="form-header">
+                    <h1 class="titulo-seccion">Registrar Nueva Sucursal</h1>
+                    <a th:href="@{/admin/sucursal/listado}" class="btn-nuevo">← Volver al Listado</a>
+                </div>
+
+                <!-- Formulario -->
+                <form id="form-sucursal" class="formulario-direccion">
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="text" id="telefono" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="localidad">Localidad:</label>
+                        <input type="text" id="localidad" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="calle">Calle:</label>
+                        <input type="text" id="calle" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="altura">Altura:</label>
+                        <input type="number" id="altura" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="depto">Depto (opcional):</label>
+                        <input type="text" id="depto">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <button type="submit">Guardar</button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("form-sucursal").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById("nombre").value.trim();
+            const telefono = document.getElementById("telefono").value.trim();
+            const localidad = document.getElementById("localidad").value.trim();
+            const calle = document.getElementById("calle").value.trim();
+            const altura = parseInt(document.getElementById("altura").value);
+            const depto = document.getElementById("depto").value.trim();
+
+            fetch("http://localhost:8080/admin/sucursales", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    telefono: telefono,
+                    direccion: {
+                        localidad: localidad,
+                        calle: calle,
+                        altura: altura,
+                        depto: depto || null
+                    }
+                })
+            })
+            .then(resp => {
+                if (!resp.ok) {
+                    throw new Error("Error al registrar la sucursal");
+                }
+                return resp.json();
+            })
+            .then(() => {
+                alert("Sucursal registrada con éxito");
+                window.location.href = "/admin/sucursal/listado";
+            })
+            .catch(err => {
+                console.error(err);
+                alert("No se pudo registrar la sucursal");
+            });
+        });
+    </script>
+</body>
+</html>

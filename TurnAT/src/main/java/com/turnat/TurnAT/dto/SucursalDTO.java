@@ -3,7 +3,7 @@ package com.turnat.TurnAT.dto;
 import com.turnat.TurnAT.models.entities.Sucursal;
 
 public class SucursalDTO {
-    private int id;
+    private int idSucursal;
     private String nombre;
     private String telefono;
     private DireccionDTO direccion;
@@ -12,7 +12,7 @@ public class SucursalDTO {
     }
 
     public SucursalDTO(Sucursal sucursal) {
-        this.id = sucursal.getIdSucursal();
+        this.idSucursal = sucursal.getIdSucursal();
         this.nombre = sucursal.getNombre();
         this.telefono = sucursal.getTelefono();
         if (sucursal.getDireccion() != null) {
@@ -22,12 +22,12 @@ public class SucursalDTO {
 
     // getters y setters
 
-    public int getId() {
-        return id;
+    public int getIdSucursal() {
+        return idSucursal;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdSucursal(int id) {
+        this.idSucursal = id;
     }
 
     public String getNombre() {

@@ -23,7 +23,7 @@ public class AdminController {
 	 public String misDatos(Authentication authentication) {
 	        
 		 System.out.println("mapeo ADMIN SUCURSAL");
-		 return "sucursalAdmin";
+		 return "sucursalAdminListado";
 	 }
     
     

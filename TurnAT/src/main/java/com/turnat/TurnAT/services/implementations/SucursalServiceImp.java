@@ -6,6 +6,8 @@ import com.turnat.TurnAT.models.entities.Sucursal;
 import com.turnat.TurnAT.repositories.ISucursalRepository;
 import com.turnat.TurnAT.services.interfaces.ISucursalService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class SucursalServiceImp implements ISucursalService{
 	
@@ -37,6 +39,12 @@ public class SucursalServiceImp implements ISucursalService{
     }
     public Sucursal traerPorId(int idSucursal) {
     	return sucursalRepo.findById(idSucursal).orElseThrow(() -> new RuntimeException("Sucursal no encontrada"));
+    }
+    
+    @Transactional // Esto lo actualiza si el ID existe
+    public Sucursal actualizar(Sucursal sucursal) {
+    	return sucursalRepo.save(sucursal);
+    	
     }
 
 }

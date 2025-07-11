@@ -10,5 +10,6 @@ public interface IDireccionService {
 	public void eliminar(Direccion d);
 	public void eliminar(int idDireccion);
 	public Direccion traerPorId(int idDireccion);
+	public Direccion actualizar(Direccion direccion);
 
 }
