@@ -95,7 +95,7 @@ public class SucursalController {
         existente.setNombre(sucursal.getNombre());
         existente.setTelefono(sucursal.getTelefono());
 
-        // Actualizar la dirección (persistir primero)
+        // actualizar la dirección (persistir primero)
         Direccion nuevaDireccion = existente.getDireccion();
 
         if (nuevaDireccion == null) {
