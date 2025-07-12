@@ -29,17 +29,17 @@ public class AdminEmpleadoController {
     private IServicioService servicioService;
     
     @Autowired
-    private PasswordEncoder passwordEncoder; // Inyectar PasswordEncoder
+    private PasswordEncoder passwordEncoder; 
     
     @Autowired
-    private IRolRepository rolRepository; // Inyectar RolRepository
+    private IRolRepository rolRepository; 
 
     // Mostrar listado de empleados
     @GetMapping("/listado")
     public String listarEmpleados(Model model) {
         List<Empleado> empleados = empleadoService.traerTodos();
         model.addAttribute("empleados", empleados);
-        return "empleadoAdminListado"; // Vista Thymeleaf - lista de empleados (crear este template)
+        return "empleadoAdminListado"; // Vista lista de empleados
     }
 
     // Mostrar formulario para agregar empleado
@@ -48,7 +48,7 @@ public class AdminEmpleadoController {
         model.addAttribute("empleado", new Empleado());
         List<Servicio> servicios = servicioService.traerTodos();
         model.addAttribute("servicios", servicios); // Para selección en dropdown
-        return "empleadoAdminRegistro"; // Vista Thymeleaf para formulario registro (crear)
+        return "empleadoAdminRegistro"; // Vista formulario registro 
     }
 
     // Procesar formulario para agregar empleado

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Administrador</title>
+</head>
+<body>
+    <div th:replace="~{layouts/layout-admin :: layout}">
+        <div th:fragment="content">
+			<main>
+				<h1 class="titulo-seccion">Listado de Clientes</h1>
+			   
+				 
+		          <table class="tabla-empleados">
+		              <thead>
+		                  <tr>
+		                      <th>ID</th>
+		                      <th>Nombre</th>
+		                      <th>Apellido</th>
+		                      <th>DNI</th>
+		                      <th>Email</th>
+		                      <th>Direccion</th>
+		                      <th>Acciones</th>
+		                  </tr>
+		              </thead>
+		              <tbody>
+		                  <tr th:each="cliente : ${clientes}">
+		                      <td th:text="${cliente.idPersona}">1</td>
+		                      <td th:text="${cliente.nombre}">Nombre</td>
+		                      <td th:text="${cliente.apellido}">Apellido</td>
+		                      <td th:text="${cliente.dni}">12345678</td>
+		                      <td th:text="${cliente.email}">email@correo.com</td>
+							  <td th:text="${cliente.direccion != null ? cliente.direccion.localidad + ', ' + cliente.direccion.calle + ' ' 
+							  				+ cliente.direccion.altura : 'Sin dirección'}">Direccion</td>
+		                      <td>
+		                          <a th:href="@{|/admin/cliente/editar/${cliente.idPersona}|}" class="accion">Editar</a> |
+		                          <a th:href="@{|/admin/cliente/eliminar/${cliente.idPersona}|}" class="accion" onclick="return confirm('¿Seguro que quieres eliminar?');">Eliminar</a>
+		                      </td>
+		                  </tr>
+		              </tbody>
+		          </table>
+		    </main>
+        </div>
+    </div>
+</body>
+</html>

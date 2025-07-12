@@ -57,15 +57,20 @@ public class TurnoServiceImp implements ITurnoService {
     public void eliminar(int idTurno) {
         turnoRepo.deleteById(idTurno);
     }
+    
+    public void eliminarTodos(List<Turno> turnos) {
+    	turnoRepo.deleteAll(turnos);
+    }
 
     @Override
     public Turno traerPorId(int idTurno) {
         return turnoRepo.findById(idTurno).orElseThrow(() -> new RuntimeException("Turno no encontrado"));
     }
 
-    public List<Turno> findByIdCliente(int idCliente) {
+    public List<Turno> traerPorIdCliente(int idCliente) {
         return turnoRepo.findByIdCliente(idCliente);
     }
+    
 
     @Override
     public List<Integer> obtenerDiasDisponibles(int idServicio, int idSucursal, int anio, int mes) {
