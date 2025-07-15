@@ -1,47 +1,48 @@
-
 :root {
     --pastel-yellow: #fffde6;
     --pastel-purple-light: #A675FF;
     --pastel-purple-dark: #5B32A0;
-	--border-seven: 7px;
+    --border-seven: 7px;
 }
 
 form {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
+    gap: 1rem;
     padding: 1rem;
-    background-color:var(--pastel-yellow);
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-	border: 2px solid var(--pastel-purple-dark);
+    background-color: var(--pastel-yellow);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--pastel-purple-dark);
     border-radius: 10px;
     width: 100%;
     box-sizing: border-box;
 }
 
+
+
 form > div {
     display: flex;
-    flex-direction: column;
+    flex-direction:column;
 }
+
 .formulario-fondo {
-    background-color:var(--pastel-yellow); 
+    background-color: var(--pastel-yellow); 
     padding: 2rem;
     border-radius: 10px;
-	
 }
 
 .btn-violeta {
     padding: 10px 20px;
     font-weight: bold;
-    background-color:var(--pastel-yellow);
-    color:var(--pastel-purple-dark);
+    background-color: var(--pastel-yellow);
+    color: var(--pastel-purple-dark);
     border: 2px solid var(--pastel-purple-dark);
     border-radius: var(--border-seven);
     cursor: pointer;
 }
 
 .btn-violeta:hover {
-    background-color:var(--pastel-yellow);
+    background-color: #fbc02d;
 }
 
 .fila-3 {
@@ -70,8 +71,8 @@ select, input[type="month"] {
 button {
     padding: 10px 20px;
     font-weight: bold;
-    background-color:var(--pastel-yellow);
-    color:var(--pastel-purple-dark);
+    background-color: var(--pastel-yellow);
+    color: var(--pastel-purple-dark);
     border: none;
     border-radius: 5px;
     cursor: pointer;

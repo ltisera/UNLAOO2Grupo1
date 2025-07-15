@@ -1,8 +1,15 @@
-#contenedor {
-    display: flex;
-	
+:root {
+    --pastel-yellow: #fffde6;
+    --pastel-purple-light: #A675FF;
+    --pastel-purple-dark: #5B32A0;
+    --border-seven: 7px;
 }
 
+#contenedor {
+    display: flex;
+}
+
+/* barra superior */
 nav {
     background-color: var(--pastel-purple-light);
     display: flex;
@@ -10,27 +17,27 @@ nav {
     padding: 20px;
     color: var(--pastel-yellow);
     border-bottom: 1.5px solid var(--pastel-purple-dark);
-	
 }
 
 nav a, nav button {
-
-	border-radius: var(--border-seven);
-	cursor: pointer;
-	padding: 6px 12px;           
-	font-size: 14px;           
-	display: inline-block;
-	background-color: var(--pastel-purple-dark);
-	color: var(--pastel-yellow);
-	border: 2px solid var(--pastel-purple-dark);
-	font-weight: bold;
-	transition: background-color 0.3s ease;
+    background-color: var(--pastel-purple-dark);
+    color: var(--pastel-yellow);
+    border-radius: var(--border-seven);
+    cursor: pointer;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 2px solid var(--pastel-purple-dark);
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
 }
 
 nav button:hover {
     background-color: #925fff;
 }
 
+/* sidebar */
 aside {
     background-color: var(--pastel-purple-light);
     min-height: 100vh;
@@ -46,4 +53,9 @@ aside a {
     color: var(--pastel-yellow);
     font-weight: bold;
     white-space: nowrap;
+    text-decoration: none;
+}
+
+aside a:hover {
+    text-decoration: underline;
 }

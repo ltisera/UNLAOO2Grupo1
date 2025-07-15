@@ -5,8 +5,6 @@
     --border-seven: 7px;
 }
 
-
-
 body {
     background-color: var(--pastel-yellow);
     margin: 0;
@@ -16,32 +14,21 @@ body {
 a {
     text-decoration: none;
 }
-.contenido-principal {
-    padding: 30px 50px;
-}
-.btn-primary {
-    margin-top: 38px;
-    background-color: var(--pastel-yellow);
-    border: 3px solid var(--pastel-purple-dark);
-    color: var(--pastel-purple-dark);
-    font-weight: bold;
-    padding: 10px;
-    border-radius: var(--border-seven);
-    width: 100%;
-}
 
-.btn-primary:hover {
-    background-color: #fffcd9;
-    color: #4a267c;
-}
-
-input.form-control, select {
+input.form-control,
+select {
     background-color: white;
     border-radius: var(--border-seven);
     border: 1px solid #ccc;
     height: 48px;
     font-size: 16px;
     padding: 10px 15px;
+}
+
+input[disabled] {
+    background-color: #e0e0e0;
+    color: #888;
+    cursor: not-allowed;
 }
 
 table {
@@ -57,31 +44,39 @@ th, td {
 }
 
 .tarjeta {
-    border-color: var(--pastel-purple-dark);
-    border-radius: 15px;
-    margin: 20px;
-    padding: 30px;
-}
+        background-color:var(--pastel-yellow);
+        border: 2px solid var(--pastel-purple-dark);
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        max-width: 800px;
+        width: 100%;
+		margin-left: 15px;
+    }
 
-.center-screen {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    .fila-datos {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-bottom: 1.5rem;
+    }
 
-.error-message {
-    color: #dc3545;
-    text-align: center;
-}
+    .fila-datos p {
+        width: 48%;
+        margin: 0.5rem 0;
+    }
 
-.logout-message {
-    color: #198754;
-    text-align: center;
-}
-input[disabled] {
-    background-color: #e0e0e0;  /* gris clarito */
-    color: #888;                /* texto apagado */
-    cursor: not-allowed;
-    border: 1px solid #ccc;
-}
+    .etiqueta {
+        font-weight: bold;
+        color: #000;
+    }
+
+    .link-direccion {
+        color:var(--pastel-purple-light);
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .link-direccion:hover {
+        text-decoration: underline;
+    }

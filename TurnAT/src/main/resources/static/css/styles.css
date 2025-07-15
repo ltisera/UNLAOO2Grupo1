@@ -1,23 +1,9 @@
 
-/* --- INDEX--- */
-.welcome-card {
-           background-color: var(--pastel-purple-light);
-           border-radius: 20px;
-           box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-           color:var(--pastel-yellow);
-           padding: 40px;
-           width: 400px;
-           text-align: center;
-       }
-
-
-/* --- LOGIN --- */
-
 :root {
     --pastel-yellow: #fffde6;
     --pastel-purple-light: #A675FF;
     --pastel-purple-dark: #5B32A0;
-	--border-seven: 7px;
+    --border-seven: 7px;
 }
 
 body {
@@ -25,10 +11,7 @@ body {
     margin: 0;
     font-family: sans-serif;
 }
-.text-c{
-	text-align:center ;
-	color: var(--pastel-yellow)
-}
+
 
 .center-screen {
     min-height: 100vh;
@@ -37,14 +20,16 @@ body {
     justify-content: center;
 }
 
-.login-card {
+/* login y tarjeta de index*/
+.login-card, .welcome-card {
     background-color: var(--pastel-purple-light);
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    color:var(--pastel-yellow);
-    padding: 40px 30px;
+    color: var(--pastel-yellow);
+    padding: 40px;
     width: 100%;
     max-width: 400px;
+    text-align: center;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -60,15 +45,14 @@ body {
 }
 
 .btn-primary {
-	margin-top: 38px;
     background-color: var(--pastel-yellow);
-    border: 3px solid;
-	border-color: var(--pastel-purple-dark);
+    border: 3px solid var(--pastel-purple-dark);
     color: var(--pastel-purple-dark);
     font-weight: bold;
     padding: 10px;
     border-radius: var(--border-seven);
     width: 100%;
+    margin-top: 20px;
 }
 
 .btn-primary:hover {
@@ -85,270 +69,11 @@ body {
     color: #198754;
     text-align: center;
 }
-/* -------- */	 
-/* barra lateral */
-aside {
-  background-color: var(--pastel-purple-light);
-  min-height: 100vh;
-  width: 130px;
- padding: 30px 15px;
-  color:var(--pastel-yellow);
+
+.subtitulo {
+    font-size: 2rem;
+    font-weight: bold;
+	padding-bottom: 0.3rem;
+    color: #444;
+	margin: 0;
 }
-aside a {
-  display: block;
-  margin-bottom: 30px;
-  text-align: left;
-  color:var(--pastel-yellow);
-  font-weight: bold;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-
-/* barra superior */
-nav {
-  background-color: var(--pastel-purple-light);
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  color:var(--pastel-yellow);
-  border-color: var( --pastel-purple-dark);
-}
-
-nav a, nav button {
-	background-color: #fffcd9;
-	color: #4a267c;
-  font-weight: bold;
-}
-
-section a {
-  color:var(--pastel-yellow);
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-#contenedor {
-  display: flex;
-}
-
-/*----agregar direccion----- */
-main {
-    flex: 1;
-    padding: 2rem 2rem 1rem 2rem;
-}
-.form-wrapper {
-    padding: 0; 
-    margin-top: 0;
-    display: flex;
-    justify-content: center;
-}
-
-.formulario-direccion {
-    width: 100%;
-    max-width: 400px;
-    padding: 2rem;
-    border: 1px solid #ccc;
-    border-radius: var(--border-seven); 
-    background-color:var(--pastel-yellow);
-	border-color:grey ;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-}
-
-/*---------- */
-	 table {
-	      border-collapse: collapse;
-	      width: 100%;
-	      max-width: 400px;
-   		}
-    th, td {
-      border: 1px solid #888;
-      text-align: center;
-      padding: 8px;
-    }
-    select {
-      margin: 10px;
-    }
-
- 
-    section{
-      padding-left: 50px;
-      padding-right: 100px;
-
-    }
-
-    section a{
-      display: block;
-      padding-top: 25px;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      padding: 20px;
-      border-bottom: 2px solid rgb(0, 0, 76);
-    }
-	
-    .tarjeta{
-      border-color:var(--pastel-purple-dark);
-      border-radius: 15px;
-      margin: 20px;
-      padding: 30px;
-    }
-	.tarjeta-datos {
-	    background-color:var(--pastel-yellow);
-	    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-	    border: 2px solid var(--pastel-purple-dark);
-	    border-radius: 20px;
-	    padding: 35px;
-	    max-width: 600px;
-	    font-size: 1.1rem;
-	}
-
-	.fila-datos {
-	    display: flex;
-	    justify-content: space-between;
-	    gap: 20px;
-	    margin-bottom: 15px;
-	    flex-wrap: wrap;
-	}
-
-	.fila-datos p {
-	    flex: 1;
-	    margin: 0;
-	}
-
-	.etiqueta {
-	    font-weight: bold;
-	    color: #4a267c;
-	    margin-right: 6px;
-	}
-
-	.link-direccion {
-	    color: var(--pastel-purple-dark);
-	    font-weight: bold;
-	    text-decoration: underline;
-	}
-
-	.link-direccion:hover {
-	    color: #3a1e68;
-	}
-    
-    #sector{
-      display: flex;
-    }
-
-    #fechas{
-      padding-left: 30px;
-    }
-
-    #inicio{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 10px;
-
-    }
-    #inicio img{
-      width: 115px;
-      
-      
-    }
-    a{
-      text-decoration: none;
-    }
-	
-	
-	.center-screen {
-	  min-height: 100vh;
-	  display: flex;
-	  align-items: center;
-	  justify-content: center;
-	}
-	
-	/* --- EMPLEADOS --- */
-
-	.titulo-seccion {
-	    margin-bottom: 1.5rem;
-	    color: #4a4a4a;
-	    font-size: 28px;
-	}
-
-	.btn-nuevo {
-	    display: inline-block;
-	    margin-bottom: 1.5rem;
-	    background-color: var(--pastel-purple-dark);
-	    color: var(--pastel-yellow);
-	    padding: 10px 18px;
-	    border: none;
-	    border-radius: var(--border-seven);
-	    font-weight: bold;
-	    transition: background-color 0.3s ease;
-	}
-
-	.btn-nuevo:hover {
-	    background-color: #4a267c;
-	    cursor: pointer;
-	}
-
-	.tabla-empleados {
-	    width: 100%;
-	    border-collapse: collapse;
-	    background-color: white;
-	    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-	}
-
-	.tabla-empleados th, .tabla-empleados td {
-	    padding: 12px;
-	    text-align: center;
-	    border: 1px solid #888;
-	}
-
-	.tabla-empleados th {
-	    background-color: #f2f2f2;
-	    color: #333;
-	}
-
-	.accion {
-	    color: var(--pastel-purple-dark);
-	    font-weight: bold;
-	    text-decoration: none;
-	    margin: 0 5px;
-	}
-
-	.accion:hover {
-	    text-decoration: underline;
-	}
-	/* --- FORMULARIO EMPLEADO --- */
-
-	.formulario-direccion label {
-	    display: block;
-	    margin-top: 1rem;
-	    font-weight: bold;
-	    color: #333;
-	}
-
-	.formulario-direccion input,
-	.formulario-direccion select {
-	    width: 100%;
-	    padding: 10px;
-	    margin-top: 5px;
-	    border-radius: var(--border-seven);
-	    border: 1px solid #ccc;
-	    font-size: 15px;
-	}
-
-	.formulario-direccion select {
-	    background-color: white;
-	    color: #333;
-	}
-
-	.formulario-direccion button {
-	    margin-top: 1.5rem;
-	}
-	
-	
-	
-	
-	
-	

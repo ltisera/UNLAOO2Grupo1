@@ -17,52 +17,53 @@
                 <form th:action="@{|/admin/empleado/editar/${empleado.idPersona}|}" 
                       th:object="${empleado}" method="post" 
                       class="formulario-direccion">
-
-                    <div class="form-group">
-                        <label>Nombre:</label>
-                        <input type="text" th:field="*{nombre}" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label>Apellido:</label>
-                        <input type="text" th:field="*{apellido}" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label>DNI:</label>
-                        <input type="text" th:field="*{dni}" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email:</label>
-                        <input type="email" th:field="*{email}" required />
-                    </div>
-
-                    <div class="form-group">
-                        <label>Contraseña:</label>
-                        <input type="password" value="********" disabled />
-                    </div>
-
-                    <div class="form-group">
-                        <label>Legajo:</label>
-                        <input type="text" th:field="*{legajo}" required />
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label>Servicio:</label>
-                        <select name="servicioId">
-                            <option value="" th:selected="${empleado.servicio == null}">-- Seleccionar Servicio --</option>
-                            <option th:each="servicio : ${servicios}" 
-                                    th:value="${servicio.idServicio}" 
-                                    th:text="${servicio.nombre}" 
-                                    th:selected="${empleado.servicio != null and servicio.idServicio == empleado.servicio.idServicio}">
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <button type="submit">Actualizar</button>
-                    </div>
+					  <div class="form-grid">
+	                    <div class="form-group">
+	                        <label>Nombre:</label>
+	                        <input type="text" th:field="*{nombre}" required />
+	                    </div>
+	
+	                    <div class="form-group">
+	                        <label>Apellido:</label>
+	                        <input type="text" th:field="*{apellido}" required />
+	                    </div>
+	
+	                    <div class="form-group">
+	                        <label>DNI:</label>
+	                        <input type="text" th:field="*{dni}" required />
+	                    </div>
+	
+	                    <div class="form-group">
+	                        <label>Email:</label>
+	                        <input type="email" th:field="*{email}" required />
+	                    </div>
+	
+	                    <div class="form-group">
+	                        <label>Contraseña:</label>
+	                        <input type="password" value="********" disabled />
+	                    </div>
+	
+	                    <div class="form-group">
+	                        <label>Legajo:</label>
+	                        <input type="text" th:field="*{legajo}" required />
+	                    </div>
+	
+	                    <div class="form-group full-width">
+	                        <label>Servicio:</label>
+	                        <select name="servicioId">
+	                            <option value="" th:selected="${empleado.servicio == null}">-- Seleccionar Servicio --</option>
+	                            <option th:each="servicio : ${servicios}" 
+	                                    th:value="${servicio.idServicio}" 
+	                                    th:text="${servicio.nombre}" 
+	                                    th:selected="${empleado.servicio != null and servicio.idServicio == empleado.servicio.idServicio}">
+	                            </option>
+	                        </select>
+	                    </div>
+	
+	                    <div class="form-group full-width">
+	                        <button type="submit">Actualizar</button>
+	                    </div>
+					</div>	
                 </form>
             </main>
         </div>

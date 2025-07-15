@@ -1,52 +1,56 @@
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Mis datos</title>
-	<link rel="stylesheet" href="../css/styles.css">
-	<link rel="stylesheet" href="../css/solicitar-turno.css">
+    <title>Cliente mis datos</title>
+</head>
+<body>
+    <div th:replace="~{layouts/layout-cliente :: layout}">
+        <div th:fragment="content">
+          
+			<main>
+				<div class="form-header">
+				    <h1 class="titulo-seccion">Editar Servicio</h1>
+				</div>		   
+				<div class="tarjeta">
+				    <div class="fila-datos">
+				        <p><span class="etiqueta">Nombre:</span> <span th:text="${cliente.nombre}"></span></p>
+				        <p><span class="etiqueta">Apellido:</span> <span th:text="${cliente.apellido}"></span></p>
+				    </div>
 
-	</head>
-<body id="cuerpo">
-	   <nav>
-	       <a>TurnAt</a>
-	       <button onclick="window.location.href='/login'">Cerrar sesión</button>
-	   </nav>
-	   <div id="contenedor">
-		<aside>				
-		    <a href="clienteDatos">Mis Datos</a>				
-	        <a href="clienteTurnos">Mis Turnos</a>
-	        <a href="/cliente/solicitarTurno">Nuevo turno</a>		
-		</aside>
+				    <div class="fila-datos">
+				        <p><span class="etiqueta">Mail:</span> <span th:text="${cliente.email}"></span></p>
+				        <p><span class="etiqueta">Teléfono:</span> <span th:text="${cliente.telefono}"></span></p>
+				    </div>
 
-        <main>
-            <h1>Datos</h1>
-			<div class="tarjeta tarjeta-datos">
-			    <div class="fila-datos">
-			        <p><span class="etiqueta">Nombre:</span> <span th:text="${cliente.nombre}"></span></p>
-			        <p><span class="etiqueta">Apellido:</span> <span th:text="${cliente.apellido}"></span></p>
-			    </div>
+				    <div class="fila-datos">
+				        <div th:if="${cliente.direccion != null}">
+				            <p>
+				                <span class="etiqueta">Dirección:</span>
+				                <span th:text="${cliente.direccion.localidad}+', '+ ${cliente.direccion.calle} + ' ' + ${cliente.direccion.altura} "></span>
+				            </p>
+				        </div>
 
-			    <div class="fila-datos">
-			        <p><span class="etiqueta">Mail:</span> <span th:text="${cliente.email}"></span></p>
-			        <p><span class="etiqueta">Teléfono:</span> <span th:text="${cliente.telefono}"></span></p>
-			    </div>
+						<div class="fila-datos">
+						    <p>
+						        <span class="etiqueta">Dirección:</span>
+						        <span th:if="${cliente.direccion != null}"
+						              th:text="${cliente.direccion.localidad} + ', ' + ${cliente.direccion.calle} + ' ' + ${cliente.direccion.altura}"></span>
+						        <span th:if="${cliente.direccion == null}">No agregada</span>
+						    </p>
 
-			    <div class="fila-datos">
-			        <div th:if="${cliente.direccion != null}">
-			            <p>
-			                <span class="etiqueta">Dirección:</span>
-			                <span th:text="${cliente.direccion.localidad}+', '+ ${cliente.direccion.calle} + ' ' + ${cliente.direccion.altura} "></span>
-			            </p>
-			        </div>
+						    <p th:if="${cliente.direccion == null}">
+						        <a class="link-direccion" th:href="@{/cliente/agregarDireccion}">Agregar dirección</a>
+						    </p>
 
-			        <div th:if="${cliente.direccion == null}">
-			            <p><span class="etiqueta">Dirección:</span> No agregada</p>
-			            <p><a class="link-direccion" th:href="@{/cliente/agregarDireccion}">Agregar dirección</a></p>
-			        </div>
-			    </div>
-			</div>
-        </main>
+						    <!--  para mantener 2 columnas incluso si no se muestra el segundo <p> -->
+						    <p th:if="${cliente.direccion != null}" style="visibility: hidden;">placeholder</p>
+						</div>
+				    </div>
+				</div>
+			</main>
+        </div>
     </div>
 </body>
 </html>
+

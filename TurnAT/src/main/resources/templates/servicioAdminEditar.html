@@ -57,17 +57,17 @@
                             </div>
                         </div>
 
-                        <div class="form-group full-width">
-                            <label for="idSucursal">Seleccionar sucursal:</label>
-                            <select name="idSucursal" id="idSucursal" required>
-                                <option value="" disabled selected>-- Seleccione una sucursal --</option>
-                                <option th:each="sucursal : ${sucursales}"
-                                        th:value="${sucursal.idSucursal}"
-                                        th:text="${sucursal.nombre}"
-                                        th:selected="${servicio.sucursal != null and sucursal.idSucursal == servicio.sucursal.idSucursal}">
-                                </option>
-                            </select>
-                        </div>
+						<div class="form-group full-width">
+						    <label for="idSucursal">Seleccionar sucursal:</label>
+						    <select name="idSucursal" id="idSucursal" required>
+						        <option value="" disabled selected>-- Seleccione una sucursal --</option>
+						        <option th:each="sucursal : ${sucursales}"
+						                th:value="${sucursal.idSucursal}"
+						                th:text="${sucursal.nombre}"
+						                th:selected="${servicio.sucursales.contains(sucursal)}">
+						        </option>
+						    </select>
+						</div>
 
                         <div class="form-group full-width">
                             <button type="submit">Actualizar</button>
