@@ -1,24 +1,14 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Mis datos</title>
-    <link rel="stylesheet" href="../css/styles.css">
-	<link rel="stylesheet" href="../css/solicitar-turno.css">
-
+    <title>Cliente</title>
 </head>
-<body id="cuerpo">
-    <nav>
-        <a>TurnAt</a>
-        <button onclick="window.location.href='/login'">Cerrar sesión</button>
-    </nav>
-    <div id="contenedor">
-		<aside>
-			
-		        <a href="clienteDatos">Mis Datos</a>				
-		        <a href="clienteTurnos">Mis Turnos</a>
-		        <a href="solicitarTurno">Nuevo turno</a>
-			
-	 	</aside>
-	</div>
-    
+<body>
+    <div th:replace="~{layouts/layout-cliente :: layout}">
+        <div th:fragment="content">
+          
+            <h2>Bienvenido al sistema cliente </h2>
+        </div>
+    </div>
+</body>
+</html>
