@@ -59,3 +59,54 @@ aside a {
 aside a:hover {
     text-decoration: underline;
 }
+
+.formulario-turno {
+	width: 100%;
+	max-width: 800px;
+}
+
+.formulario-fondo {
+	background-color: var(--pastel-yellow); 
+	padding: 2rem;
+	border-radius: 10px;
+	border: 2px solid var(--pastel-purple-dark);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	margin:1rem;
+}
+
+
+.fila-2 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+}
+
+
+.fila-3 {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 1rem;
+}
+
+
+.fila div {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.boton-final {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 1rem;
+}
+
+
+select, input[type="month"] {
+    padding: 6px;
+    font-size: 1rem;
+}
+

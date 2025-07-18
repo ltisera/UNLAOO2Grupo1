@@ -4,23 +4,24 @@
 	    <title>Cliente</title>
 	</head>
 	<body>
-	    <div th:replace="~{layouts/layout-cliente :: layout}">
-	        <div th:fragment="content">
+		<div th:replace="~{layouts/layout-cliente :: layout}">
+			 <div th:fragment="content">
 				<main>
 					<div class="form-header">
 					    <h1 class="titulo-seccion">Solicitar turno</h1>
 					</div>
 				    <form id="turnoForm" class="formulario-turno">
 						<div class="formulario-fondo">				        
-							<div>
-					            <label for="servicio">Servicio:</label>
-					            <select id="servicio" name="servicio" required></select>
-					        </div>
-					        <div>
-					            <label for="sucursal">Sucursal:</label>
-					            <select id="sucursal" name="sucursal" required></select>
-					        </div>
-	
+							<div class="fila fila-2">
+								<div>
+						            <label for="servicio">Servicio:</label>
+						            <select id="servicio" name="servicio" required></select>
+						        </div>
+						        <div>
+						            <label for="sucursal">Sucursal:</label>
+						            <select id="sucursal" name="sucursal" required></select>
+						        </div>
+							</div>
 					        <div class="fila-3">
 					            <div>
 					                <label for="fecha">Fecha:</label>
@@ -36,16 +37,15 @@
 					            </div>
 					        </div>
 	
-					        <div class="boton">
+					        <div class="boton-final">
 					            <input type="hidden" id="idCliente" th:value="${idCliente}">
-					            <button type="submit" class="btn-violeta">Confirmar Turno</button>
+					            <button type="submit" class="btn-nuevo">Confirmar Turno</button>
 					        </div>
 						</div>
 				    </form>
-				</main>
-	           
+				</main>           
 	        </div>
-	    </div>
+		</div> 
 		<script>
 		       const servicioSelect = document.getElementById('servicio');
 		       const sucursalSelect = document.getElementById('sucursal');
