@@ -60,6 +60,7 @@ aside a:hover {
     text-decoration: underline;
 }
 
+/*formulario turno, no me lo tomaba en el otro css*/
 .formulario-turno {
 	width: 100%;
 	max-width: 800px;

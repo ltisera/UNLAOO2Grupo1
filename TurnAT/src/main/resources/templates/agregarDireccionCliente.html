@@ -1,39 +1,31 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Agregar Dirección</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <title>Agregar direccion</title>
 </head>
-<body id="cuerpo">
-    <nav>
-        <a>TurnAt</a>
-        <button onclick="window.location.href='/login'">Cerrar sesión</button>
-    </nav>
+<body>
+    <div th:replace="~{layouts/layout-cliente :: layout}">
+        <div th:fragment="content">          
+			<main>
+			    <div class="form-header">
+					<h1 class="titulo-seccion">Agrega tu direccion</h1>
+				</div>	
+			        <form th:action="@{/cliente/agregarDireccion}" th:object="${direccion}" method="post" class="formulario-direccion">
 
-   
-    <div id="contenedor">
-        <aside>
-            <a href="clienteDatos">Mis Datos</a>
-            <a href="clienteTurnos">Mis Turnos</a>
-            <a href="solicitarTurno">Nuevo turno</a>
-        </aside>
-
-		<main>
-		    <div class="form-wrapper">
-		        <form th:action="@{/cliente/agregarDireccion}" th:object="${direccion}" method="post" class="formulario-direccion">
-		            <h3 class="text-center mb-4">Agregar Dirección</h3>
-
-		            <input type="text" class="form-control mb-3" th:field="*{localidad}" placeholder="Localidad" required>
-		            <input type="text" class="form-control mb-3" th:field="*{calle}" placeholder="Calle" required>
-		            <input type="number" class="form-control mb-3" th:field="*{altura}" placeholder="Altura" required>
-		            <input type="text" class="form-control mb-4" th:field="*{depto}" placeholder="Departamento (opcional)">
-
-		            <button type="submit" class="btn btn-primary w-100">Guardar</button>
-		        </form>
-		    </div>
-		</main>
+			            <input type="text" class="fila-datos" th:field="*{localidad}" placeholder="Localidad" required>
+			            <input type="text" class="fila-datos" th:field="*{calle}" placeholder="Calle" required>
+			            <input type="number" class="fila-datos" th:field="*{altura}" placeholder="Altura" required>
+			            <input type="text" class="fila-datos" th:field="*{depto}" placeholder="Departamento (opcional)">
+						
+						<div class="boton-final">
+			            	<button type="submit" class="btn-nuevo">Guardar</button>
+						</div>	
+			        </form>
+			   
+			</main>
+        </div>
     </div>
 </body>
 </html>
+
+
