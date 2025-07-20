@@ -12,20 +12,25 @@ body {
     font-family: sans-serif;
 }
 
-
-.center-screen {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.body-login{
+	background-color: var(--pastel-purple-light);
+	margin: 0;
+	font-family: sans-serif;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
 }
+
 
 /* login y tarjeta de index*/
 .login-card, .welcome-card {
-    background-color: var(--pastel-purple-light);
+    background-color: var(--pastel-yellow);
     border-radius: 20px;
+	border: 2px solid var(--pastel-purple-dark);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    color: var(--pastel-yellow);
+    color:var(--pastel-purple-dark) ;
     padding: 40px;
     width: 100%;
     max-width: 400px;
@@ -39,25 +44,26 @@ body {
     background-color: white;
     border-radius: var(--border-seven);
     border: 1px solid #ccc;
-    height: 48px;
+    height: auto;
     font-size: 16px;
     padding: 10px 15px;
 }
 
-.btn-primary {
-    background-color: var(--pastel-yellow);
-    border: 3px solid var(--pastel-purple-dark);
-    color: var(--pastel-purple-dark);
+.btn-login {
+    background-color: var(--pastel-purple-dark);
+    border: 2px solid var(--pastel-purple-dark);
+    color: var(--pastel-yellow);
     font-weight: bold;
     padding: 10px;
     border-radius: var(--border-seven);
     width: 100%;
     margin-top: 20px;
+	transition: background-color 0.3s ease;
 }
 
-.btn-primary:hover {
-    background-color: #fffcd9;
-    color: #4a267c;
+.btn-login:hover {
+    background-color:var(--pastel-purple-light);
+   	cursor: pointer;
 }
 
 .error-message {

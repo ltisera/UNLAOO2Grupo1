@@ -14,7 +14,7 @@
 
 			            <input type="text" class="fila-datos" th:field="*{localidad}" placeholder="Localidad" required>
 			            <input type="text" class="fila-datos" th:field="*{calle}" placeholder="Calle" required>
-			            <input type="number" class="fila-datos" th:field="*{altura}" placeholder="Altura" required>
+			            <input type="number" class="fila-datos" th:value="*{altura==0}? '' : *{altura}" name="altura" placeholder="Altura" required>
 			            <input type="text" class="fila-datos" th:field="*{depto}" placeholder="Departamento (opcional)">
 						
 						<div class="boton-final">

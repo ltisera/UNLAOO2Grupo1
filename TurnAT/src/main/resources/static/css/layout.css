@@ -109,5 +109,9 @@ aside a:hover {
 select, input[type="month"] {
     padding: 6px;
     font-size: 1rem;
+	border-radius: var(--border-seven);
+	width: 100%;
+	height: auto;
+	border: 1px solid #aaa;
 }
 
