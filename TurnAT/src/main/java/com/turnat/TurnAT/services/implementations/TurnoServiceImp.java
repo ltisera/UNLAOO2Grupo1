@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.turant.TurnAT.exceptions.TurnoFueraDeFecha;
 import com.turnat.TurnAT.dto.SolicitudTurnoDTO;
 import com.turnat.TurnAT.models.entities.Disponible;
 import com.turnat.TurnAT.models.entities.Estado;
@@ -146,7 +147,13 @@ public class TurnoServiceImp implements ITurnoService {
     public void confirmarTurno(SolicitudTurnoDTO dto) {
         LocalDate fecha = LocalDate.of(dto.getAnio(), dto.getMes(), dto.getDia());
         LocalTime hora = LocalTime.parse(dto.getHora());
-
+        
+        // Validar si la fecha es válida (no en el pasado)
+        if (fecha.isBefore(LocalDate.now())) {
+        	System.out.println("LANZALAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            throw new TurnoFueraDeFecha("No se puede asignar un turno en una fecha pasada");
+            
+        }
         // Validar si el horario ya está ocupado
         List<Turno> turnosDelDia = turnoRepo.findByFecha(fecha);
         boolean ocupado = turnosDelDia.stream()

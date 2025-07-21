@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.turnat.TurnAT.dto.SolicitudTurnoDTO;
 import com.turnat.TurnAT.dto.TurnoDTO;
 import com.turnat.TurnAT.models.entities.Cliente;
 import com.turnat.TurnAT.models.entities.Direccion;
@@ -103,6 +104,9 @@ public class TurnoRestController {
     
     @PostMapping("/confirmar")
     public ResponseEntity<?> confirmarTurno(@RequestBody TurnoDTO dto) {
+    	
+    	SolicitudTurnoDTO sdto = new SolicitudTurnoDTO(dto.idServicio(), dto.anio(), dto.mes(), dto.dia(), dto.hora(), dto.idCliente());
+    	
         Cliente cliente = clienteService.traerPorId(dto.idCliente());
         if (cliente == null) {
             return ResponseEntity.badRequest().body("Cliente no encontrado");
@@ -141,7 +145,7 @@ public class TurnoRestController {
         }
 
         Turno turno = new Turno(cliente, servicio, estado, fechaYHora);
-        turnoService.agregar(turno);
+        turnoService.confirmarTurno(sdto);
        
         DateTimeFormatter fechaFmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter horaFmt = DateTimeFormatter.ofPattern("HH:mm");
