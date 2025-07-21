@@ -35,6 +35,7 @@ import com.turnat.TurnAT.services.interfaces.ITurnoService;
 
 @RestController
 @RequestMapping("/api/turnos")
+//para solicitar turno
 public class TurnoRestController {
 
     @Autowired
@@ -102,19 +103,19 @@ public class TurnoRestController {
     
     @PostMapping("/confirmar")
     public ResponseEntity<?> confirmarTurno(@RequestBody TurnoDTO dto) {
-        Cliente cliente = clienteService.traerPorId(dto.getIdCliente());
+        Cliente cliente = clienteService.traerPorId(dto.idCliente());
         if (cliente == null) {
             return ResponseEntity.badRequest().body("Cliente no encontrado");
         }
        
 
-        Servicio servicio = servicioService.traerPorId(dto.getIdServicio());
+        Servicio servicio = servicioService.traerPorId(dto.idServicio());
         if (servicio == null) {
             return ResponseEntity.badRequest().body("Servicio no encontrado");
         }
         
         //solo para el envio de mail, no la guardamos
-        Sucursal sucursalParaElMail = sucursalService.traerPorId(dto.getIdSucursal());
+        Sucursal sucursalParaElMail = sucursalService.traerPorId(dto.idSucursal());
         if (sucursalParaElMail == null) {
             return ResponseEntity.badRequest().body("Sucursal no encontrada");
         }
@@ -130,8 +131,8 @@ public class TurnoRestController {
         }
 
         // Buscamos o creamos la FechaYHora
-        LocalDate fecha = LocalDate.of(dto.getAnio(), dto.getMes(), dto.getDia());
-        LocalTime hora = LocalTime.parse(dto.getHora());
+        LocalDate fecha = LocalDate.of(dto.anio(), dto.mes(), dto.dia());
+        LocalTime hora = LocalTime.parse(dto.hora());
         
         FechaYHora fechaYHora = fechaYHoraService.buscarPorFechaHora(fecha, hora);
         if (fechaYHora == null) {
@@ -157,5 +158,10 @@ public class TurnoRestController {
         
         return ResponseEntity.ok("Turno confirmado");
     }
+    
+    
+    
+    
+    
 }
 

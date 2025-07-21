@@ -1,4 +1,93 @@
 <!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Sucursales</title>
+	</head>
+	<body>
+		<div th:replace="~{layouts/layout-admin :: layout}">
+		    <div th:fragment="content">
+		        <main>
+		            <!-- Encabezado -->
+		            <div class="form-header">
+		                <h1 class="titulo-seccion">Listado de Sucursales</h1>
+		            </div>
+		
+		            <!-- Tabla -->
+		            <table class="tabla-empleados">
+		                <thead>
+		                    <tr>
+		                        <th>ID</th>
+		                        <th>Cliente</th>
+		                        <th>Servicio</th>
+		                        <th>Estado</th>
+		                        <th>Fecha</th>
+		                        <th>Hora</th>
+		                    </tr>
+		                </thead>
+		                <tbody id="tabla-turnos">
+		                    <!-- Se completa por JS -->
+		                </tbody>
+		            </table>
+		        </main>
+		    </div>
+		</div>
+		
+		<script>
+		document.addEventListener("DOMContentLoaded", function () {
+		    fetch("http://localhost:8080/admin/sucursales")
+		        .then(response => {
+		            if (!response.ok) {
+		                throw new Error("Error al cargar las sucursales");
+		            }
+		            return response.json();
+		        })
+		        .then(data => {
+		            const tbody = document.getElementById("tabla-sucursales");
+		
+		            if (data.length === 0) {
+		                tbody.innerHTML = `<tr><td colspan="6">No hay sucursales registradas.</td></tr>`;
+		                return;
+		            }
+		
+		            data.forEach(sucursal => {
+		                const row = document.createElement("tr");
+		
+		                row.innerHTML = `
+		                    <td>${sucursal.idSucursal}</td>
+		                    <td>${sucursal.nombre}</td>
+		                    <td>${sucursal.telefono || '-'}</td>
+		                    <td>${sucursal.direccion?.localidad || '-'}</td>
+		                    <td>${sucursal.direccion?.calle || ''} ${sucursal.direccion?.altura || ''}</td>
+		                    <td>
+		                        <a href="/admin/sucursal/editar/${sucursal.idSucursal}" class="accion">Editar</a> |
+		                        <a href="/admin/sucursal/eliminar/${sucursal.idSucursal}" class="accion" onclick="return confirm('¿Seguro que querés eliminar esta sucursal?')">Eliminar</a>
+		                    </td>
+		                `;
+		
+		                tbody.appendChild(row);
+		            });
+		        })
+		        .catch(error => {
+		            console.error("Error al cargar sucursales:", error);
+		            const tbody = document.getElementById("tabla-sucursales");
+		            tbody.innerHTML = `<tr><td colspan="6">Error al cargar las sucursales.</td></tr>`;
+		        });
+		});
+		</script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">

@@ -22,9 +22,12 @@ public class SecurityConfiguration {
         .csrf(csrf -> csrf.disable())  // Desactivar CSRF
          	.userDetailsService(userDetailsService)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(  "/css/**", "/js/**", "/img/**",    // Recursos estáticos
-                        			"/", "/login", "/registro",        // Páginas públicas
-                        			"/cliente/registro-cliente"      // Registro de clientes
+                .requestMatchers(  "/css/**", "/js/**", "/img/**",	   // Recursos estáticos
+                        			"/", "/login", "/registro",       // Páginas públicas
+                        			"/cliente/registro-cliente",     // Registro de clientes
+                        			"/swagger-ui/**",				//Para el swagger
+                                    "/swagger-ui.html",
+                                    "/v3/api-docs/**"
                         ).permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/empleado/**").hasRole("EMPLEADO")
