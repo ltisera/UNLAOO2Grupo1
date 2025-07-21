@@ -1,0 +1,23 @@
+
+
+.tarjeta-error {
+    background-color: var(--pastel-yellow);
+    border: 2px solid var(--pastel-purple-dark);
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 5rem auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.tarjeta-error h2 {
+    color: var(--pastel-purple-dark);
+    margin-bottom: 1rem;
+}
+
+.tarjeta-error p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 1rem;
+}

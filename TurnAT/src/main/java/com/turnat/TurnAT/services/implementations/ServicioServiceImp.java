@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.turant.TurnAT.exceptions.ServicioHoraInicioYFin;
 import com.turnat.TurnAT.models.entities.Servicio;
 import com.turnat.TurnAT.repositories.IServicioRepository;
 import com.turnat.TurnAT.services.interfaces.IServicioService;
@@ -18,7 +19,9 @@ public class ServicioServiceImp implements IServicioService{
 
 	@Override
 	public Servicio agregar(Servicio s) {
-		
+		if(s.getDisponibilidad().getHoraInicio().isAfter(s.getDisponibilidad().getHoraFin())) {
+			throw new ServicioHoraInicioYFin("La hora de inicio selecionada es despues de a hora de finalizacion seleccionada");
+		}
 		return servicioRepo.save(s);
 	}
 

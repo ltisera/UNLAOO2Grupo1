@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Servicio inválido</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+	<link rel="stylesheet" th:href="@{/css/error.css}">
+	
+</head>
+<body class="body-login">
+    <div class="tarjeta tarjeta-error">
+        <h2>¡Algo salió mal!</h2>
+        <p>El servicio no puede tener una <strong>hora de inicio</strong> mayor que la <strong>hora de fin</strong>.</p>
+        <p>Por favor, selecciona otro horario de trabajo y volvé a intentarlo.</p>
+        <a th:href="@{/admin/servicio/registro}" class="btn-nuevo"> Volver a  Agregar Nuevo Servicio</a>
+    </div>
+</body>
+</html>

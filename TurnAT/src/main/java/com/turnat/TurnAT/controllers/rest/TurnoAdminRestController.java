@@ -19,8 +19,12 @@ import com.turnat.TurnAT.services.interfaces.IServicioService;
 import com.turnat.TurnAT.services.interfaces.ISucursalService;
 import com.turnat.TurnAT.services.interfaces.ITurnoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/admin/turnos")
+@Tag(name = "Turnos", description = "Para que el admin pueda ver los turnos de la bd")
 public class TurnoAdminRestController {
     @Autowired
     private IServicioService servicioService;
@@ -40,6 +44,10 @@ public class TurnoAdminRestController {
     @Autowired
     private IEmailService emailService;
     
+    
+    
+    @GetMapping
+    @Operation(summary = "Listar todos los turnos")
     public List<TurnoDTO> obtenerTodas() {
         return turnoService.traerTodos().stream()
             .map(turno -> new TurnoDTO(
