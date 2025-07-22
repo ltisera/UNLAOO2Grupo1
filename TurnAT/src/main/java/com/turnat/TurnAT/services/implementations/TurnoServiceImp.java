@@ -152,8 +152,7 @@ public class TurnoServiceImp implements ITurnoService {
 
         // Validar si la fecha es válida (no en el pasado)
         if (fecha.isBefore(LocalDate.now())) {
-        	System.out.println("QUIE ONDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            throw new TurnoFueraDeFecha("No se puede asignar un turno en una fecha pasada");
+        	throw new TurnoFueraDeFecha("No se puede asignar un turno en una fecha pasada");
         }
 
         // Validar si el horario ya está ocupado

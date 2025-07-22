@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.turnat.TurnAT.dto.SolicitudTurnoDTO;
 import com.turnat.TurnAT.dto.TurnoDTO;
+import com.turnat.TurnAT.exceptions.TurnoFueraDeFecha;
 import com.turnat.TurnAT.models.entities.Cliente;
 import com.turnat.TurnAT.models.entities.Direccion;
 import com.turnat.TurnAT.models.entities.Estado;
@@ -104,45 +105,51 @@ public class TurnoRestController {
     
     @PostMapping("/confirmar")
     public ResponseEntity<?> confirmarTurno(@RequestBody TurnoDTO dto) {
+    	try {
+    		
     	
-    	// Validaciones básicas
-        Cliente cliente = clienteService.traerPorId(dto.idCliente());
-        if (cliente == null) return ResponseEntity.badRequest().body("Cliente no encontrado");
-
-        Servicio servicio = servicioService.traerPorId(dto.idServicio());
-        if (servicio == null) return ResponseEntity.badRequest().body("Servicio no encontrado");
-
-        Sucursal sucursal = sucursalService.traerPorId(dto.idSucursal());
-        if (sucursal == null) return ResponseEntity.badRequest().body("Sucursal no encontrada");
-
-        Direccion direccion = direccionService.traerPorId(sucursal.getDireccion().getIdDireccion());
-        if (direccion == null) return ResponseEntity.badRequest().body("Dirección no encontrada");
-
-        Estado estado = estadoService.traerPorDescripcion("confirmado");
-        if (estado == null) return ResponseEntity.badRequest().body("Estado confirmado no encontrado");
-
-        // Armar DTO para pasar al service
-        SolicitudTurnoDTO sdto = new SolicitudTurnoDTO(
-            dto.idServicio(), dto.anio(), dto.mes(), dto.dia(), dto.hora(), dto.idCliente()
-        );
-
-        // Confirmar turno (esto guarda el Turno)
-        turnoService.confirmarTurno(sdto);
-
-        // Enviar correo (opcional)
-        DateTimeFormatter fechaFmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter horaFmt = DateTimeFormatter.ofPattern("HH:mm");
-        String asunto = "¡Turno solicitado en TurnAT!";
-        String cuerpo = "Hola " + cliente.getNombre() + ",\n\n" +
-                        "Tu turno para el servicio *" + servicio.getNombre() + "* fue confirmado.\n" +
-                        "📅 Fecha: " + LocalDate.of(dto.anio(), dto.mes(), dto.dia()).format(fechaFmt) + "\n" +
-                        "🕒 Hora: " + LocalTime.parse(dto.hora()).format(horaFmt) + " hs\n" +
-                        "🏢 Sucursal: " + sucursal.getNombre() + "\n" +
-                        "📍 Dirección: " + direccion.toString() + "\n\n" +
-                        "¡Gracias por confiar en TurnAT!";
-        emailService.enviarCorreo(cliente.getEmail(), asunto, cuerpo);
-
-        return ResponseEntity.ok("Turno confirmado");
+	    	// Validaciones básicas
+	        Cliente cliente = clienteService.traerPorId(dto.idCliente());
+	        if (cliente == null) return ResponseEntity.badRequest().body("Cliente no encontrado");
+	
+	        Servicio servicio = servicioService.traerPorId(dto.idServicio());
+	        if (servicio == null) return ResponseEntity.badRequest().body("Servicio no encontrado");
+	
+	        Sucursal sucursal = sucursalService.traerPorId(dto.idSucursal());
+	        if (sucursal == null) return ResponseEntity.badRequest().body("Sucursal no encontrada");
+	
+	        Direccion direccion = direccionService.traerPorId(sucursal.getDireccion().getIdDireccion());
+	        if (direccion == null) return ResponseEntity.badRequest().body("Dirección no encontrada");
+	
+	        Estado estado = estadoService.traerPorDescripcion("confirmado");
+	        if (estado == null) return ResponseEntity.badRequest().body("Estado confirmado no encontrado");
+	
+	        // Armar DTO para pasar al service
+	        SolicitudTurnoDTO sdto = new SolicitudTurnoDTO(
+	            dto.idServicio(), dto.anio(), dto.mes(), dto.dia(), dto.hora(), dto.idCliente()
+	        );
+	
+	        // Confirmar turno (esto guarda el Turno)
+	        turnoService.confirmarTurno(sdto);
+	
+	        // Enviar correo (opcional)
+	        DateTimeFormatter fechaFmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	        DateTimeFormatter horaFmt = DateTimeFormatter.ofPattern("HH:mm");
+	        String asunto = "¡Turno solicitado en TurnAT!";
+	        String cuerpo = "Hola " + cliente.getNombre() + ",\n\n" +
+	                        "Tu turno para el servicio *" + servicio.getNombre() + "* fue confirmado.\n" +
+	                        "📅 Fecha: " + LocalDate.of(dto.anio(), dto.mes(), dto.dia()).format(fechaFmt) + "\n" +
+	                        "🕒 Hora: " + LocalTime.parse(dto.hora()).format(horaFmt) + " hs\n" +
+	                        "🏢 Sucursal: " + sucursal.getNombre() + "\n" +
+	                        "📍 Dirección: " + direccion.toString() + "\n\n" +
+	                        "¡Gracias por confiar en TurnAT!";
+	        emailService.enviarCorreo(cliente.getEmail(), asunto, cuerpo);
+	
+	        return ResponseEntity.ok("Turno confirmado");
+    	} catch (TurnoFueraDeFecha e){
+    		return ResponseEntity.badRequest().body(e.getMessage());
+    	}
+    	
     }    
     
 }
