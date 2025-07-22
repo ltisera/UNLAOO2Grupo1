@@ -35,6 +35,8 @@ import com.turnat.TurnAT.services.interfaces.IServicioService;
 import com.turnat.TurnAT.services.interfaces.ISucursalService;
 import com.turnat.TurnAT.services.interfaces.ITurnoService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+@Tag(name = "Solicitud de Turno", description = "Operaciones necesarias para que el cliente solicite un turno")
 @RestController
 @RequestMapping("/api/turnos")
 //para solicitar turno

@@ -14,7 +14,7 @@ public class SwaggerConfiguration {
             .info(new Info()
                 .title("TurnAT API")
                 .version("1.0.0")
-                .description("Documentación de la API REST para el sistema TurnAT - Proyecto Final")
+                .description("Documentación de la API REST para el sistema TurnAT - Entrega Final")
             );
     }
 }
