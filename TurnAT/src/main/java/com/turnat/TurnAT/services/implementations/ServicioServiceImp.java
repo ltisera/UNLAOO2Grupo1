@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.turant.TurnAT.exceptions.ServicioHoraInicioYFin;
+import com.turnat.TurnAT.exceptions.ServicioHoraInicioYFin;
 import com.turnat.TurnAT.models.entities.Servicio;
 import com.turnat.TurnAT.repositories.IServicioRepository;
 import com.turnat.TurnAT.services.interfaces.IServicioService;

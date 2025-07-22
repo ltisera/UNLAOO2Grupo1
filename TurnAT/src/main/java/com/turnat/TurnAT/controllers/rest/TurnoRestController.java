@@ -105,67 +105,45 @@ public class TurnoRestController {
     @PostMapping("/confirmar")
     public ResponseEntity<?> confirmarTurno(@RequestBody TurnoDTO dto) {
     	
-    	SolicitudTurnoDTO sdto = new SolicitudTurnoDTO(dto.idServicio(), dto.anio(), dto.mes(), dto.dia(), dto.hora(), dto.idCliente());
-    	
+    	// Validaciones básicas
         Cliente cliente = clienteService.traerPorId(dto.idCliente());
-        if (cliente == null) {
-            return ResponseEntity.badRequest().body("Cliente no encontrado");
-        }
-       
+        if (cliente == null) return ResponseEntity.badRequest().body("Cliente no encontrado");
 
         Servicio servicio = servicioService.traerPorId(dto.idServicio());
-        if (servicio == null) {
-            return ResponseEntity.badRequest().body("Servicio no encontrado");
-        }
-        
-        //solo para el envio de mail, no la guardamos
-        Sucursal sucursalParaElMail = sucursalService.traerPorId(dto.idSucursal());
-        if (sucursalParaElMail == null) {
-            return ResponseEntity.badRequest().body("Sucursal no encontrada");
-        }
-        Direccion direccionParaElMail = direccionService.traerPorId(sucursalParaElMail.getDireccion().getIdDireccion());
-        if (direccionParaElMail == null) {
-            return ResponseEntity.badRequest().body("Direccion no encontrada");
-        }
-        
-        // Buscamos el estado "confirmado" (o el que uses para nuevo turno)
+        if (servicio == null) return ResponseEntity.badRequest().body("Servicio no encontrado");
+
+        Sucursal sucursal = sucursalService.traerPorId(dto.idSucursal());
+        if (sucursal == null) return ResponseEntity.badRequest().body("Sucursal no encontrada");
+
+        Direccion direccion = direccionService.traerPorId(sucursal.getDireccion().getIdDireccion());
+        if (direccion == null) return ResponseEntity.badRequest().body("Dirección no encontrada");
+
         Estado estado = estadoService.traerPorDescripcion("confirmado");
-        if (estado == null) {
-            return ResponseEntity.badRequest().body("Estado confirmado no encontrado");
-        }
+        if (estado == null) return ResponseEntity.badRequest().body("Estado confirmado no encontrado");
 
-        // Buscamos o creamos la FechaYHora
-        LocalDate fecha = LocalDate.of(dto.anio(), dto.mes(), dto.dia());
-        LocalTime hora = LocalTime.parse(dto.hora());
-        
-        FechaYHora fechaYHora = fechaYHoraService.buscarPorFechaHora(fecha, hora);
-        if (fechaYHora == null) {
-            fechaYHora = new FechaYHora(fecha, hora);
-            fechaYHoraService.agregar(fechaYHora);
-        }
+        // Armar DTO para pasar al service
+        SolicitudTurnoDTO sdto = new SolicitudTurnoDTO(
+            dto.idServicio(), dto.anio(), dto.mes(), dto.dia(), dto.hora(), dto.idCliente()
+        );
 
-        Turno turno = new Turno(cliente, servicio, estado, fechaYHora);
+        // Confirmar turno (esto guarda el Turno)
         turnoService.confirmarTurno(sdto);
-       
+
+        // Enviar correo (opcional)
         DateTimeFormatter fechaFmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter horaFmt = DateTimeFormatter.ofPattern("HH:mm");
         String asunto = "¡Turno solicitado en TurnAT!";
         String cuerpo = "Hola " + cliente.getNombre() + ",\n\n" +
-			            "Tu turno para el servicio *" + servicio.getNombre() + "* fue confirmado.\n" +
-			            "📅 Fecha: " + fecha.format(fechaFmt) + "\n" +
-			            "🕒 Hora: " + hora.format(horaFmt) + " hs\n" +
-			            "🏢 Sucursal: " + sucursalParaElMail.getNombre() + "\n" +
-			            "📍 Dirección: " + direccionParaElMail.toString() + "\n\n" +
-			            "¡Gracias por confiar en TurnAT!";
+                        "Tu turno para el servicio *" + servicio.getNombre() + "* fue confirmado.\n" +
+                        "📅 Fecha: " + LocalDate.of(dto.anio(), dto.mes(), dto.dia()).format(fechaFmt) + "\n" +
+                        "🕒 Hora: " + LocalTime.parse(dto.hora()).format(horaFmt) + " hs\n" +
+                        "🏢 Sucursal: " + sucursal.getNombre() + "\n" +
+                        "📍 Dirección: " + direccion.toString() + "\n\n" +
+                        "¡Gracias por confiar en TurnAT!";
         emailService.enviarCorreo(cliente.getEmail(), asunto, cuerpo);
-        
-        
+
         return ResponseEntity.ok("Turno confirmado");
-    }
-    
-    
-    
-    
+    }    
     
 }
 

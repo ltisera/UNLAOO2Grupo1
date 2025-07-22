@@ -9,8 +9,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.turant.TurnAT.exceptions.TurnoFueraDeFecha;
 import com.turnat.TurnAT.dto.SolicitudTurnoDTO;
+import com.turnat.TurnAT.exceptions.ServicioHoraInicioYFin;
+import com.turnat.TurnAT.exceptions.TurnoFueraDeFecha;
+import com.turnat.TurnAT.models.entities.Cliente;
 import com.turnat.TurnAT.models.entities.Disponible;
 import com.turnat.TurnAT.models.entities.Estado;
 import com.turnat.TurnAT.models.entities.FechaYHora;
@@ -145,15 +147,15 @@ public class TurnoServiceImp implements ITurnoService {
 
     @Override
     public void confirmarTurno(SolicitudTurnoDTO dto) {
-        LocalDate fecha = LocalDate.of(dto.getAnio(), dto.getMes(), dto.getDia());
+    	LocalDate fecha = LocalDate.of(dto.getAnio(), dto.getMes(), dto.getDia());
         LocalTime hora = LocalTime.parse(dto.getHora());
-        
+
         // Validar si la fecha es válida (no en el pasado)
         if (fecha.isBefore(LocalDate.now())) {
-        	System.out.println("LANZALAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        	System.out.println("QUIE ONDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             throw new TurnoFueraDeFecha("No se puede asignar un turno en una fecha pasada");
-            
         }
+
         // Validar si el horario ya está ocupado
         List<Turno> turnosDelDia = turnoRepo.findByFecha(fecha);
         boolean ocupado = turnosDelDia.stream()
@@ -168,16 +170,25 @@ public class TurnoServiceImp implements ITurnoService {
             .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
 
         // Buscar cliente
-        var cliente = clienteRepo.findById(dto.getIdCliente())
+        Cliente cliente = clienteRepo.findById(dto.getIdCliente())
             .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
 
-        // Crear turno SIN empleado (se asigna en persona)
+        // Buscar o crear FechaYHora
+        FechaYHora fechaYHora = fechaYHoraRepo.findByFechaAndHora(fecha, hora)
+            .orElseGet(() -> {
+                FechaYHora nueva = new FechaYHora(fecha, hora);
+                return fechaYHoraRepo.save(nueva);
+            });
+
+        // Buscar estado "confirmado"
+        Estado estadoConfirmado = estadoRepo.findByDescripcion("confirmado")
+            .orElseThrow(() -> new RuntimeException("Estado 'confirmado' no encontrado"));
+
+        // Crear y guardar el turno
         Turno nuevo = new Turno();
         nuevo.setServicio(servicio);
         nuevo.setCliente(cliente);
-        nuevo.setFechaYHora(new FechaYHora(fecha, hora));
-        Estado estadoConfirmado = estadoRepo.findByDescripcion("confirmado")
-        	    .orElseThrow(() -> new RuntimeException("Estado 'confirmado' no encontrado"));
+        nuevo.setFechaYHora(fechaYHora);
         nuevo.setEstado(estadoConfirmado);
 
         turnoRepo.save(nuevo);
