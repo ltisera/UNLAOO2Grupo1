@@ -14,11 +14,11 @@ public class ExceptionsController {
         return "errores/horaInicioYFin"; // vista HTML del error
     }
 	 	
- 	@ExceptionHandler(TurnoFueraDeFecha.class )
+ 	@ExceptionHandler(TurnoFueraDeFecha.class)
  	public String manejarTurnoFueraDeFecha(TurnoFueraDeFecha exception, Model model){
  		System.out.println("Estoy en esoooooooooooo");
  		model.addAttribute("error", exception.getMessage());
-        return "errores/horaInicioYFin"; // vista HTML del error
+ 		return "errores/TurnoFueraDeFecha";
  	}
 
 
