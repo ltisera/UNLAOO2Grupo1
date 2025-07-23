@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title>Error de Registro</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/errores.css}">
 </head>
-<body>
-    <div class="tarjeta tarjeta-error">
+<body class="body-login">
+    <div class="welcome-card">
         <h2>¡Error al registrar!</h2>
-        <p th:text="${error}"></p>
-        <a th:href="@{/cliente/registro-cliente}" class="btn-nuevo">Volver a Intentar</a>
+        <div class="error-message" th:text="${error}"></div>
+        <button onclick="location.href='/cliente/registro-cliente'" class="btn-login">Volver al registro</button>
     </div>
 </body>
 </html>
