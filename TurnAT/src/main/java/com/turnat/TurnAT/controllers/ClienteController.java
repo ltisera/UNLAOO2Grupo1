@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.turnat.TurnAT.exceptions.EmailDuplicadoException;
 import com.turnat.TurnAT.models.entities.Cliente;
 import com.turnat.TurnAT.models.entities.Direccion;
 import com.turnat.TurnAT.models.entities.Rol;
@@ -55,12 +56,10 @@ public class ClienteController {
 
 	@PostMapping("/registro-cliente")
 	public String registroCliente(@ModelAttribute("cliente") Cliente cliente, Model model) {
-		// validacion de q no exista alguien con ese mail
-		Optional<Cliente> existente = clienteRepository.findByEmail(cliente.getEmail());
-		if (existente.isPresent()) {
-			model.addAttribute("error", "Ya existe agluien registrado con este email.");
-			return "registroCliente";
-		}
+	    Optional<Cliente> existente = clienteRepository.findByEmail(cliente.getEmail());
+	    if (existente.isPresent()) {
+	        throw new EmailDuplicadoException("Ya existe alguien registrado con este email.");
+	    }
 
 		cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
 		// Asignar rol cliente

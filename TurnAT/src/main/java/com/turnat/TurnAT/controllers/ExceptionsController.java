@@ -27,4 +27,9 @@ public class ExceptionsController {
  	    return "errores/dniDuplicado"; // Vista HTML del error
  	}
 
+ 	@ExceptionHandler(EmailDuplicadoException.class)
+    public String handleEmailDuplicadoException(EmailDuplicadoException exception, Model model) {
+        model.addAttribute("error", exception.getMessage());
+        return "errores/emailDuplicado"; // Vista HTML del error
+    }
 }
