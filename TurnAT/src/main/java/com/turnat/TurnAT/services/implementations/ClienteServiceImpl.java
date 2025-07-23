@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.turnat.TurnAT.exceptions.DniDuplicadoException;
 import com.turnat.TurnAT.models.entities.Cliente;
 
 @Service
@@ -25,8 +26,13 @@ public class ClienteServiceImpl implements IClienteService{
     
     @Override
     public Cliente agregar(Cliente cliente) {
+        // Verificar si el DNI ya existe
+        if (clienteRepo.findByDni(cliente.getDni()).isPresent()) {
+            throw new DniDuplicadoException("El DNI ya está registrado en el sistema.");
+        }
         return clienteRepo.save(cliente);
     }
+
     
     @Override
     public List<Cliente> traerTodos() {

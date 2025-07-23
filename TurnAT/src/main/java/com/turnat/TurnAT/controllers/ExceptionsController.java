@@ -21,5 +21,10 @@ public class ExceptionsController {
  		return "errores/TurnoFueraDeFecha";
  	}
 
+ 	@ExceptionHandler(DniDuplicadoException.class)
+ 	public String manejarDniDuplicado(DniDuplicadoException exception, Model model) {
+ 	    model.addAttribute("error", exception.getMessage());
+ 	    return "errores/dniDuplicado"; // Vista HTML del error
+ 	}
 
 }

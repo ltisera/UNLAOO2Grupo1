@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error de Registro</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="tarjeta tarjeta-error">
+        <h2>¡Error al registrar!</h2>
+        <p th:text="${error}"></p>
+        <a th:href="@{/cliente/registro-cliente}" class="btn-nuevo">Volver a Intentar</a>
+    </div>
+</body>
+</html>
