@@ -41,7 +41,7 @@ public class JwtUtil {
 
 
     // Obtener todos los claims
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
@@ -58,8 +58,13 @@ public class JwtUtil {
     // Generar token
     public String generarToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        // Agregás los roles del usuario al token
-        claims.put("roles", userDetails.getAuthorities());
+
+        String rol = userDetails.getAuthorities().stream()
+                      .findFirst()
+                      .map(auth -> auth.getAuthority().replace("ROLE_", ""))  // ADMIN, CLIENTE, EMPLEADO
+                      .orElse("CLIENTE");
+
+        claims.put("role", rol);
         return crearToken(claims, userDetails.getUsername());
     }
 

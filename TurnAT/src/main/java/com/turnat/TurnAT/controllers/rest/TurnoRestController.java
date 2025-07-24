@@ -35,10 +35,12 @@ import com.turnat.TurnAT.services.interfaces.IServicioService;
 import com.turnat.TurnAT.services.interfaces.ISucursalService;
 import com.turnat.TurnAT.services.interfaces.ITurnoService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Solicitud de Turno", description = "Operaciones necesarias para que el cliente solicite un turno")
 @RestController
 @RequestMapping("/api/turnos")
+@SecurityRequirement(name = "bearerAuth") //Para que acceda el swagger, se puede poner en algun metodo especifico en vez del controller entero
 //para solicitar turno
 public class TurnoRestController {
 
