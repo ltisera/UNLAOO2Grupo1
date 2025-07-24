@@ -1,21 +1,30 @@
 package com.turnat.TurnAT.configurations.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.turnat.TurnAT.services.implementations.CustomUserDetailsService;
+import com.turnat.TurnAT.configurations.security.jwt.JwtFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-	@Autowired
-	private CustomUserDetailsService userDetailsService;
+	 private final UserDetailsService userDetailsService;
+	    private final JwtFilter jwtFilter;
+
+	    public SecurityConfiguration(UserDetailsService userDetailsService, JwtFilter jwtFilter) {
+	        this.userDetailsService = userDetailsService;
+	        this.jwtFilter = jwtFilter;
+	    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -27,11 +36,13 @@ public class SecurityConfiguration {
                         			"/cliente/registro-cliente",     // Registro de clientes
                         			"/swagger-ui/**",				//Para el swagger
                                     "/swagger-ui.html",
-                                    "/v3/api-docs/**"
+                                    "/v3/api-docs/**",
+                                    "/api/login"				//Para el login rest con Swagger
                         ).permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/empleado/**").hasRole("EMPLEADO")
                 .requestMatchers("/cliente/**").hasRole("CLIENTE")
+                .requestMatchers("/api/login").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(login -> login
@@ -54,7 +65,18 @@ public class SecurityConfiguration {
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
             );
+        // Filtro para JWT
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
+    }
+    
+    
+    
+    
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 
     @Bean

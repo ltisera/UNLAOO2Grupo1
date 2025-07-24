@@ -4,6 +4,8 @@ import com.turnat.TurnAT.models.entities.Sucursal;
 import com.turnat.TurnAT.models.entities.Direccion;
 import com.turnat.TurnAT.services.interfaces.ISucursalService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 import com.turnat.TurnAT.services.interfaces.IDireccionService;
 import com.turnat.TurnAT.dto.SucursalDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin/sucursales")
-@CrossOrigin(origins = "*") // Permite acceder desde cualquier frontend
+@SecurityRequirement(name = "bearerAuth") //Para que acceda el swagger, se puede poner en algun metodo especifico en vez del controller entero
 public class SucursalRestController {
 
     @Autowired
