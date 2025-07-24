@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+
 @PrimaryKeyJoinColumn(name = "Persona_idPersona")
 public class Empleado extends Persona {
 	

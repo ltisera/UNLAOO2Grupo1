@@ -26,9 +26,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "servicio")
-@Getter
-@Setter
-@NoArgsConstructor
+
 public class Servicio {
 
     @Id

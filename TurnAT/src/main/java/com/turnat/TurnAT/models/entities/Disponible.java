@@ -17,9 +17,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "disponible")
-@Getter
-@Setter
-@NoArgsConstructor
+
 public class Disponible {
 
     @Id

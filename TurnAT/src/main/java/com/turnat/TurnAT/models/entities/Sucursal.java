@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
 @Table(name = "sucursal")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Sucursal {
