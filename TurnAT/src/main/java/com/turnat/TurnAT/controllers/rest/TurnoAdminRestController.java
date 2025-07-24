@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turnat.TurnAT.dto.ListadoTurnoDTO;
-
+import com.turnat.TurnAT.models.entities.Estado;
 import com.turnat.TurnAT.models.entities.Sucursal;
-
+import com.turnat.TurnAT.models.entities.Turno;
+import com.turnat.TurnAT.services.interfaces.IEstadoService;
 import com.turnat.TurnAT.services.interfaces.ITurnoService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +28,8 @@ public class TurnoAdminRestController {
 
     @Autowired
     private ITurnoService turnoService;
-    
+    @Autowired
+    private IEstadoService estadoService;
 
     @GetMapping
     @Operation(summary = "Listar todos los turnos")
@@ -52,8 +54,11 @@ public class TurnoAdminRestController {
     @PostMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminar(@PathVariable("id") int idTurno){
     	try {
-    		turnoService.eliminar(idTurno);
-    		return ResponseEntity.ok("Turno eliminado");
+    		Estado estado = estadoService.traerPorDescripcion("cancelado");
+    		Turno turno = turnoService.traerPorId(idTurno);
+    		turno.setEstado(estado);
+    		turnoService.actualizar(turno);
+    		return ResponseEntity.ok("Turno cancelado");
     		
     	}catch(Exception e){
     		 return ResponseEntity.badRequest().body("No se pudo eliminar el turno, intenta mas tarde");

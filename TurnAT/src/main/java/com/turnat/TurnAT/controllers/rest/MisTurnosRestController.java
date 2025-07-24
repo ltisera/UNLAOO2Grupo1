@@ -83,10 +83,10 @@ public class MisTurnosRestController {
     		Turno turno = turnoService.traerPorId(idTurno);
     		turno.setEstado(estado);
     		turnoService.actualizar(turno);
-    		return ResponseEntity.ok("Turno eliminado");
+    		return ResponseEntity.ok("Turno cancelado");
     		
     	}catch(Exception e){
-    		 return ResponseEntity.badRequest().body("No se pudo eliminar el turno, intenta mas tarde");
+    		 return ResponseEntity.badRequest().body("No se pudo cancelar el turno, intenta mas tarde");
     	}
 	}
 	

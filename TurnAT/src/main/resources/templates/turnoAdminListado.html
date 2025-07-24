@@ -35,72 +35,75 @@
 		</div>
 		
 		<script>
-		document.addEventListener("DOMContentLoaded", function () {
-		    fetch("http://localhost:8080/api/admin/turnos")
-		        .then(response => {
-		            if (!response.ok) {
-		                throw new Error("Error al cargar las sucursales");
-		            }
-		            return response.json();
-		        })
-		        .then(data => {
-		            const tbody = document.getElementById("tabla-turnos");
-		
-		            if (data.length === 0) {
-		                tbody.innerHTML = `<tr><td colspan="6">No hay turnos solicitados.</td></tr>`;
-		                return;
-		            }
-		
-		            data.forEach(turno => {
-		                const row = document.createElement("tr");
-		
-		                row.innerHTML = `
-		                    <td>${turno.idTurno}</td>
-		                    <td>${turno.clienteNombre}</td>
-		                    <td>${turno.servicio}</td>		
-							<td>${turno.sucursalNombre}</td>														
-							<td>${turno.dia}/${turno.mes}/${turno.anio}</td>							
-							<td>${turno.hora}</td>
-		                    <td>${turno.estado}</td>
-		                    <td>		                        
-		                        <a href="#" class="accion eliminar" data-id="${turno.idTurno}">Eliminar</a>
-		                    </td>
-		                `;
-		
-		                tbody.appendChild(row);
-		            });
-		        })
-		        .catch(error => {
-		            console.error("Error al carga los turnos:", error);
-		            const tbody = document.getElementById("tabla-sucursales");
-		            tbody.innerHTML = `<tr><td colspan="6">Error al cargar los turnos.</td></tr>`;
-		        });
-		});
-		
-		// eliminar el turno
-		document.addEventListener("click", function (e) {
-		    if (e.target.classList.contains("eliminar")) {
-		        const id = e.target.dataset.id;
+		    document.addEventListener("DOMContentLoaded", () => {
+		        const tbody = document.getElementById("tabla-turnos");
 
-		        if (confirm("¿Seguro que querés eliminar este turno?")) {
-		            fetch(`/api/admin/turnos/eliminar/${id}`, {
-		                method: "POST"
-		            })
-		            .then(response => {
-		                if (!response.ok) {
-		                    throw new Error("No se pudo eliminar el turno");
+		        async function cargarTurnos() {
+		            try {
+		                const response = await fetch("http://localhost:8080/api/admin/turnos");
+		                if (!response.ok) throw new Error("Error al cargar los turnos");
+
+		                const data = await response.json();
+		                tbody.innerHTML = ""; // Limpiar antes de volver a cargar
+
+		                if (data.length === 0) {
+		                    tbody.innerHTML = `<tr><td colspan="8">No hay turnos solicitados.</td></tr>`;
+		                    return;
 		                }
-		                // eliminar la fila de la tabla
-		                e.target.closest("tr").remove();
-		            })
-		            .catch(error => {
-		                alert("Error: " + error.message);
-		                console.error(error);
-		            });
+
+		                data.forEach(turno => {
+		                    const row = document.createElement("tr");
+
+		                    row.innerHTML = `
+		                        <td>${turno.idTurno}</td>
+		                        <td>${turno.clienteNombre}</td>
+		                        <td>${turno.servicio}</td>		
+		                        <td>${turno.sucursalNombre}</td>														
+		                        <td>${turno.dia}/${turno.mes}/${turno.anio}</td>							
+		                        <td>${turno.hora}</td>
+		                        <td><strong>${turno.estado}</strong></td>
+		                        <td>		                        
+		                            <a href="#" class="accion eliminar" data-id="${turno.idTurno}">Eliminar</a>
+		                        </td>
+		                    `;
+
+		                    tbody.appendChild(row);
+		                });
+
+		            } catch (error) {
+		                console.error("Error al cargar los turnos:", error);
+		                tbody.innerHTML = `<tr><td colspan="8">Error al cargar los turnos.</td></tr>`;
+		            }
 		        }
-		    }
-		});
-	</script>
+
+		        // Manejar clic en botón "Eliminar"
+		        tbody.addEventListener("click", async function (e) {
+		            if (e.target.classList.contains("eliminar")) {
+		                const id = e.target.dataset.id;
+
+		                if (confirm("¿Seguro que querés cancelar este turno?")) {
+		                    try {
+		                        const res = await fetch(`/api/turnos/eliminar/${id}`, {
+		                            method: "POST"
+		                        });
+		                        if (res.ok) {
+		                            alert("Turno cancelado correctamente");
+		                            await cargarTurnos(); // Recarga tabla
+		                        } else {
+		                            alert("No se pudo cancelar el turno");
+		                        }
+		                    } catch (error) {
+		                        alert("Error al cancelar");
+		                        console.error(error);
+		                    }
+		                }
+		            }
+		        });
+
+		        cargarTurnos(); // Primera carga
+		    });
+		</script>
+
 		
 	</body>
 </html>
