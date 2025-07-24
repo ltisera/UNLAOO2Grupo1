@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api")
-@Tag(name = "Login", description ="Para probar el login con Swagger" )
+@Tag(name = "Login", description ="Para el logear con Swagger y obtener el token" )
 public class AuthRestController {
 	
 

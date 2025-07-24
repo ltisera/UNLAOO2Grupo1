@@ -1,6 +1,8 @@
 <nav th:fragment="navbar">
     <span><strong>TurnAT</strong></span>
-    <button onclick="window.location.href='/login'">Cerrar sesión</button>
+	<form th:action="@{/logout}" method="post" style="display: inline;">
+	    <button type="submit">Cerrar sesión</button>
+	</form>
 	<link rel="stylesheet" th:href="@{/css/main.css}">
 	<link rel="stylesheet" th:href="@{/css/layout.css}">
 	<link rel="stylesheet" th:href="@{/css/admin.css}">

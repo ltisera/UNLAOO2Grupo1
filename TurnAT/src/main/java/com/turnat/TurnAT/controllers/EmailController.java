@@ -5,8 +5,11 @@ import org.springframework.web.bind.annotation.*;
 
 import com.turnat.TurnAT.services.interfaces.IEmailService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/correo")
+@Tag(name = "Email", description = "envia el mail")
 public class EmailController {
 
     @Autowired

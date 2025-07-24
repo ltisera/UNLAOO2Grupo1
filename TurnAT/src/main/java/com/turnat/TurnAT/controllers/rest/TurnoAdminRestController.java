@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/admin/turnos")
-@Tag(name = "Turnos", description = "Para que el admin pueda ver los turnos de la bd")
+@Tag(name = "Listado de Turnos de Admin", description = "Para que el admin pueda ver los turnos de la bd")
 public class TurnoAdminRestController {
 
     @Autowired

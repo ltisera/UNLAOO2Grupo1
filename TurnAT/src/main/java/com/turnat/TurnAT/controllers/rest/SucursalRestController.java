@@ -5,6 +5,7 @@ import com.turnat.TurnAT.models.entities.Direccion;
 import com.turnat.TurnAT.services.interfaces.ISucursalService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import com.turnat.TurnAT.services.interfaces.IDireccionService;
 import com.turnat.TurnAT.dto.SucursalDTO;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin/sucursales")
+@Tag(name = "Listado de Sucursales de Admin", description = "Para que el admin pueda ver o guardar sucursales de la bd")
 @SecurityRequirement(name = "bearerAuth") //Para que acceda el swagger, se puede poner en algun metodo especifico en vez del controller entero
 public class SucursalRestController {
 
