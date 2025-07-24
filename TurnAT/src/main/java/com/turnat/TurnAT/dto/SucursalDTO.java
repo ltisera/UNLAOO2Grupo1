@@ -16,7 +16,7 @@ public class SucursalDTO {
         this.nombre = sucursal.getNombre();
         this.telefono = sucursal.getTelefono();
         if (sucursal.getDireccion() != null) {
-            this.direccion = new DireccionDTO(sucursal.getDireccion());
+            this.direccion = new DireccionDTO(sucursal.getDireccion().getLocalidad(),sucursal.getDireccion().getCalle(),sucursal.getDireccion().getAltura(),sucursal.getDireccion().getDepto());
         }
     }
 

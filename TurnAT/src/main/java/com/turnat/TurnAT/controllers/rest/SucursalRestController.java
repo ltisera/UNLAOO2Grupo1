@@ -35,10 +35,10 @@ public class SucursalRestController {
     	
         Direccion direccion = new Direccion();
         if (sucursalDTO.getDireccion() != null) {
-            direccion.setLocalidad(sucursalDTO.getDireccion().getLocalidad());
-            direccion.setCalle(sucursalDTO.getDireccion().getCalle());
-            direccion.setAltura(sucursalDTO.getDireccion().getAltura());
-            direccion.setDepto(sucursalDTO.getDireccion().getDepto());
+            direccion.setLocalidad(sucursalDTO.getDireccion().localidad());
+            direccion.setCalle(sucursalDTO.getDireccion().calle());
+            direccion.setAltura(sucursalDTO.getDireccion().altura());
+            direccion.setDepto(sucursalDTO.getDireccion().depto());
             
             // Guardar dirección primero
             direccion = direccionService.agregar(direccion);

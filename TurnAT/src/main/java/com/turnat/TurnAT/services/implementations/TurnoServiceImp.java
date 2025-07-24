@@ -147,8 +147,8 @@ public class TurnoServiceImp implements ITurnoService {
 
     @Override
     public void confirmarTurno(SolicitudTurnoDTO dto) {
-    	LocalDate fecha = LocalDate.of(dto.getAnio(), dto.getMes(), dto.getDia());
-        LocalTime hora = LocalTime.parse(dto.getHora());
+    	LocalDate fecha = LocalDate.of(dto.anio(), dto.mes(), dto.dia());
+        LocalTime hora = LocalTime.parse(dto.hora());
 
         // Validar si la fecha es válida (no en el pasado)
         if (fecha.isBefore(LocalDate.now())) {
@@ -165,11 +165,11 @@ public class TurnoServiceImp implements ITurnoService {
         }
 
         // Buscar servicio
-        Servicio servicio = servicioRepo.findById(dto.getIdServicio())
+        Servicio servicio = servicioRepo.findById(dto.idServicio())
             .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
 
         // Buscar cliente
-        Cliente cliente = clienteRepo.findById(dto.getIdCliente())
+        Cliente cliente = clienteRepo.findById(dto.idCliente())
             .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
 
         // Buscar o crear FechaYHora
