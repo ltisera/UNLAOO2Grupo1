@@ -1,7 +1,8 @@
 package com.turnat.TurnAT.dto;
 
 public record TurnoVistaDTO(
-    String fecha,
+	int idTurno,
+	String fecha,
     String hora,
     String sucursal,
     String servicio,

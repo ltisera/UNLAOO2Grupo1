@@ -50,6 +50,8 @@ public class MisTurnosRestController {
     private IClienteService clienteService;
 	@Autowired
     private ITurnoService turnoService;
+	@Autowired
+    private IEstadoService estadoService;
 
 	@GetMapping("/mios")
     public ResponseEntity<List<TurnoVistaDTO>> obtenerTurnosDelClienteAutenticado(Authentication authentication) {
@@ -63,6 +65,7 @@ public class MisTurnosRestController {
 
         List<TurnoVistaDTO> dtos = turnos.stream()
                 .map(turno -> new TurnoVistaDTO(
+                		turno.getIdTurno(),
                         turno.getFechaYHora().getFecha().toString(),
                         turno.getFechaYHora().getHora().toString(),
                         turno.getServicio().getSucursales().stream().findFirst().map(Sucursal::getNombre).orElseThrow(() -> new RuntimeException("El servicio no tiene sucursal")),
@@ -72,5 +75,21 @@ public class MisTurnosRestController {
 
         return ResponseEntity.ok(dtos);
     }
+	
+	@PostMapping("/eliminar/{id}")
+	public ResponseEntity<?> eliminar(@PathVariable("id") int idTurno ){
+    	try {
+    		Estado estado = estadoService.traerPorDescripcion("cancelado");
+    		Turno turno = turnoService.traerPorId(idTurno);
+    		turno.setEstado(estado);
+    		turnoService.actualizar(turno);
+    		return ResponseEntity.ok("Turno eliminado");
+    		
+    	}catch(Exception e){
+    		 return ResponseEntity.badRequest().body("No se pudo eliminar el turno, intenta mas tarde");
+    	}
+	}
+	
+	
 
 }

@@ -11,6 +11,7 @@ public interface ITurnoService {
     void eliminar(int idTurno);
     void eliminarTodos(List<Turno> turnos);
     Turno traerPorId(int idTurno);
+    Turno actualizar(Turno turno);
     List<Turno> traerPorIdCliente(int idCliente);
     
     

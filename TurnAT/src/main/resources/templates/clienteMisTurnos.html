@@ -33,38 +33,67 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", async () => {
-        try {
-            const response = await fetch("/api/turnos/mios");
-            if (!response.ok) throw new Error("Error al cargar turnos");
+		async function cargarTurnos() {
+			 try {
+	            const response = await fetch("/api/turnos/mios");
+	            if (!response.ok) throw new Error("Error al cargar turnos");
+	
+	            const turnos = await response.json();
+	            const contenedor = document.getElementById("contenedor-turnos");
+	
+	            if (turnos.length === 0) {
+	                contenedor.innerHTML = `<div class="mensaje-vacio">Este cliente no tiene turnos.</div>`;
+	                return;
+	            }
+	
+	            turnos.forEach(turno => {
+	                const fila = document.createElement("div");
+	                fila.className = "fila-datos";
+	                fila.innerHTML = `
+	                    <strong>Servicio:</strong> ${turno.servicio}<br>
+						<strong>Sucursal:</strong> ${turno.sucursal}<br>
+	                    <strong>Fecha:</strong> ${turno.fecha}<br>	
+	                    <strong>Hora:</strong> ${turno.hora}
+						<strong>Estado:</strong> ${turno.estado}<br>
+						<a href="#" class="accion eliminar" data-id="${turno.idTurno}">Cancelar</a>
+						                    
+	                `;
+	                contenedor.appendChild(fila);
+	            });
+	
+	        } catch (error) {
+	            console.error(error);
+	            document.getElementById("contenedor-turnos").innerHTML = 
+	                `<div class="mensaje-vacio">Ocurrió un error al cargar los turnos.</div>`;
+	        }
+	    }
+	
+	
+	// eliminar el turno
+			contenedor.addEventListener("click",  async function (e) {
+			    if (e.target.classList.contains("eliminar")) {
+			        const id = e.target.dataset.id;
 
-            const turnos = await response.json();
-            const contenedor = document.getElementById("contenedor-turnos");
-
-            if (turnos.length === 0) {
-                contenedor.innerHTML = `<div class="mensaje-vacio">Este cliente no tiene turnos.</div>`;
-                return;
-            }
-
-            turnos.forEach(turno => {
-                const fila = document.createElement("div");
-                fila.className = "fila-datos";
-                fila.innerHTML = `
-                    <strong>Servicio:</strong> ${turno.servicio}<br>
-					<strong>Sucursal:</strong> ${turno.sucursal}<br>
-                    <strong>Fecha:</strong> ${turno.fecha}<br>	
-                    <strong>Hora:</strong> ${turno.hora}
-					<strong>Estado:</strong> ${turno.estado}<br>
-					                    
-                `;
-                contenedor.appendChild(fila);
-            });
-
-        } catch (error) {
-            console.error(error);
-            document.getElementById("contenedor-turnos").innerHTML = 
-                `<div class="mensaje-vacio">Ocurrió un error al cargar los turnos.</div>`;
-        }
-    });
+					if (confirm("¿Seguro que querés cancelar este turno?")) {
+					                    try {
+					                        const res = await fetch(`/api/turnos/eliminar/${id}`, {
+					                            method: "POST"
+					                        });
+					                        if (res.ok) {
+					                            await cargarTurnos(); //recarga toda la tabla
+					                        } else {
+					                            alert("No se pudo cancelar el turno");
+					                        }
+					                    } catch (error) {
+					                        alert("Error al cancelar");
+					                        console.error(error);
+					                    }
+					}
+			    }
+				 
+			});
+			cargarTurnos();
+		});
 </script>
 </body>
 </html>

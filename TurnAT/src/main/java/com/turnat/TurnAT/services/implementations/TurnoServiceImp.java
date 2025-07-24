@@ -14,6 +14,7 @@ import com.turnat.TurnAT.exceptions.ServicioHoraInicioYFin;
 import com.turnat.TurnAT.exceptions.TurnoFueraDeFecha;
 import com.turnat.TurnAT.models.entities.Cliente;
 import com.turnat.TurnAT.models.entities.Disponible;
+import com.turnat.TurnAT.models.entities.Empleado;
 import com.turnat.TurnAT.models.entities.Estado;
 import com.turnat.TurnAT.models.entities.FechaYHora;
 import com.turnat.TurnAT.models.entities.Servicio;
@@ -24,6 +25,8 @@ import com.turnat.TurnAT.repositories.IFechaYHoraRepository;
 import com.turnat.TurnAT.repositories.IServicioRepository;
 import com.turnat.TurnAT.repositories.ITurnoRepository;
 import com.turnat.TurnAT.services.interfaces.ITurnoService;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class TurnoServiceImp implements ITurnoService {
@@ -60,6 +63,10 @@ public class TurnoServiceImp implements ITurnoService {
     public void eliminar(int idTurno) {
         turnoRepo.deleteById(idTurno);
     }
+    @Transactional // Esto lo actualiza si el ID existe
+	public Turno actualizar(Turno turno) {
+		return turnoRepo.save(turno);
+	}
     
     public void eliminarTodos(List<Turno> turnos) {
     	turnoRepo.deleteAll(turnos);
