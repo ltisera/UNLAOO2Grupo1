@@ -13,7 +13,7 @@ import com.turnat.TurnAT.services.interfaces.ITurnoService;
 
 @Controller
 @RequestMapping("/admin/turno")
-public class TurnoController {
+public class AdminTurnoController {
 	
 	@Autowired
 	private ITurnoService turnoService;

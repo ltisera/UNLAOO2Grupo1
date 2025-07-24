@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.turnat.TurnAT.dto.ListadoTurnoDTO;
 import com.turnat.TurnAT.dto.SucursalDTO;
 import com.turnat.TurnAT.dto.TurnoDTO;
 import com.turnat.TurnAT.models.entities.Sucursal;
@@ -46,22 +47,25 @@ public class TurnoAdminRestController {
     
     
     
+   
     @GetMapping
     @Operation(summary = "Listar todos los turnos")
-    public List<TurnoDTO> obtenerTodas() {
+    public List<ListadoTurnoDTO> obtenerTodos() {
         return turnoService.traerTodos().stream()
-            .map(turno -> new TurnoDTO(
-                turno.getServicio().getIdServicio(),
-                turno.getServicio().getSucursales().stream().findFirst().map(Sucursal::getIdSucursal).orElseThrow(() -> new RuntimeException("El servicio no tiene sucursal")),
-                turno.getFechaYHora().getFecha().getYear(),
+            .map(turno -> new ListadoTurnoDTO(
+                turno.getIdTurno(),
+                turno.getCliente().getNombre(),
+                turno.getServicio().getNombre(),
+                turno.getServicio().getSucursales().stream().findFirst().map(Sucursal::getNombre).orElseThrow(() -> new RuntimeException("El servicio no tiene sucursal")),
+                turno.getEstado().getDescripcion(),
+                turno.getFechaYHora().getFecha().getYear(),               
                 turno.getFechaYHora().getFecha().getMonthValue(),
                 turno.getFechaYHora().getFecha().getDayOfMonth(),
-                turno.getFechaYHora().getHora().toString(),
-                turno.getCliente().getIdPersona()
+                turno.getFechaYHora().getHora().toString()
+              
             ))
             .toList();
     }
-    
     
     
     
