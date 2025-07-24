@@ -62,9 +62,8 @@
 							<td>${turno.dia}/${turno.mes}/${turno.anio}</td>							
 							<td>${turno.hora}</td>
 		                    <td>${turno.estado}</td>
-		                    <td>
-		                        <a href="/api/admin/turnos/editar/${turno.idTurno}" class="accion">Editar</a> |
-		                        <a href="/api/admin/turnos/eliminar/${turno.idTurno}" class="accion" onclick="return confirm('¿Seguro que querés eliminar este turno?')">Eliminar</a>
+		                    <td>		                        
+		                        <a href="#" class="accion eliminar" data-id="${turno.idTurno}">Eliminar</a>
 		                    </td>
 		                `;
 		
@@ -77,7 +76,32 @@
 		            tbody.innerHTML = `<tr><td colspan="6">Error al cargar los turnos.</td></tr>`;
 		        });
 		});
-		</script>
+		
+		// eliminar el turno
+		document.addEventListener("click", function (e) {
+		    if (e.target.classList.contains("eliminar")) {
+		        const id = e.target.dataset.id;
+
+		        if (confirm("¿Seguro que querés eliminar este turno?")) {
+		            fetch(`/api/admin/turnos/eliminar/${id}`, {
+		                method: "POST"
+		            })
+		            .then(response => {
+		                if (!response.ok) {
+		                    throw new Error("No se pudo eliminar el turno");
+		                }
+		                // eliminar la fila de la tabla
+		                e.target.closest("tr").remove();
+		            })
+		            .catch(error => {
+		                alert("Error: " + error.message);
+		                console.error(error);
+		            });
+		        }
+		    }
+		});
+	</script>
+		
 	</body>
 </html>
 

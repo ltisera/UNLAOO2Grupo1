@@ -3,21 +3,18 @@ package com.turnat.TurnAT.controllers.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turnat.TurnAT.dto.ListadoTurnoDTO;
-import com.turnat.TurnAT.dto.SucursalDTO;
-import com.turnat.TurnAT.dto.TurnoDTO;
+
 import com.turnat.TurnAT.models.entities.Sucursal;
-import com.turnat.TurnAT.services.interfaces.IClienteService;
-import com.turnat.TurnAT.services.interfaces.IDireccionService;
-import com.turnat.TurnAT.services.interfaces.IEmailService;
-import com.turnat.TurnAT.services.interfaces.IEstadoService;
-import com.turnat.TurnAT.services.interfaces.IFechaYHoraService;
-import com.turnat.TurnAT.services.interfaces.IServicioService;
-import com.turnat.TurnAT.services.interfaces.ISucursalService;
+
 import com.turnat.TurnAT.services.interfaces.ITurnoService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,27 +24,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/api/admin/turnos")
 @Tag(name = "Turnos", description = "Para que el admin pueda ver los turnos de la bd")
 public class TurnoAdminRestController {
-    @Autowired
-    private IServicioService servicioService;
 
     @Autowired
-    private ISucursalService sucursalService;
-    @Autowired
-    private IClienteService clienteService;
-    @Autowired
-    private IFechaYHoraService fechaYHoraService;
-    @Autowired
-    private IEstadoService estadoService;
-    @Autowired
-    private IDireccionService direccionService;
-    @Autowired
     private ITurnoService turnoService;
-    @Autowired
-    private IEmailService emailService;
     
-    
-    
-   
+
     @GetMapping
     @Operation(summary = "Listar todos los turnos")
     public List<ListadoTurnoDTO> obtenerTodos() {
@@ -65,6 +46,20 @@ public class TurnoAdminRestController {
               
             ))
             .toList();
+    }
+    
+    
+    @PostMapping("/eliminar/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable("id") int idTurno){
+    	try {
+    		turnoService.eliminar(idTurno);
+    		return ResponseEntity.ok("Turno eliminado");
+    		
+    	}catch(Exception e){
+    		 return ResponseEntity.badRequest().body("No se pudo eliminar el turno, intenta mas tarde");
+    	}
+    	
+    	
     }
     
     

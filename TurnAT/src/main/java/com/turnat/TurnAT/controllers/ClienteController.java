@@ -134,9 +134,9 @@ public class ClienteController {
 		Cliente cliente = clienteRepository.findByEmail(email)
 				.orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
 
-		List<Turno> turnos = turnoService.traerPorIdCliente(cliente.getIdPersona());
+		
 
-		model.addAttribute("turnosCliente", turnos);
+		model.addAttribute("idCliente", cliente.getIdPersona());
 
 		return "clienteMisTurnos";
 
