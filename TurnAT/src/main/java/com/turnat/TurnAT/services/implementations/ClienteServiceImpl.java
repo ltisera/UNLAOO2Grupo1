@@ -60,16 +60,22 @@ public class ClienteServiceImpl implements IClienteService{
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    @Autowired
+    public Cliente buscarPorMail(String email) {
+		// TODO Auto-generated method stub
+		return clienteRepo.findByEmail(email).orElseThrow(() -> new RuntimeException("Cliente No Entroncado"));
+	}
+
+
+
+
+
+
+
+
+
+
+
+	@Autowired
     private PasswordEncoder passwordEncoder;
 
     public void registrarEmpleado(Cliente cliente) {

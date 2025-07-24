@@ -12,4 +12,5 @@ public interface IClienteService {
 	public void eliminar(int idCliente);
 	public Cliente traerPorId(int idCliente);
 	public Cliente actualizar(Cliente cliente);
+	public Cliente buscarPorMail(String email);
 }

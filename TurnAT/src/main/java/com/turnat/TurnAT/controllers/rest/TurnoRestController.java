@@ -8,6 +8,8 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.turnat.TurnAT.dto.SolicitudTurnoDTO;
 import com.turnat.TurnAT.dto.TurnoDTO;
+import com.turnat.TurnAT.dto.TurnoVistaDTO;
 import com.turnat.TurnAT.exceptions.TurnoFueraDeFecha;
 import com.turnat.TurnAT.models.entities.Cliente;
 import com.turnat.TurnAT.models.entities.Direccion;
@@ -90,7 +93,9 @@ public class TurnoRestController {
 
         return turnoService.obtenerDiasDisponibles(idServicio, sucursal.getIdSucursal(), anio, mes);
     }
-
+    
+    
+    
     // Obtener horarios disponibles para un día
     @GetMapping("/horarios-disponibles")
     public List<String> obtenerHorariosDisponibles(

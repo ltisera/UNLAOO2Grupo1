@@ -1,82 +1,70 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-	<head>
-	    <title>Mis Turnos</title>
-	</head>
-	<body>
-		<div th:replace="~{layouts/layout-cliente :: layout}">
-		    <div th:fragment="content">
-		        <main>
-		            <!-- Encabezado -->
-		            <div class="form-header">
-		                <h1 class="titulo-seccion">Mis turnos</h1>
-		            </div>
-		
-		            <!-- Tabla -->
-		            <table class="tabla-empleados">
-		                <thead>
-		                    <tr>
-		                        <th>ID</th>
-		                        <th>Cliente</th>
-		                        <th>Servicio</th>
-								<th>Sucursal</th>								
-		                        <th>Fecha</th>
-		                        <th>Hora</th>
-								<th>Estado</th>
-								<th>Acciones</th>
-		                    </tr>
-		                </thead>
-		                <tbody id="tabla-turnos">
-		                    <!-- Se completa por JS -->
-		                </tbody>
-		            </table>
-		        </main>
-		    </div>
-		</div>
-		
-		<script>
-		document.addEventListener("DOMContentLoaded", function () {
-		    fetch("http://localhost:8080/api/cliente/misTurnos")
-		        .then(response => {
-		            if (!response.ok) {
-		                throw new Error("Error al cargar las sucursales");
-		            }
-		            return response.json();
-		        })
-		        .then(data => {
-		            const tbody = document.getElementById("tabla-turnos");
-		
-		            if (data.length === 0) {
-		                tbody.innerHTML = `<tr><td colspan="6">No hay turnos solicitados.</td></tr>`;
-		                return;
-		            }
-		
-		            data.forEach(turno => {
-		                const row = document.createElement("tr");
-		
-		                row.innerHTML = `
-		                    <td>${turno.idTurno}</td>
-		                    <td>${turno.clienteNombre}</td>
-		                    <td>${turno.servicio}</td>		
-							<td>${turno.sucursalNombre}</td>														
-							<td>${turno.dia}/${turno.mes}/${turno.anio}</td>							
-							<td>${turno.hora}</td>
-		                    <td>${turno.estado}</td>
-		                    <td>
-		                        <a href="/api/admin/turnos/editar/${turno.idTurno}" class="accion">Editar</a> |
-		                        <a href="/api/admin/turnos/eliminar/${turno.idTurno}" class="accion" onclick="return confirm('¿Seguro que querés eliminar este turno?')">Eliminar</a>
-		                    </td>
-		                `;
-		
-		                tbody.appendChild(row);
-		            });
-		        })
-		        .catch(error => {
-		            console.error("Error al carga los turnos:", error);
-		            const tbody = document.getElementById("tabla-sucursales");
-		            tbody.innerHTML = `<tr><td colspan="6">Error al cargar los turnos.</td></tr>`;
-		        });
-		});
-		</script>
-	</body>
+
+<head>
+    <title>Turnos del cliente</title>
+    <meta charset="UTF-8">
+    <style>
+        .fila-datos {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .mensaje-vacio {
+            color: #888;
+            font-style: italic;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{layouts/layout-cliente :: layout}">
+    <div th:fragment="content">
+        <main>
+            <div class="form-header">
+                <h1 class="titulo-seccion">Mis Turnos</h1>
+            </div>
+            
+            <div class="tarjeta" id="contenedor-turnos">
+                <!-- aca armo los turnos que le pifo al backend-->
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        try {
+            const response = await fetch("/api/turnos/mios");
+            if (!response.ok) throw new Error("Error al cargar turnos");
+
+            const turnos = await response.json();
+            const contenedor = document.getElementById("contenedor-turnos");
+
+            if (turnos.length === 0) {
+                contenedor.innerHTML = `<div class="mensaje-vacio">Este cliente no tiene turnos.</div>`;
+                return;
+            }
+
+            turnos.forEach(turno => {
+                const fila = document.createElement("div");
+                fila.className = "fila-datos";
+                fila.innerHTML = `
+                    <strong>Servicio:</strong> ${turno.servicio}<br>
+					<strong>Sucursal:</strong> ${turno.sucursal}<br>
+                    <strong>Fecha:</strong> ${turno.fecha}<br>	
+                    <strong>Hora:</strong> ${turno.hora}
+					<strong>Estado:</strong> ${turno.estado}<br>
+					                    
+                `;
+                contenedor.appendChild(fila);
+            });
+
+        } catch (error) {
+            console.error(error);
+            document.getElementById("contenedor-turnos").innerHTML = 
+                `<div class="mensaje-vacio">Ocurrió un error al cargar los turnos.</div>`;
+        }
+    });
+</script>
+</body>
 </html>
