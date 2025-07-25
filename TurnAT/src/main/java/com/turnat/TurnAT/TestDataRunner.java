@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.boot.CommandLineRunner;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import com.turnat.TurnAT.models.entities.Estado;
 import com.turnat.TurnAT.models.entities.FechaYHora;
@@ -142,26 +142,23 @@ public class TestDataRunner implements CommandLineRunner {
 	//------------------------------------------------------
 	//------------------------------------------------------
 
-	private final ITurnoRepository repoTurno;
+
 	private final IRolRepository repoRol;
-	private final IClienteRepository clienteRepo;
-	private final IEmpleadoRepository empleadoRepo;
-	
 	private final ITurnoService turnoService;
 	private final IClienteService clienteService;
 	private final IServicioService servicioService;
+	private final ISucursalService sucursalService;
 	private final IEstadoService estadoService;
 	private final IFechaYHoraService fechaYHoraService;
 	private final IRolService rolService;
 	private final IEmpleadoService empleadoService;
+	private final PasswordEncoder passwordEncoder;
 
-	public TestDataRunner(ITurnoRepository repoTurno,IClienteRepository clienteRepo, IEmpleadoRepository empleadoRepo ,IRolRepository repoRol, ITurnoService turnoService, 
-	                      IClienteService clienteService, IServicioService servicioService,
-	                      IEstadoService estadoService, IFechaYHoraService fechaYHoraService,IRolService rolService, IEmpleadoService empleadoService ) {
-	    this.repoTurno = repoTurno;
+	public TestDataRunner(PasswordEncoder passwordEncoder,IRolRepository repoRol, ITurnoService turnoService, IClienteService clienteService, IServicioService servicioService,
+						  ISucursalService sucursalService,IEstadoService estadoService, IFechaYHoraService fechaYHoraService,
+						  IRolService rolService, IEmpleadoService empleadoService ) {
+	    
 	    this.repoRol = repoRol;
-	    this.clienteRepo = clienteRepo;
-	    this.empleadoRepo = empleadoRepo;
 	    this.turnoService = turnoService;
 	    this.clienteService = clienteService;
 	    this.servicioService = servicioService;
@@ -169,90 +166,107 @@ public class TestDataRunner implements CommandLineRunner {
 	    this.fechaYHoraService = fechaYHoraService;
 	    this.rolService = rolService;
 	    this.empleadoService = empleadoService;
+	    this.sucursalService = sucursalService;
+	    this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-	    System.out.println("Ejecutando prueba rápida con datos hardcodeados...");
-	
-	    //TODOS TIENEN Q TENER ESTOS TRES ROLES ASI EN LA BD
 	    
-	   // Rol rolAdmin = new Rol("ADMIN");
-	   // rolService.agregar(rolAdmin);
-	   // Rol rolEmp = new Rol("EMPLEADO");
-	   // rolService.agregar(rolEmp);
-	   // Rol rolCliente = new Rol("CLIENTE");
-	   // rolService.agregar(rolCliente); 
-	 
-	    // Crear un cliente con rol cliente
-	  /*  Direccion direccionCliente = new Direccion("Lome ", "calle", 34);
-	    Cliente cliente = new Cliente("pablo", "password", "lopez", 87654321, "pablo@example.com", direccionCliente, "+54 11 2222 2222");
-	    clienteService.agregar(cliente);
-	    Rol rol = repoRol.findByNombre("CLIENTE").orElseThrow(() -> new RuntimeException("Rol no encontrado")); 
-		   
-		Set<Rol> roles = new HashSet<>(); //se crea el set de rol
-		roles.add(rol); //le meto el rol creado o levantado
-		cliente.setRoles(roles);//se lo meto al cliente
-		  
-		  clienteService.actualizar(cliente);
-	   */
-
-	   //CREAR UN EMPLEADO CON ROL EMPLEADO
-	    /*
-	    Disponible disponible = new Disponible(LocalTime.of(00, 00), LocalTime.of(8, 00), true, false, true, true, true, true, false);
-	    Servicio servicio = new Servicio("Corte de pelo", "corte nocturno ", LocalTime.of(0, 30), disponible);
-	    servicioService.agregar(servicio);
-	    Direccion direccionEmpleado = new Direccion("Lanu ", "lleca", 4333);
-	    Empleado empleado = new Empleado("marcelo", "password", "cierra", 22222222, "marcelo@example.com", direccionEmpleado, "+54 11 4444 4444", servicio);
-	    empleadoService.agregar(empleado);
-	    Rol rol = repoRol.findByNombre("EMPLEADO").orElseThrow(() -> new RuntimeException("Rol no encontrado")); 
-		   
-		Set<Rol> roles = new HashSet<>(); //se crea el set de rol
-		roles.add(rol); //le meto el rol creado o levantado
-		empleado.setRoles(roles);//se lo meto al cliente
-		  
-		  empleadoService.actualizar(empleado);
-	    */
-	    
-	  /*  // Crear un cliente
-	    Direccion direccionCliente = new Direccion("Lome ", "calle", 34);
-	    Cliente cliente = new Cliente("pablo", "password", "lopez", 87654321, "pablo@example.com", direccionCliente, "+54 11 2222 2222");
-	    clienteService.agregar(cliente);
-	
-	    // Crear un servicio
-	    Disponible disponible = new Disponible(LocalTime.of(00, 00), LocalTime.of(8, 00), true, true, true, true, true, true, false);
-	    Servicio servicio = new Servicio("Corte", "corte nocturno ", LocalTime.of(0, 30), disponible);
-	    servicioService.agregar(servicio);
-	
-	    // Crear un estado
-	    Estado estado = estadoService.traerPorId(1);
 		
-	    // Crear una fecha y hora
-	    FechaYHora fechaYHora = new FechaYHora(LocalDate.now(), LocalTime.of(15, 00));
-	    fechaYHoraService.agregar(fechaYHora);
-	    fechaYHoraService.eliminar(23);
-	    
-	    
-	    // Crear un turno
-	    Turno turno = new Turno(cliente, servicio, estado, fechaYHora);
-	    Turno turnoGuardado = turnoService.agregar(turno);
 		
-	    // Mostrar datos por consola
-	    */
+		if(rolService.traerTodos().isEmpty()){
+			System.out.println("Ejecutando datos hardcodeados...");
+		
+		    //TODOS TIENEN Q TENER ESTOS TRES ROLES ASI EN LA BD
+		    
+		    Rol rolAdmin = new Rol("ADMIN");
+		    rolService.agregar(rolAdmin);
+		    Rol rolEmp = new Rol("EMPLEADO");
+		    rolService.agregar(rolEmp);
+		    Rol rolCliente = new Rol("CLIENTE");
+		    rolService.agregar(rolCliente); 
+		    
+		    Estado confirmado = new Estado("confirmado");
+		    Estado cancelado = new Estado("cancelado");
+		    estadoService.agregar(confirmado);
+		    estadoService.agregar(cancelado);
+		    
+		    //CREAR UN ADMIN
+		    Direccion direccionAdmin = new Direccion("Pelermo Hollywood", "Roca", 3000);
+		    Disponible disponibleAdmin = new Disponible(LocalTime.of(06, 00), LocalTime.of(22, 00), true, true, true, true, true, false, false);
+		    Servicio servicioAdmin = new Servicio("Admin", "Maneja la base de datos", LocalTime.of(11, 30), disponibleAdmin);
+		    servicioService.agregar(servicioAdmin);
+		    Empleado admin = new Empleado("Patricio", passwordEncoder.encode("admin"), "Rockefeller", 28765432, "admin@example.com", direccionAdmin, "1000",servicioAdmin);
+		    empleadoService.agregar(admin);
+		    Rol rolA = repoRol.findByNombre("ADMIN").orElseThrow(() -> new RuntimeException("Rol no encontrado")); 
+			   
+			Set<Rol> rolesA = new HashSet<>(); //se crea el set de rol
+			rolesA.add(rolA); //le meto el rol creado o levantado
+			admin.setRoles(rolesA);//se lo meto al empleado
+			  
+			  empleadoService.actualizar(admin);
+		
+	
+		   //CREAR UN EMPLEADO CON ROL EMPLEADO, UN SERVICIO Y UNA SUCURSAL
+		    
+		    Disponible disponible = new Disponible(LocalTime.of(10, 00), LocalTime.of(18, 00), true, true, true, true, true, false, false);
+		    Servicio servicio = new Servicio("Corte de pelo", "corte basico", LocalTime.of(0, 30), disponible);
+		    
+		    Set<Sucursal> sucursal = new HashSet<>(); //se crea el set de rol
+		    Direccion direccionSuc = new Direccion("Caba ", "San Martin", 1810);
+		    Sucursal suc = new Sucursal("La barberia","+54 1122334455", direccionSuc);
+		    sucursalService.agregar(suc); 
+		    sucursal.add(suc);
+		    servicio.setSucursales(sucursal);
+		    servicioService.agregar(servicio);
+		    Direccion direccionEmpleado = new Direccion("Lanus ", "Pavon", 4333);
+		    Empleado empleado = new Empleado("Marcelo", passwordEncoder.encode("password"), "Perez", 22222222, "marcelo@example.com", direccionEmpleado, "1001", servicio);
+		    empleadoService.agregar(empleado);
+		    Rol rol = repoRol.findByNombre("EMPLEADO").orElseThrow(() -> new RuntimeException("Rol no encontrado")); 
+			   
+			Set<Rol> roles = new HashSet<>(); //se crea el set de rol
+			roles.add(rol); //le meto el rol creado o levantado
+			empleado.setRoles(roles);//se lo meto al empleado
+			  
+			  empleadoService.actualizar(empleado);
+		    
+		    
+		 // Crear un cliente
+		    Direccion direccionCliente = new Direccion("Lomas de Zamora ", "Gorriti", 1234);
+		    Cliente cliente = new Cliente("Martin", passwordEncoder.encode("password"), "Marinez", 34220456, "martin@example.com", direccionCliente, "+54 11 2222 2222");
+		    clienteService.agregar(cliente);
+		    Rol rolCli = repoRol.findByNombre("CLIENTE").orElseThrow(() -> new RuntimeException("Rol no encontrado")); 
+			   
+		  		Set<Rol> rolC = new HashSet<>(); //se crea el set de rol
+		  		rolC.add(rolCli); //le meto el rol creado o levantado
+		  		cliente.setRoles(rolC);//se lo meto al empleado
+		  		clienteService.actualizar(cliente);
+		  		  
+		    // Crear un servicio
+		    Disponible disponible2 = new Disponible(LocalTime.of(9, 00), LocalTime.of(17, 00), true, true, true, true, true, true, false);
+		    Servicio servicio2 = new Servicio("Tintura de pelo", "Te podes teñir toda la cabeza", LocalTime.of(0, 45), disponible2);
+		    servicio2.setSucursales(sucursal);
+		    servicioService.agregar(servicio2);
+		
+		    // Crear un estado
+		    Estado estado = estadoService.traerPorId(1);//confirmado
+			
+		    // Crear una fecha y hora
+		    FechaYHora fechaYHora = new FechaYHora(LocalDate.of(2025,8,15), LocalTime.of(15, 30));
+		    fechaYHoraService.agregar(fechaYHora);
+		    
+		    
+		    
+		    // Crear un turno
+		    Turno turno = new Turno(cliente, servicio, estado, fechaYHora);
+		    turnoService.agregar(turno);
+		    System.out.println("===========CARGA INICIAL DE DATOS PARA EL SISTEMA COMPLETADA===========");
+		    System.out.println("ADMIN: Patricio Rockefeller, mail:admin@example.com, contraseña: admin ");
+		    System.out.println("Cliente: Martin Martinez, mail:martin@example.com, contraseña: password ");
+		    
+		}		
 	    
-	   /* Rol rol = new Rol("Empleado");
-	    rolService.agregar(rol);
-	    //Rol rol = rolService.traerPorId(1); 
-	   Empleado emp = empleadoService.traerPorId(3);
-	    
-	    Set<Rol> roles = new HashSet<>(); //se crea el set de rol
-	    roles.add(rol); //le meto el rol creado o levantado
-	   emp.setRoles(roles);//se lo meto al cliente
-	  
-	   empleadoService.actualizar(emp);
-	    System.out.println(rol.toString());
-	    System.out.println(emp.getRoles());
-	   */
 	}
 
 		
