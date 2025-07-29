@@ -16,7 +16,6 @@ public class ExceptionsController {
 	 	
  	@ExceptionHandler(TurnoFueraDeFecha.class)
  	public String manejarTurnoFueraDeFecha(TurnoFueraDeFecha exception, Model model){
- 		System.out.println("Estoy en esoooooooooooo");
  		model.addAttribute("error", exception.getMessage());
  		return "errores/TurnoFueraDeFecha";
  	}
